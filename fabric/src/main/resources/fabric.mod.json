@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "ftbxmodcompat",
+  "version": "${version}",
+  "name": "FTB XMod Compat",
+  "description": "Provides cross-mod compatibilty/integration for all main FTB mods",
+  "authors": [
+    "FTB Team"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.ftb.mods.ftbxmodcompat.fabric.FTBXModCompatFabric"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2",
+    "architectury": ">=6.5.77"
+  }
+}
