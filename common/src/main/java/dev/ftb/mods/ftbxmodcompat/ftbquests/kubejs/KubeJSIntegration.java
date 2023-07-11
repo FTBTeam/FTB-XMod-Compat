@@ -1,12 +1,12 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs;
 
 import dev.architectury.event.EventResult;
-import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbquests.events.CustomRewardEvent;
 import dev.ftb.mods.ftbquests.events.CustomTaskEvent;
 import dev.ftb.mods.ftbquests.events.ObjectCompletedEvent;
 import dev.ftb.mods.ftbquests.events.ObjectStartedEvent;
 import dev.ftb.mods.ftbquests.quest.task.StageTask;
+import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
 import dev.latvian.mods.kubejs.stages.Stages;
@@ -28,7 +28,7 @@ public class KubeJSIntegration extends KubeJSPlugin {
 			if (event.getPlayer() instanceof ServerPlayer sp) StageTask.checkStages(sp);
 		});
 
-		FTBXModCompat.LOGGER.info("Enabled KubeJS integration for FTB Quests");
+		FTBXModCompat.LOGGER.info("FTB Quests: Enabled KubeJS integration");
 	}
 
 	@Override

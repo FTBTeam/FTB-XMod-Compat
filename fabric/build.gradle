@@ -26,13 +26,15 @@ dependencies {
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
     modApi("dev.ftb.mods:ftb-library-fabric:${rootProject.ftb_library_version}") { transitive false }
-    modApi("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}") { transitive false }
+    modApi("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}")
 
     modImplementation "dev.latvian.mods:kubejs-fabric:${rootProject.kubejs_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
+
+apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/extra-local-mods.gradle"
 
 processResources {
     inputs.property "version", project.version

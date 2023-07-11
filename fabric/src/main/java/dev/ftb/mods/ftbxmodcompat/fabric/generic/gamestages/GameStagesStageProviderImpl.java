@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.generic.gamestages.fabric;
+package dev.ftb.mods.ftbxmodcompat.fabric.generic.gamestages;
 
 import net.minecraft.world.entity.player.Player;
 
@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
  * Dummy no-op implementation since there's no Gamestages on Fabric.
  * This shouldn't ever get loaded, but just in case...
  */
+@SuppressWarnings("unused")
 public class GameStagesStageProviderImpl {
     public static boolean hasStage(Player player, String stage) {
         return false;

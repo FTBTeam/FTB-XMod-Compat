@@ -13,8 +13,11 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
-    modApi "dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}"
-    modApi "dev.ftb.mods:ftb-quests:${rootProject.ftb_quests_version}"
+    modApi("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
+    modApi("dev.ftb.mods:ftb-quests:${rootProject.ftb_quests_version}")
+
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
 
     modImplementation "dev.latvian.mods:kubejs:${rootProject.kubejs_version}"
 }

@@ -1,9 +1,10 @@
-package dev.ftb.mods.ftbxmodcompat.generic.gamestages.forge;
+package dev.ftb.mods.ftbxmodcompat.forge.generic.gamestages;
 
 import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
+@SuppressWarnings("unused")
 public class GameStagesStageProviderImpl {
     public static boolean hasStage(Player player, String stage) {
         return GameStageHelper.hasStage(player, stage);

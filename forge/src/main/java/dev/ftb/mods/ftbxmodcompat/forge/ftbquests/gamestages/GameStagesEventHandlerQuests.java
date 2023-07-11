@@ -1,15 +1,15 @@
-package dev.ftb.mods.ftbxmodcompat.generic.gamestages;
+package dev.ftb.mods.ftbxmodcompat.forge.ftbquests.gamestages;
 
 import dev.ftb.mods.ftbquests.quest.task.StageTask;
 import net.darkhax.gamestages.event.GameStageEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 
-public class GameStagesEventHandler {
+public class GameStagesEventHandlerQuests {
     public static void register() {
-        MinecraftForge.EVENT_BUS.addListener(GameStagesEventHandler::onStageAdded);
-        MinecraftForge.EVENT_BUS.addListener(GameStagesEventHandler::onStageRemoved);
-        MinecraftForge.EVENT_BUS.addListener(GameStagesEventHandler::onStagesCleared);
+        MinecraftForge.EVENT_BUS.addListener(GameStagesEventHandlerQuests::onStageAdded);
+        MinecraftForge.EVENT_BUS.addListener(GameStagesEventHandlerQuests::onStageRemoved);
+        MinecraftForge.EVENT_BUS.addListener(GameStagesEventHandlerQuests::onStagesCleared);
     }
 
     private static void onStageAdded(GameStageEvent.Added event) {

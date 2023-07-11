@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbxmodcompat.forge;
 
 import dev.architectury.platform.forge.EventBuses;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
-import dev.ftb.mods.ftbxmodcompat.generic.gamestages.GameStagesEventHandler;
+import dev.ftb.mods.ftbxmodcompat.forge.ftbquests.gamestages.GameStagesEventHandlerQuests;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -15,8 +15,8 @@ public class FTBXModCompatForge {
 
         // KubeJS handles gamestage functionality when it's installed
         // but this covers the case where Gamestages is present but KubeJS is not
-        if (FTBXModCompat.isGameStagesLoaded && !FTBXModCompat.isKubeJSLoaded) {
-            GameStagesEventHandler.register();
+        if (FTBXModCompat.isFTBQuestsLoaded && FTBXModCompat.isGameStagesLoaded && !FTBXModCompat.isKubeJSLoaded) {
+            GameStagesEventHandlerQuests.register();
         }
     }
 }
