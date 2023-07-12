@@ -3,6 +3,8 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.ItemStackToListCache;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedLootCrate;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.RecipeIngredientRole;

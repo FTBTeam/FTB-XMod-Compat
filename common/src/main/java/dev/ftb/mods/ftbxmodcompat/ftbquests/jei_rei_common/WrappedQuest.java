@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
 
 import com.google.common.collect.ImmutableList;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
@@ -16,15 +16,16 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class WrappedQuest {
-    final Quest quest;
-    final List<List<ItemStack>> input;
-    final List<List<ItemStack>> output;
+    public final Quest quest;
+    public final List<List<ItemStack>> input;
+    public final List<List<ItemStack>> output;
 
     public WrappedQuest(Quest q, List<Reward> rewards) {
         quest = q;
@@ -113,6 +114,14 @@ public class WrappedQuest {
         }
     }
 
+    public List<Ingredient> inputIngredients() {
+        return input.stream().map(items -> Ingredient.of(items.toArray(new ItemStack[0]))).toList();
+    }
+
+    public List<Ingredient> outputIngredients() {
+        return output.stream().map(items -> Ingredient.of(items.toArray(new ItemStack[0]))).toList();
+    }
+
 	public boolean hasInput(ItemStack stack) {
 		for (var l : input) {
 			for (var stack1 : l) {
@@ -131,7 +140,7 @@ public class WrappedQuest {
 		return false;
 	}
 
-    void openQuestGui() {
+    public void openQuestGui() {
         ClientQuestFile.openGui(quest, true);
     }
 }

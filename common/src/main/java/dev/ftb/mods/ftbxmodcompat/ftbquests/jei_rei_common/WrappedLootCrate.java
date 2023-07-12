@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
 
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class WrappedLootCrate {
+	public static final int ITEMSX = 10;
+	public static final int ITEMSY = 5;
+	public static final int ITEMS = ITEMSX * ITEMSY;
 	public final LootCrate crate;
 	public final ItemStack crateStack;
 	public final List<WeightedReward> sortedRewards;
@@ -42,7 +45,7 @@ public class WrappedLootCrate {
 			}
 		}
 
-		if (outputs.size() <= LootCrateCategory.ITEMS) {
+		if (outputs.size() <= ITEMS) {
 			cycledOutputs = new ArrayList<>(outputs.size());
 
 			for (ItemStack stack : outputs) {
@@ -50,14 +53,14 @@ public class WrappedLootCrate {
 			}
 		} else {
 			// too many items to fit in display; cycle them
-			cycledOutputs = new ArrayList<>(LootCrateCategory.ITEMS);
+			cycledOutputs = new ArrayList<>(ITEMS);
 
-			for (int i = 0; i < LootCrateCategory.ITEMS; i++) {
+			for (int i = 0; i < ITEMS; i++) {
 				cycledOutputs.add(new ArrayList<>());
 			}
 
 			for (int i = 0; i < outputs.size(); i++) {
-				cycledOutputs.get(i % LootCrateCategory.ITEMS).add(outputs.get(i));
+				cycledOutputs.get(i % ITEMS).add(outputs.get(i));
 			}
 		}
 	}

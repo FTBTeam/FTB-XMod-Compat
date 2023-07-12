@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
 
 import it.unimi.dsi.fastutil.Hash;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenCustomHashMap;
@@ -14,7 +14,7 @@ import java.util.function.Function;
  *
  * @param <T> type of recipe being mapped to
  */
-class ItemStackToListCache<T> {
+public class ItemStackToListCache<T> {
     private static final int MAX_CACHE_SIZE = 1024;
 
     private final Object2ObjectLinkedOpenCustomHashMap<ItemStack, List<T>> cacheMap

@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "dev.ftb.mods.ftbxmodcompat.fabric.FTBXModCompatFabric"
+    ],
+    "rei_client": [
+      "dev.ftb.mods.ftbxmodcompat.ftbquests.rei.FTBQuestsREIIntegration"
     ]
   },
   "depends": {

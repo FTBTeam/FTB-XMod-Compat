@@ -32,6 +32,8 @@ dependencies {
     modApi("dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}") { transitive false }
     modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
 
+    modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
+
     modImplementation "dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}"
 
     modCompileOnlyApi "net.darkhax.gamestages:GameStages-Forge-${rootProject.minecraft_version}:${rootProject.gamestages_version}"
@@ -55,17 +57,17 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    setArchiveClassifier("dev-shadow")
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    archiveClassifier.set null
 }
 
 jar {
-    classifier "dev"
+    setArchiveClassifier("dev")
 }
 
 sourcesJar {

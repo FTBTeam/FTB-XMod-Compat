@@ -7,6 +7,7 @@ import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedLootCrate;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -25,15 +26,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
-	private static final int ITEMSX = 10;
-	private static final int ITEMSY = 5;
-	static final int ITEMS = ITEMSX * ITEMSY;
-
 	private final IDrawable background;
 	private final IDrawable icon;
 
 	public LootCrateCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(ITEMSX * 18, ITEMSY * 18 + 36);
+		background = guiHelper.createBlankDrawable(WrappedLootCrate.ITEMSX * 18, WrappedLootCrate.ITEMSY * 18 + 36);
 		icon = new IDrawable() {
 			@Override
 			public int getWidth() {
@@ -84,9 +81,9 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, WrappedLootCrate recipe, IFocusGroup focuses) {
-		for (int slot = 0; slot < Math.min(ITEMS, recipe.outputs.size()); slot++) {
+		for (int slot = 0; slot < Math.min(WrappedLootCrate.ITEMS, recipe.outputs.size()); slot++) {
 			int finalSlot = slot;
-			builder.addSlot(RecipeIngredientRole.OUTPUT, (slot % ITEMSX) * 18, (slot / ITEMSX) * 18 + 36)
+			builder.addSlot(RecipeIngredientRole.OUTPUT, (slot % WrappedLootCrate.ITEMSX) * 18, (slot / WrappedLootCrate.ITEMSX) * 18 + 36)
 					.addItemStacks(recipe.cycledOutputs.get(slot))
 					.addTooltipCallback((recipeSlotView, tooltip) -> recipeSlotView.getDisplayedIngredient()
 							.flatMap(ingr -> ingr.getIngredient(VanillaTypes.ITEM_STACK)).ifPresent(stack -> {
