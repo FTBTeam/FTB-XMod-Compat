@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedQuestCache;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuestCache;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;

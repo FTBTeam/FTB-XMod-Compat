@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.quest.Chapter;

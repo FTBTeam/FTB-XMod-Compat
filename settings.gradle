@@ -11,4 +11,4 @@ include("common")
 include("fabric")
 include("forge")
 
-rootProject.name = "FTB XMod Compat"
+rootProject.name = "FTB-XMod-Compat-1.19.2"

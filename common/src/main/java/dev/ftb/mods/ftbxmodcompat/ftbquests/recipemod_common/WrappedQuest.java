@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import com.google.common.collect.ImmutableList;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;

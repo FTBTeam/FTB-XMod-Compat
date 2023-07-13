@@ -33,10 +33,11 @@ dependencies {
     modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
 
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
+    modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-${rootProject.minecraft_version}:${rootProject.gamestages_version}")
 
-    modImplementation "dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}"
+    modImplementation("dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}")
 
-    modCompileOnlyApi "net.darkhax.gamestages:GameStages-Forge-${rootProject.minecraft_version}:${rootProject.gamestages_version}"
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
@@ -63,6 +64,7 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
+    archiveBaseName.set "${rootProject.archives_base_name}-${project.name}"
     archiveClassifier.set null
 }
 

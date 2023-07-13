@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedQuest;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

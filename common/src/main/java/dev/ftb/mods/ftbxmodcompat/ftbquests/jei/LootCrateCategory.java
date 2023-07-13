@@ -2,12 +2,10 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
-import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
-import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
-import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedLootCrate;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.LootCrateTextRenderer;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -18,10 +16,9 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
@@ -84,7 +81,7 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 		for (int slot = 0; slot < Math.min(WrappedLootCrate.ITEMS, recipe.outputs.size()); slot++) {
 			int finalSlot = slot;
 			builder.addSlot(RecipeIngredientRole.OUTPUT, (slot % WrappedLootCrate.ITEMSX) * 18, (slot / WrappedLootCrate.ITEMSX) * 18 + 36)
-					.addItemStacks(recipe.cycledOutputs.get(slot))
+					.addIngredients(() -> Ingredient.class, recipe.outputIngredients())
 					.addTooltipCallback((recipeSlotView, tooltip) -> recipeSlotView.getDisplayedIngredient()
 							.flatMap(ingr -> ingr.getIngredient(VanillaTypes.ITEM_STACK)).ifPresent(stack -> {
 								if (ItemStack.isSame(stack, recipe.outputs.get(finalSlot))) {
@@ -102,44 +99,6 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 
 	@Override
 	public void draw(WrappedLootCrate recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		LootCrate crate = recipe.crate;
-
-		Font font = Minecraft.getInstance().font;
-
-		font.drawShadow(poseStack, Component.translatable(crate.itemName).withStyle(ChatFormatting.UNDERLINE), 0, 0, 0xFFFFFF00);
-
-		int total = ClientQuestFile.INSTANCE.lootCrateNoDrop.passive;
-		for (RewardTable table : ClientQuestFile.INSTANCE.rewardTables) {
-			if (table.lootCrate != null) {
-				total += table.lootCrate.drops.passive;
-			}
-		}
-		Component p = chance("passive", crate.drops.passive, total);
-
-		total = ClientQuestFile.INSTANCE.lootCrateNoDrop.monster;
-		for (RewardTable table : ClientQuestFile.INSTANCE.rewardTables) {
-			if (table.lootCrate != null) {
-				total += table.lootCrate.drops.monster;
-			}
-		}
-		Component m = chance("monster", crate.drops.monster, total);
-
-		total = ClientQuestFile.INSTANCE.lootCrateNoDrop.boss;
-		for (RewardTable table : ClientQuestFile.INSTANCE.rewardTables) {
-			if (table.lootCrate != null) {
-				total += table.lootCrate.drops.boss;
-			}
-		}
-		Component b = chance("boss", crate.drops.boss, total);
-
-		int w = Math.max(font.width(p), Math.max(font.width(m), font.width(b)));
-		int drawX = background.getWidth() - w - 2;
-		font.draw(poseStack, p, drawX, 0, 0xFF404040);
-		font.draw(poseStack, m, drawX, font.lineHeight, 0xFF404040);
-		font.draw(poseStack, b, drawX, font.lineHeight * 2, 0xFF404040);
-	}
-
-	private Component chance(String type, int w, int t) {
-		return Component.translatable("ftbquests.loot.entitytype." + type).append(": " + WeightedReward.chanceString(w, t, true));
+		LootCrateTextRenderer.drawText(poseStack, recipe.crate, 0, background.getWidth());
 	}
 }

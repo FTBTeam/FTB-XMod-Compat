@@ -28,7 +28,10 @@ dependencies {
     modApi("dev.ftb.mods:ftb-library-fabric:${rootProject.ftb_library_version}") { transitive false }
     modApi("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}")
 
+    modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
+
     modImplementation "dev.latvian.mods:kubejs-fabric:${rootProject.kubejs_version}"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
@@ -55,6 +58,7 @@ remapJar {
     injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
+    archiveBaseName.set "${rootProject.archives_base_name}-${project.name}"
     archiveClassifier.set null
 }
 

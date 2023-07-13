@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei.helper;
 
-import dev.ftb.mods.ftbxmodcompat.ftbquests.BaseRecipeHelper;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.LootCrateRecipeManagerPlugin;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.QuestRecipeManagerPlugin;
@@ -24,5 +24,4 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
     protected void refreshLootcrates() {
         LootCrateRecipeManagerPlugin.INSTANCE.refresh();
     }
-
 }

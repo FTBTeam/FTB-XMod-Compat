@@ -12,6 +12,6 @@ public class FTBQuestsSetup {
         } else if (FTBXModCompat.isREILoaded) {
             FTBQuests.setRecipeModHelper(new REIRecipeHelper());
         }
-        FTBXModCompat.LOGGER.info("FTB Quests: recipe helper provider is [{}]", FTBQuests.getRecipeModHelper().getHelperName());
+        FTBXModCompat.LOGGER.info("[FTB Quests] recipe helper provider is [{}]", FTBQuests.getRecipeModHelper().getHelperName());
     }
 }

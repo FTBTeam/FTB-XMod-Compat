@@ -37,13 +37,20 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "ftblibrary"
 mandatory = true
-versionRange = "[1902.3.21-build.214,)"
+versionRange = "[1902.4.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbquests"
 mandatory = false
-versionRange = "[1902.5.0-build.1,)"
+versionRange = "[1902.5.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "kubejs"
+mandatory = false
+versionRange = "[1902.6.0,1902.6.1)"
 ordering = "AFTER"
 side = "BOTH"

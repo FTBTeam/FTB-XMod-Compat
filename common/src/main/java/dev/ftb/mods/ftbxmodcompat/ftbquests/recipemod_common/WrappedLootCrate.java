@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
@@ -6,20 +6,22 @@ import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class WrappedLootCrate {
-	public static final int ITEMSX = 10;
-	public static final int ITEMSY = 5;
+	public static final int ITEMSX = 8;
+	public static final int ITEMSY = 6;
 	public static final int ITEMS = ITEMSX * ITEMSY;
+
 	public final LootCrate crate;
 	public final ItemStack crateStack;
 	public final List<WeightedReward> sortedRewards;
 	public final List<ItemStack> outputs;
-	public final List<List<ItemStack>> cycledOutputs;
+	private final List<List<ItemStack>> cycledOutputs;
 
 	public WrappedLootCrate(LootCrate c) {
 		crate = c;
@@ -63,5 +65,13 @@ public class WrappedLootCrate {
 				cycledOutputs.get(i % ITEMS).add(outputs.get(i));
 			}
 		}
+	}
+
+	public List<Ingredient> inputIngredients() {
+		return List.of(Ingredient.of(crateStack));
+	}
+
+	public List<Ingredient> outputIngredients() {
+		return cycledOutputs.stream().map(items -> Ingredient.of(items.toArray(new ItemStack[0]))).toList();
 	}
 }

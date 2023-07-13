@@ -1,8 +1,8 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import dev.ftb.mods.ftbquests.FTBQuests;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedLootCrate;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedQuest;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
 import mezz.jei.api.recipe.RecipeType;
 
 public class JEIRecipeTypes {

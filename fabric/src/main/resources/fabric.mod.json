@@ -24,6 +24,11 @@
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.19.2",
-    "architectury": ">=6.5.77"
+    "architectury": ">=6.5.77",
+    "ftblibrary": ">=1902.4.0-build.225"
+  },
+  "breaks": {
+    "ftbquests": "<1902.5.0-build.1",
+    "kubejs": ">=1902.6.1"
   }
 }

@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.rei;
 
-import dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common.WrappedQuestCache;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuestCache;
 import me.shedaniel.rei.api.client.registry.display.DynamicDisplayGenerator;
 import me.shedaniel.rei.api.client.view.ViewSearchBuilder;
 import me.shedaniel.rei.api.common.entry.EntryStack;
@@ -10,8 +10,14 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 import java.util.Optional;
 
-public class QuestDisplayGenerator implements DynamicDisplayGenerator<QuestDisplay> {
-    WrappedQuestCache cache = new WrappedQuestCache();
+public enum QuestDisplayGenerator implements DynamicDisplayGenerator<QuestDisplay> {
+    INSTANCE;
+
+    final WrappedQuestCache cache = new WrappedQuestCache();
+
+    public void refresh() {
+        cache.clear();
+    }
 
     @Override
     public Optional<List<QuestDisplay>> getRecipeFor(EntryStack<?> entry) {
@@ -33,6 +39,7 @@ public class QuestDisplayGenerator implements DynamicDisplayGenerator<QuestDispl
 
     @Override
     public Optional<List<QuestDisplay>> generate(ViewSearchBuilder builder) {
-        return DynamicDisplayGenerator.super.generate(builder);
+        // TODO seems to work OK, but could do with verifying what exactly this method is for...
+        return Optional.empty();
     }
 }

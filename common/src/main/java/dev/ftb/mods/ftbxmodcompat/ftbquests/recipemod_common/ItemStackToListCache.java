@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.ftbquests.jei_rei_common;
+package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import it.unimi.dsi.fastutil.Hash;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenCustomHashMap;
