@@ -63,7 +63,10 @@ public class QuestDisplayCategory implements DisplayCategory<QuestDisplay> {
         Component text = display.getWrappedQuest().quest.getTitle().copy().withStyle(ChatFormatting.UNDERLINE);
         float x = bounds.x + bounds.width / 2f;
         float y = bounds.y + 5f;
-        widgets.add(Widgets.createClickableLabel(new Point(x, y), text, c -> display.getWrappedQuest().openQuestGui()));
+        widgets.add(Widgets.createClickableLabel(new Point(x, y), text, c -> {
+            Minecraft.getInstance().setScreen(null);  // avoid an infinite close-reopen loop between FTBQ and REI
+            display.getWrappedQuest().openQuestGui();
+        }));
 
         return widgets;
     }
