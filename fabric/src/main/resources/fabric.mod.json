@@ -3,7 +3,7 @@
   "id": "ftbxmodcompat",
   "version": "${version}",
   "name": "FTB XMod Compat",
-  "description": "Provides cross-mod compatibilty/integration for all main FTB mods",
+  "description": "Provides cross-mod compatibility/integration for all main FTB mods",
   "authors": [
     "FTB Team"
   ],
@@ -25,7 +25,7 @@
     "fabric": "*",
     "minecraft": ">=1.19.2",
     "architectury": ">=6.5.77",
-    "ftblibrary": ">=1902.4.0-build.225"
+    "ftblibrary": ">=1902.4.0-build.232"
   },
   "breaks": {
     "ftbquests": "<1902.5.0-build.1",
