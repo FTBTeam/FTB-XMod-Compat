@@ -54,3 +54,10 @@ mandatory = false
 versionRange = "[1902.6.0,1902.6.1)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "jei"
+mandatory = false
+versionRange = "[11.6,)"
+ordering = "AFTER"
+side = "BOTH"
