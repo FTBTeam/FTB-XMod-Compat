@@ -71,3 +71,5 @@ allprojects {
         withSourcesJar()
     }
 }
+
+task curseforgePublish
