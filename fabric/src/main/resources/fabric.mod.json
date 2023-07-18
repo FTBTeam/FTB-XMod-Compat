@@ -30,6 +30,6 @@
   "breaks": {
     "ftbquests": "<1902.5.0-build.1",
     "jei": "<11.6",
-    "kubejs": "<1902.6.1"
+    "kubejs": "<1902.6.1-build.300"
   }
 }
