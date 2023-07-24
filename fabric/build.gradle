@@ -22,6 +22,15 @@ configurations {
     developmentFabric.extendsFrom common
 }
 
+repositories {
+    maven {
+        content {
+            includeGroup "eu.pb4"
+        }
+        url "https://maven.nucleoid.xyz/"
+    }
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
@@ -30,11 +39,20 @@ dependencies {
 
     modApi("dev.ftb.mods:ftb-library-fabric:${rootProject.ftb_library_version}") { transitive false }
     modApi("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}")
+    modApi("dev.ftb.mods:ftb-chunks-fabric:${rootProject.ftb_chunks_version}")
+    modApi("dev.ftb.mods:ftb-ranks-fabric:${rootProject.ftb_ranks_version}")
 
+	modCompileOnly("eu.pb4:common-protection-api:${common_prot_api_version}") { transitive = false }
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
 
     modImplementation "dev.latvian.mods:kubejs-fabric:${rootProject.kubejs_version}"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
+
+    // compile-only because for some reason loom isn't deobfuscating these...
+	modCompileOnly("curse.maven:balm-fabric-500525:${balm_fabric_version}")  { transitive = false }
+	modCompileOnly("curse.maven:waystones-fabric-500087:${waystones_fabric_version}")  { transitive = false }
+
+    compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
@@ -126,9 +144,11 @@ if (ENV.CURSEFORGE_KEY) {
                 requiredDependency 'architectury-api'
                 requiredDependency 'ftb-library-fabric'
                 optionalDependency 'ftb-quests-fabric'
+                optionalDependency 'ftb-ranks-fabric'
                 optionalDependency 'kubejs'
                 optionalDependency 'jei'
                 optionalDependency 'roughly-enough-items'
+                optionalDependency 'waystones-fabric'
             }
             changelog = ENV.CHANGELOG  // expected to exist if ENV.CURSEFORGE_KEY does
             changelogType = 'markdown'

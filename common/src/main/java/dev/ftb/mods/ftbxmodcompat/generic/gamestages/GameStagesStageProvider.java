@@ -22,6 +22,11 @@ public class GameStagesStageProvider implements StageProvider {
     }
 
     @Override
+    public void sync(ServerPlayer player) {
+        syncStages(player);
+    }
+
+    @Override
     public String getName() {
         return "Game Stages";
     }
@@ -38,6 +43,11 @@ public class GameStagesStageProvider implements StageProvider {
 
     @ExpectPlatform
     public static void removeStage(Player player, String stage) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void syncStages(Player player) {
         throw new AssertionError();
     }
 }
