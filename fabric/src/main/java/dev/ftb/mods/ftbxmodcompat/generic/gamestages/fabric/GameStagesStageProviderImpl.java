@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.fabric.generic.gamestages;
+package dev.ftb.mods.ftbxmodcompat.generic.gamestages.fabric;
 
 import net.minecraft.world.entity.player.Player;
 
