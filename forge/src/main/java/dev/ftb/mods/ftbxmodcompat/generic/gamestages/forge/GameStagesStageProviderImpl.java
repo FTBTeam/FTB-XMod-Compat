@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.forge.generic.gamestages;
+package dev.ftb.mods.ftbxmodcompat.generic.gamestages.forge;
 
 import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.server.level.ServerPlayer;
