@@ -34,13 +34,19 @@ dependencies {
 
     modApi("dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}") { transitive false }
     modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
+    modApi("dev.ftb.mods:ftb-chunks-forge:${rootProject.ftb_chunks_version}")
+    modApi("dev.ftb.mods:ftb-ranks-forge:${rootProject.ftb_ranks_version}")
 
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-${rootProject.minecraft_version}:${rootProject.gamestages_version}")
 
     modImplementation("dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}")
+	modImplementation("curse.maven:balm-531761:${balm_forge_version}")
+	modImplementation("curse.maven:waystones-245755:${waystones_forge_version}")
 
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
+
+    compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
@@ -132,10 +138,12 @@ if (ENV.CURSEFORGE_KEY) {
                 requiredDependency 'architectury-api'
                 requiredDependency 'ftb-library-forge'
                 optionalDependency 'ftb-quests-forge'
+                optionalDependency 'ftb-ranks-forge'
                 optionalDependency 'kubejs'
                 optionalDependency 'jei'
                 optionalDependency 'roughly-enough-items'
                 optionalDependency 'game-stages'
+                optionalDependency 'waystones'
             }
             changelog = ENV.CHANGELOG  // expected to exist if ENV.CURSEFORGE_KEY does
             changelogType = 'markdown'

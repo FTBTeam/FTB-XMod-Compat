@@ -17,4 +17,7 @@ public class GameStagesStageProviderImpl {
 
     public static void removeStage(Player player, String stage) {
     }
+
+    public static void syncStages(Player player) {
+    }
 }

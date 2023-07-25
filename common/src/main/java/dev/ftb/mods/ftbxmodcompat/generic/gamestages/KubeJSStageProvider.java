@@ -22,6 +22,11 @@ public class KubeJSStageProvider implements StageProvider {
 	}
 
 	@Override
+	public void sync(ServerPlayer player) {
+		Stages.get(player).sync();
+	}
+
+	@Override
 	public String getName() {
 		return "KubeJS Stages";
 	}

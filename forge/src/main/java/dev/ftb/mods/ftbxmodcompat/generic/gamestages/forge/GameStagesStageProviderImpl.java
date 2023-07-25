@@ -17,4 +17,8 @@ public class GameStagesStageProviderImpl {
     public static void removeStage(Player player, String stage) {
         if (player instanceof ServerPlayer sp) GameStageHelper.removeStage(sp, stage);
     }
+
+    public static void syncStages(Player player) {
+        if (player instanceof ServerPlayer sp) GameStageHelper.syncPlayer(sp);
+    }
 }

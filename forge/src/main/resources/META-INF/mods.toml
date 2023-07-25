@@ -37,7 +37,7 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "ftblibrary"
 mandatory = true
-versionRange = "[1902.4.0,)"
+versionRange = "[1902.4.1,)"
 ordering = "AFTER"
 side = "BOTH"
 
@@ -45,6 +45,13 @@ side = "BOTH"
 modId = "ftbquests"
 mandatory = false
 versionRange = "[1902.5.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "ftbchunks"
+mandatory = false
+versionRange = "[1902.4.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
@@ -61,3 +68,24 @@ mandatory = false
 versionRange = "[11.6,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "ftbranks"
+mandatory = false
+versionRange = "[1902.1.12,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "kubejs"
+mandatory = false
+versionRange = "[1902.6.1,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "luckperms"
+mandatory = false
+versionRange = "[5.4.46,)"
+ordering = "AFTER"
+side = "SERVER"
