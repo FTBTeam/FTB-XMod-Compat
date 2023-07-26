@@ -10,7 +10,7 @@ public class FTBXModCompatFabric implements ModInitializer {
     public void onInitialize() {
         FTBXModCompat.init();
 
-        if (FTBXModCompat.isWaystonesLoaded) {
+        if (FTBXModCompat.isFTBChunksLoaded && FTBXModCompat.isWaystonesLoaded) {
             WaystonesCompat.init();
         }
 

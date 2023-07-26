@@ -21,7 +21,7 @@ public class FTBXModCompatForge {
             GameStagesEventHandlerQuests.register();
         }
 
-        if (FTBXModCompat.isWaystonesLoaded) {
+        if (FTBXModCompat.isFTBChunksLoaded && FTBXModCompat.isWaystonesLoaded) {
             WaystonesCompat.init();
         }
     }
