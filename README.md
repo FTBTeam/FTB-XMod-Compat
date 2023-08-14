@@ -6,7 +6,7 @@ All mod dependencies (both FTB and non-FTB) are soft dependencies. So this mod w
 
 ## FTB Quests
 
-The following cross-mod integrations are added to FTB Quests, if present:
+The following cross-mod integrations are added to FTB Quests 1902.5.0+, if present:
 
 ### KubeJS
 
@@ -34,4 +34,31 @@ If neither KubeJS nor Game Stages is loaded, FTB Quests will use an inbuilt stag
 
 ## FTB Chunks
 
-TODO, FTB Chunks not supported yet but will be in a future release
+The following cross-mod integrations are added to FTB Chunks 1902.4.0+, if present:
+
+### KubeJS
+
+* FTB Chunks fires KubeJS events when certain things occur
+* FTB Chunks uses KubeJS as its game stages implementation
+
+### Game Stages
+
+If Game Stages is present, and KubeJS is _not_ present:
+
+* FTB Chunks uses Game Stages as its game stages implementation (the stage `ftbchunks_mapping` is required to use the minimap or fullscreen map)
+
+### Waystones
+
+If the Waystones mod is present:
+
+* FTB Chunks will display waystones known to the player as icons on the minimap and fullscreen map
+
+### FTB Ranks -or- Luckperms
+
+If FTB Ranks and/or Luckperms are present:
+
+* FTB Chunks will use one of these mods (FTB Ranks if both are present) to configure the following values (overriding server defaults):
+  * `ftbchunks.max_claimed` - max chunks a player may claim
+  * `ftbchunks.max_force_loaded` - max chunks a player may forceload
+  * `ftbchunks.chunk_load_offline` - whether force-loaded chunks stay force loaded while the player is offline
+  * `ftbchunks.no_wilderness` - whether the player may build (place or break) in unclaimed chunks
