@@ -41,7 +41,7 @@ public class WrappedQuestCache {
         if (ClientQuestFile.exists()) {
             for (ChapterGroup group : ClientQuestFile.INSTANCE.chapterGroups) {
                 for (Chapter chapter : group.chapters) {
-                    for (Quest quest : chapter.quests) {
+                    for (Quest quest : chapter.getQuests()) {
                         if (ClientQuestFile.INSTANCE.self.canStartTasks(quest) && !quest.rewards.isEmpty() && !quest.disableJEI.get(ClientQuestFile.INSTANCE.defaultQuestDisableJEI)) {
                             List<Reward> rewards = quest.rewards.stream()
                                     .filter(reward -> reward.getAutoClaimType() != RewardAutoClaim.INVISIBLE && reward.getIngredient() != null)
