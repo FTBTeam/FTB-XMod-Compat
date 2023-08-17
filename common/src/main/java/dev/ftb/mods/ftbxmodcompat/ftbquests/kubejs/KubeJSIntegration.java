@@ -56,7 +56,7 @@ public class KubeJSIntegration extends KubeJSPlugin {
 	}
 
 	public static EventResult onCompleted(ObjectCompletedEvent<?> event) {
-		if (event.getData().file.isServerSide()) {
+		if (event.getData().getFile().isServerSide()) {
 			var kjsEvent = new QuestObjectCompletedEventJS(event);
 			var object = event.getObject();
 
@@ -70,7 +70,7 @@ public class KubeJSIntegration extends KubeJSPlugin {
 	}
 
 	public static EventResult onStarted(ObjectStartedEvent<?> event) {
-		if (event.getData().file.isServerSide()) {
+		if (event.getData().getFile().isServerSide()) {
 			var kjsEvent = new QuestObjectStartedEventJS(event);
 			var object = event.getObject();
 

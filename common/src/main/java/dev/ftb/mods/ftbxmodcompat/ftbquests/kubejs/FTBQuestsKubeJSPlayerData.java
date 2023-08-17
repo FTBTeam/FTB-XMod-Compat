@@ -5,9 +5,6 @@ import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import net.minecraft.world.entity.player.Player;
 
-/**
- * @author LatvianModder
- */
 public class FTBQuestsKubeJSPlayerData extends FTBQuestsKubeJSTeamData {
 	private final Player player;
 

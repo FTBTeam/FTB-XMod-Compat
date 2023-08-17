@@ -52,19 +52,19 @@ public class LootCrateDisplayCategory implements DisplayCategory<LootCrateDispla
                     .markOutput()
             );
             String chanceStr = ChatFormatting.GOLD + WeightedReward.chanceString(
-                    display.getWrappedLootCrate().sortedRewards.get(slot).weight,
-                    display.getWrappedLootCrate().crate.table.getTotalWeight(true)
+                    display.getWrappedLootCrate().sortedRewards.get(slot).getWeight(),
+                    display.getWrappedLootCrate().crate.getTable().getTotalWeight(true)
             );
             widgets.add(Widgets.createTooltip(new Rectangle(sx, sy, 18, 18),
                     stacks.get(0).asFormattedText(),
                     Component.translatable("jei.ftbquests.lootcrates.chance", chanceStr).withStyle(ChatFormatting.GRAY)));
         }
 
-        widgets.add(Widgets.createDrawableWidget((helper, poseStack, mouseX, mouseY, delta) -> {
-            poseStack.pushPose();
-            poseStack.translate(-5, bounds.y + 5, 0);
-            LootCrateTextRenderer.drawText(poseStack, display.getWrappedLootCrate().crate, bounds.x, bounds.width);
-            poseStack.popPose();
+        widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
+            graphics.pose().pushPose();
+            graphics.pose().translate(-5, bounds.y + 5, 0);
+            LootCrateTextRenderer.drawText(graphics, display.getWrappedLootCrate().crate, bounds.x, bounds.width);
+            graphics.pose().popPose();
         }));
 
         return widgets;

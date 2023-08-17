@@ -2,7 +2,8 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs;
 
 import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.quest.*;
-import dev.ftb.mods.ftbteams.FTBTeamsAPI;
+import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
+import dev.ftb.mods.ftbteams.api.Team;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -11,14 +12,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * @author LatvianModder
- */
 public class FTBQuestsKubeJSWrapper {
 	public static final FTBQuestsKubeJSWrapper INSTANCE = new FTBQuestsKubeJSWrapper();
 
 	public Map<String, QuestShape> getQuestShapes() {
-		return QuestShape.MAP;
+		return QuestShape.map();
 	}
 
 	public Map<String, QuestObjectType> getQuestObjectTypes() {
@@ -26,17 +24,18 @@ public class FTBQuestsKubeJSWrapper {
 	}
 
 	public QuestFile getFile(Level level) {
-		return FTBQuests.PROXY.getQuestFile(level.isClientSide);
+		return FTBQuests.getQuestFile(level.isClientSide);
 	}
 
-	@Nullable
-	public TeamData getData(Level level, UUID uuid) {
-		return getFile(level).getData(FTBTeamsAPI.getPlayerTeamID(uuid));
+	public UUID getData(Level level, UUID uuid) {
+		return FTBTeamsAPI.api().getManager().getTeamForPlayerID(uuid)
+				.map(Team::getTeamId)
+				.orElse(null);
 	}
 
 	@Nullable
 	public TeamData getData(Player player) {
-		return getFile(player.getLevel()).getData(player);
+		return getFile(player.level()).getData(player);
 	}
 
 	@Nullable
@@ -47,11 +46,14 @@ public class FTBQuestsKubeJSWrapper {
 
 	@Nullable
 	public FTBQuestsKubeJSPlayerData getServerDataFromPlayer(Player player) {
-		try {
-			return ((FTBQuestsKubeJSPlayerData) player.kjs$getData().get("ftbquests"));
-		} catch (Throwable e) {
-			return null;
-		}
+		return null;
+
+		// TODO if kubejs gets a 1.20 release
+//		try {
+//			return ((FTBQuestsKubeJSPlayerData) player.kjs$getData().get("ftbquests"));
+//		} catch (Throwable e) {
+//			return null;
+//		}
 	}
 
 	@Nullable

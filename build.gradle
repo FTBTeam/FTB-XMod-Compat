@@ -23,6 +23,11 @@ subprojects {
     }
 }
 
+configurations.configureEach {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"

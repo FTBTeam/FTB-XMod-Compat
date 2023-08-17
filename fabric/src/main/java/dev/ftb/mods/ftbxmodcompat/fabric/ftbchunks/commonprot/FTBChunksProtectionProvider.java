@@ -7,9 +7,9 @@ import com.mojang.authlib.GameProfile;
 import dev.ftb.mods.ftbchunks.FTBChunks;
 import dev.ftb.mods.ftbchunks.FTBChunksExpected;
 import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
-import dev.ftb.mods.ftbchunks.data.ClaimedChunk;
-import dev.ftb.mods.ftbchunks.data.FTBChunksAPI;
-import dev.ftb.mods.ftbchunks.data.Protection;
+import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
+import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
+import dev.ftb.mods.ftbchunks.api.Protection;
 import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import eu.pb4.common.protection.api.CommonProtection;
@@ -55,7 +55,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
     @Override
     public boolean isProtected(Level world, BlockPos pos) {
-        return FTBChunksAPI.getManager().getChunk(new ChunkDimPos(world, pos)) != null;
+        return FTBChunksAPI.api().getManager().getChunk(new ChunkDimPos(world, pos)) != null;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         for (int cx = minCX; cx < maxCX; cx++) {
             for (int cz = minCZ; cz < maxCZ; cz++) {
-                if (FTBChunksAPI.getManager().getChunk(new ChunkDimPos(world.dimension(), cx, cz)) != null) {
+                if (FTBChunksAPI.api().getManager().getChunk(new ChunkDimPos(world.dimension(), cx, cz)) != null) {
                     return true;
                 }
             }
@@ -82,7 +82,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.getManager().protect(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockBreakProtection(), null);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockBreakProtection(), null);
     }
 
     @Override
@@ -92,9 +92,9 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
         }
 
         ChunkDimPos chunkPos = new ChunkDimPos(world, pos);
-        ClaimedChunk chunk = FTBChunksAPI.getManager().getChunk(chunkPos);
+        ClaimedChunk chunk = FTBChunksAPI.api().getManager().getChunk(chunkPos);
 
-        return chunk == null || chunk.allowExplosions();
+        return chunk == null || chunk.getTeamData().canExplosionsDamageTerrain();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.getManager().protect(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockPlaceProtection(), null);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockPlaceProtection(), null);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.getManager().protect(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockInteractProtection(), null);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockInteractProtection(), null);
 
     }
 
@@ -122,7 +122,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.getManager().protect(player, InteractionHand.MAIN_HAND, entity.blockPosition(), Protection.INTERACT_ENTITY, entity);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, entity.blockPosition(), Protection.INTERACT_ENTITY, entity);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.getManager().protect(player, InteractionHand.MAIN_HAND, entity.blockPosition(), Protection.ATTACK_NONLIVING_ENTITY, entity);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, entity.blockPosition(), Protection.ATTACK_NONLIVING_ENTITY, entity);
     }
 
     public static @Nullable ServerPlayer tryResolvePlayer(Level l, GameProfile profile) {
@@ -150,7 +150,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
     private static class OfflineServerPlayer extends ServerPlayer {
         public OfflineServerPlayer(ServerLevel serverLevel, GameProfile gameProfile) {
-            super(serverLevel.getServer(), serverLevel, gameProfile, null);
+            super(serverLevel.getServer(), serverLevel, gameProfile);
         }
     }
 }

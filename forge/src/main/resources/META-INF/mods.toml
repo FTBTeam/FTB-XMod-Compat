@@ -16,42 +16,42 @@ Provides cross-mod compatibilty/integration for all main FTB mods
 [[dependencies.ftbxmodcompat]]
 modId = "forge"
 mandatory = true
-versionRange = "[43,)"
+versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.2,)"
+versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "architectury"
 mandatory = true
-versionRange = "[6.5.77,)"
+versionRange = "[9.0.8,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftblibrary"
 mandatory = true
-versionRange = "[1902.4.1,)"
+versionRange = "[2001.1.3,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbquests"
 mandatory = false
-versionRange = "[1902.5.0,)"
+versionRange = "[2001.1.1,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbchunks"
 mandatory = false
-versionRange = "[1902.4.0,)"
+versionRange = "[2001.2.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
@@ -65,14 +65,14 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "jei"
 mandatory = false
-versionRange = "[11.6,)"
+versionRange = "[15.2,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbranks"
 mandatory = false
-versionRange = "[1902.1.12,)"
+versionRange = "[2001.1.3,)"
 ordering = "AFTER"
 side = "BOTH"
 
@@ -86,6 +86,6 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "luckperms"
 mandatory = false
-versionRange = "[5.4.46,)"
+versionRange = "[5.4.83,)"
 ordering = "AFTER"
 side = "SERVER"

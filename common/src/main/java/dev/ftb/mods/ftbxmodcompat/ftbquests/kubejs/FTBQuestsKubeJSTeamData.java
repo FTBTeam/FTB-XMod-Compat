@@ -1,13 +1,11 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs;
 
-import dev.ftb.mods.ftbquests.quest.Quest;
-import dev.ftb.mods.ftbquests.quest.QuestFile;
-import dev.ftb.mods.ftbquests.quest.QuestObject;
-import dev.ftb.mods.ftbquests.quest.TeamData;
+import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 import dev.latvian.mods.kubejs.player.EntityArrayList;
 import dev.latvian.mods.kubejs.util.UtilsJS;
+import net.minecraft.Util;
 
 import java.util.function.Consumer;
 
@@ -18,9 +16,9 @@ public abstract class FTBQuestsKubeJSTeamData {
 
 	public boolean addProgress(Object id, long progress) {
 		TeamData data = getData();
-		Task task = data.file.getTask(data.file.getID(id));
+		Task task = data.getFile().getTask(data.getFile().getID(id));
 
-		if (task != null && data.canStartTasks(task.quest)) {
+		if (task != null && data.canStartTasks(task.getQuest())) {
 			data.addProgress(task, progress);
 			return true;
 		}
@@ -30,12 +28,12 @@ public abstract class FTBQuestsKubeJSTeamData {
 
 	public void changeProgress(Object id, Consumer<ProgressChange> consumer) {
 		TeamData data = getData();
-		ProgressChange progressChange = new ProgressChange(data.file);
-		progressChange.origin = data.file.getBase(data.file.getID(id));
+		QuestObjectBase origin = data.getFile().getBase(data.getFile().getID(id));
+		ProgressChange progressChange = new ProgressChange(data.getFile(), origin, Util.NIL_UUID);
 
-		if (progressChange.origin != null) {
+		if (origin != null) {
 			consumer.accept(progressChange);
-			progressChange.origin.forceProgressRaw(data, progressChange);
+			origin.forceProgressRaw(data, progressChange);
 		}
 	}
 
@@ -46,37 +44,37 @@ public abstract class FTBQuestsKubeJSTeamData {
 
 	public void complete(Object id) {
 		changeProgress(id, progressChange -> {
-			progressChange.reset = false;
+			progressChange.setReset(false);
 		});
 	}
 
 	public boolean isCompleted(Object id) {
 		TeamData data = getData();
-		QuestObject object = data.file.get(data.file.getID(id));
+		QuestObject object = data.getFile().get(data.getFile().getID(id));
 		return object != null && data.isCompleted(object);
 	}
 
 	public boolean isStarted(Object id) {
 		TeamData data = getData();
-		QuestObject object = data.file.get(data.file.getID(id));
+		QuestObject object = data.getFile().get(data.getFile().getID(id));
 		return object != null && data.isStarted(object);
 	}
 
 	public boolean canStartQuest(Object id) {
 		TeamData data = getData();
-		Quest quest = data.file.getQuest(data.file.getID(id));
+		Quest quest = data.getFile().getQuest(data.getFile().getID(id));
 		return quest != null && data.canStartTasks(quest);
 	}
 
 	public int getRelativeProgress(Object id) {
 		TeamData data = getData();
-		QuestObject object = data.file.get(data.file.getID(id));
+		QuestObject object = data.getFile().get(data.getFile().getID(id));
 		return object != null ? data.getRelativeProgress(object) : 0;
 	}
 
 	public long getTaskProgress(Object id) {
 		TeamData data = getData();
-		return data.getProgress(data.file.getID(id));
+		return data.getProgress(data.getFile().getID(id));
 	}
 
 	public boolean getLocked() {

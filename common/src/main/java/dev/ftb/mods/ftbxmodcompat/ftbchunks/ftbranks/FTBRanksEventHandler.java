@@ -3,7 +3,6 @@ package dev.ftb.mods.ftbxmodcompat.ftbchunks.ftbranks;
 import com.mojang.authlib.GameProfile;
 import dev.ftb.mods.ftbchunks.api.ChunkTeamData;
 import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
-import dev.ftb.mods.ftbchunks.integration.PermissionsHelper;
 import dev.ftb.mods.ftbranks.api.RankManager;
 import dev.ftb.mods.ftbranks.api.event.*;
 import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
@@ -49,10 +48,9 @@ public class FTBRanksEventHandler {
 	private static void updateAll(RankManager manager) {
 		if (FTBChunksAPI.api().isManagerLoaded()) {
 			manager.getServer().getPlayerList().getPlayers().forEach(player -> {
-				ChunkTeamData data = FTBChunksAPI.api().getManager().getOrCreateData(player);
-				data.setForceLoadMember(player.getUUID(), PermissionsHelper.getChunkLoadOffline(player, false));
+				ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(player);
+				teamData.checkMemberForceLoading(player.getUUID());
 			});
-			FTBTeamsAPI.api().getManager().getTeams().forEach(team -> FTBChunksAPI.api().getManager().getOrCreateData(team).updateLimits());
 		}
 	}
 
@@ -61,8 +59,7 @@ public class FTBRanksEventHandler {
 			ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(team);
 			ServerPlayer player = manager.getServer().getPlayerList().getPlayer(profile.getId());
 			if (player != null) {
-				teamData.setForceLoadMember(player.getUUID(), PermissionsHelper.getChunkLoadOffline(player, false));
-				teamData.updateLimits();
+				teamData.checkMemberForceLoading(player.getUUID());
 			}
 		});
 	}

@@ -4,9 +4,6 @@ import dev.ftb.mods.ftbquests.events.CustomTaskEvent;
 import dev.ftb.mods.ftbquests.quest.task.CustomTask;
 import dev.latvian.mods.kubejs.event.EventJS;
 
-/**
- * @author LatvianModder
- */
 public class CustomTaskEventJS extends EventJS {
 	public final CustomTaskEvent event;
 
@@ -19,18 +16,18 @@ public class CustomTaskEventJS extends EventJS {
 	}
 
 	public void setCheck(CustomTask.Check c) {
-		getTask().check = c;
+		getTask().setCheck(c);
 	}
 
 	public void setCheckTimer(int t) {
-		getTask().checkTimer = t;
+		getTask().setCheckTimer(t);
 	}
 
 	public void setEnableButton(boolean b) {
-		getTask().enableButton = b;
+		getTask().setEnableButton(b);
 	}
 
 	public void setMaxProgress(long max) {
-		getTask().maxProgress = max;
+		getTask().setMaxProgress(max);
 	}
 }

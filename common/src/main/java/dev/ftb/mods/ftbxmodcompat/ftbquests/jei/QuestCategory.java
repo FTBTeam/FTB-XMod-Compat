@@ -1,7 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
@@ -17,6 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -68,14 +68,14 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 	}
 
 	@Override
-	public void draw(WrappedQuest recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+	public void draw(WrappedQuest recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
 		Component text = recipe.quest.getTitle().copy().withStyle(ChatFormatting.UNDERLINE);
 		Font font = Minecraft.getInstance().font;
 		int w = font.width(text);
-		float x = (background.getWidth() - w) / 2f;
-		float y = 3f;
+		int x = (background.getWidth() - w) / 2;
+		int y = 3;
 		boolean highlight = mouseX >= x && mouseY >= y && mouseX < x + w && mouseY < y + font.lineHeight;
-		font.draw(stack, text, x, y, highlight ? 0xFFA87A5E : 0xFF3F2E23);
+		graphics.drawString(font, text, x, y, highlight ? 0xFFA87A5E : 0xFF3F2E23, false);
 	}
 
 	@Override

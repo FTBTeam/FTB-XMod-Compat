@@ -9,9 +9,6 @@ import dev.latvian.mods.kubejs.util.UtilsJS;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * @author LatvianModder
- */
 public class QuestObjectCompletedEventJS extends ServerEventJS {
 	public final ObjectCompletedEvent<?> event;
 	private final FTBQuestsKubeJSTeamDataWrapper wrapper;
@@ -40,6 +37,6 @@ public class QuestObjectCompletedEventJS extends ServerEventJS {
 
 	@Nullable
 	public ServerPlayer getPlayer() {
-		return event.getData().file instanceof ServerQuestFile file ? file.getCurrentPlayer() : null;
+		return event.getData().getFile() instanceof ServerQuestFile file ? file.getCurrentPlayer() : null;
 	}
 }
