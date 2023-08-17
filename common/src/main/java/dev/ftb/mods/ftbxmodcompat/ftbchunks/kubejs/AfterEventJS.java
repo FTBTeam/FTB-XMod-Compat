@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.kubejs;
 
-import dev.ftb.mods.ftbchunks.data.ClaimedChunk;
+import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
 import dev.latvian.mods.kubejs.entity.EntityEventJS;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
@@ -35,6 +35,6 @@ public class AfterEventJS extends EntityEventJS {
     }
 
 	public BlockPos getClaimPos() {
-		return chunk.pos.getChunkPos().getWorldPosition();
+		return chunk.getPos().getChunkPos().getWorldPosition();
 	}
 }

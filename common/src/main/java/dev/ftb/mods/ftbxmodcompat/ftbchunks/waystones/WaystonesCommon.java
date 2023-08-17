@@ -1,7 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones;
 
-import dev.ftb.mods.ftbchunks.integration.MapIconEvent;
-import dev.ftb.mods.ftbchunks.integration.RefreshMinimapIconsEvent;
+import dev.ftb.mods.ftbchunks.api.client.event.MapIconEvent;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
@@ -22,8 +21,6 @@ public class WaystonesCommon {
         WAYSTONES.clear();
 
         waystoneData.forEach(w -> WAYSTONES.computeIfAbsent(w.dimension(), k -> new ArrayList<>()).add(w.icon()));
-
-        RefreshMinimapIconsEvent.trigger();
     }
 
     public static void mapWidgets(MapIconEvent event) {

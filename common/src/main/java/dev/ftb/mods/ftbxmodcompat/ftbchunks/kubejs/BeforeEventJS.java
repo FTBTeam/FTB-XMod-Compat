@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.kubejs;
 
-import dev.ftb.mods.ftbchunks.data.ClaimResult;
-import dev.ftb.mods.ftbchunks.data.ClaimedChunk;
+import dev.ftb.mods.ftbchunks.api.ClaimResult;
+import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
 import dev.latvian.mods.kubejs.event.EventExit;
 import net.minecraft.commands.CommandSourceStack;
 
@@ -23,17 +23,7 @@ public class BeforeEventJS extends AfterEventJS {
 	}
 
 	public void setCustomResult(String messageKey) throws EventExit {
-		result = new ClaimResult() {
-			@Override
-			public String claimResultName() {
-				return messageKey;
-			}
-
-			@Override
-			public String getTranslationKey() {
-				return messageKey;
-			}
-		};
+		result = ClaimResult.customProblem(messageKey);
 		cancel(result);
 	}
 }

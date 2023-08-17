@@ -1,13 +1,10 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.kubejs;
 
 import dev.architectury.event.CompoundEventResult;
-import dev.ftb.mods.ftbchunks.data.ClaimResult;
-import dev.ftb.mods.ftbchunks.data.ClaimResults;
-import dev.ftb.mods.ftbchunks.data.ClaimedChunk;
-import dev.ftb.mods.ftbchunks.event.ClaimedChunkEvent;
+import dev.ftb.mods.ftbchunks.api.ClaimResult;
+import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
+import dev.ftb.mods.ftbchunks.api.event.ClaimedChunkEvent;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs.CustomTaskEventJS;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs.FTBQuestsKubeJSEvents;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.rhino.util.wrap.TypeWrappers;
@@ -35,7 +32,7 @@ public class FTBChunksKubeJSPlugin extends KubeJSPlugin {
 
 	@Override
 	public void registerTypeWrappers(ScriptType type, TypeWrappers typeWrappers) {
-		typeWrappers.register(ClaimResult.class, (ctx, o) -> ClaimResults.valueOf(o.toString().toUpperCase()));
+		typeWrappers.register(ClaimResult.class, (ctx, o) -> ClaimResult.StandardProblem.valueOf(o.toString().toUpperCase()));
     }
 
 	private CompoundEventResult<ClaimResult> before(CommandSourceStack source, ClaimedChunk chunk, String id) {
