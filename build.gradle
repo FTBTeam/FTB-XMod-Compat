@@ -59,6 +59,13 @@ allprojects {
         }
 
         maven {
+            url "https://maven.terraformersmc.com/"
+            content {
+                includeGroup "dev.emi"
+            }
+        }
+
+        maven {
             url "https://www.cursemaven.com"
             content {
                 includeGroup "curse.maven"

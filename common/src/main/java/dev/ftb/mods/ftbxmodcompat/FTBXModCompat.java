@@ -21,6 +21,7 @@ public class FTBXModCompat {
     public static boolean isGameStagesLoaded;
     public static boolean isREILoaded;
     public static boolean isJEILoaded;
+    public static boolean isEMILoaded;
     public static boolean isLuckPermsLoaded;
     public static boolean isWaystonesLoaded;
     public static boolean isCommonProtLoaded;
@@ -47,6 +48,7 @@ public class FTBXModCompat {
         isGameStagesLoaded = Platform.isModLoaded("gamestages");
         isREILoaded = Platform.isModLoaded("roughlyenoughitems");
         isJEILoaded = Platform.isModLoaded("jei");
+        isEMILoaded = Platform.isModLoaded("emi");
         isLuckPermsLoaded = Platform.isModLoaded("luckperms");
         isWaystonesLoaded = Platform.isModLoaded("waystones");
         isCommonProtLoaded = Platform.isModLoaded("common-protection-api");

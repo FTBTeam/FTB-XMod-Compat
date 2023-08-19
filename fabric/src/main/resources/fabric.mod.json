@@ -19,6 +19,9 @@
     ],
     "rei_client": [
       "dev.ftb.mods.ftbxmodcompat.ftbquests.rei.FTBQuestsREIIntegration"
+    ],
+    "emi": [
+      "dev.ftb.mods.ftbxmodcompat.ftbquests.emi.FTBQuestsEMIIntegration"
     ]
   },
   "depends": {

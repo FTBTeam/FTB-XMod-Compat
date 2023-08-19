@@ -142,6 +142,7 @@ if (ENV.CURSEFORGE_KEY) {
                 optionalDependency 'kubejs'
                 optionalDependency 'jei'
                 optionalDependency 'roughly-enough-items'
+                optionalDependency 'emi'
                 optionalDependency 'game-stages'
                 optionalDependency 'waystones'
             }
