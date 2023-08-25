@@ -1,6 +1,5 @@
 package dev.ftb.mods.ftbxmodcompat.forge;
 
-import dev.architectury.platform.Platform;
 import dev.architectury.platform.forge.EventBuses;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.forge.ftbchunks.waystones.WaystonesCompat;

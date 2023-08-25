@@ -1,7 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.api.FTBQuestsAPI;
 import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;

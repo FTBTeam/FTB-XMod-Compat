@@ -1,6 +1,5 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.rei;
 
-import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.api.FTBQuestsAPI;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 

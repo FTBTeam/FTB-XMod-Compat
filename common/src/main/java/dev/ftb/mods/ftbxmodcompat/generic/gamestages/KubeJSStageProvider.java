@@ -1,7 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.generic.gamestages;
 
 import dev.ftb.mods.ftblibrary.integration.stages.StageProvider;
-//import dev.latvian.mods.kubejs.stages.Stages;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
