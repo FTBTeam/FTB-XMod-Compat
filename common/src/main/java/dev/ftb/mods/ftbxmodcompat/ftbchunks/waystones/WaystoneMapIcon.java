@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones;
 
-import dev.ftb.mods.ftbchunks.integration.StaticMapIcon;
+import dev.ftb.mods.ftbchunks.client.mapicon.StaticMapIcon;
 import dev.ftb.mods.ftblibrary.icon.Color4I;
 import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.util.TooltipList;

@@ -5,7 +5,7 @@ import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 
 public class PermissionsSetup {
     public static void init() {
-        PermissionHelper pHelper = PermissionHelper.getInstance();
+        PermissionHelper pHelper = PermissionHelper.INSTANCE;
         if (FTBXModCompat.isFTBRanksLoaded) {
             pHelper.setProviderImpl(new FTBRanksProvider());
         } else if (FTBXModCompat.isLuckPermsLoaded) {

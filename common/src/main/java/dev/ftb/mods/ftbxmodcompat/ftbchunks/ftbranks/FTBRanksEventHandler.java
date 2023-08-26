@@ -1,13 +1,11 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.ftbranks;
 
 import com.mojang.authlib.GameProfile;
-import dev.ftb.mods.ftbchunks.data.FTBChunksAPI;
-import dev.ftb.mods.ftbchunks.data.FTBChunksTeamData;
-import dev.ftb.mods.ftbchunks.integration.PermissionsHelper;
+import dev.ftb.mods.ftbchunks.api.ChunkTeamData;
+import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
 import dev.ftb.mods.ftbranks.api.RankManager;
 import dev.ftb.mods.ftbranks.api.event.*;
-import dev.ftb.mods.ftbteams.FTBTeamsAPI;
-import dev.ftb.mods.ftbteams.data.Team;
+import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -48,24 +46,21 @@ public class FTBRanksEventHandler {
 	}
 
 	private static void updateAll(RankManager manager) {
-		if (FTBChunksAPI.isManagerLoaded()) {
+		if (FTBChunksAPI.api().isManagerLoaded()) {
 			manager.getServer().getPlayerList().getPlayers().forEach(player -> {
-				FTBChunksTeamData data = FTBChunksAPI.getManager().getData(player);
-				data.setForceLoadMember(player.getUUID(), PermissionsHelper.getChunkLoadOffline(player, false));
+				ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(player);
+				teamData.checkMemberForceLoading(player.getUUID());
 			});
-			FTBTeamsAPI.getManager().getTeams().forEach(team -> FTBChunksAPI.getManager().getData(team).updateLimits());
 		}
 	}
 
 	private static void updateForPlayer(RankManager manager, GameProfile profile) {
-		Team team = FTBTeamsAPI.getPlayerTeam(profile.getId());
-		if (team != null) {
-			FTBChunksTeamData teamData = FTBChunksAPI.getManager().getData(team);
+		FTBTeamsAPI.api().getManager().getTeamForPlayerID(profile.getId()).ifPresent(team -> {
+			ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(team);
 			ServerPlayer player = manager.getServer().getPlayerList().getPlayer(profile.getId());
 			if (player != null) {
-				teamData.setForceLoadMember(player.getUUID(), PermissionsHelper.getChunkLoadOffline(player, false));
+				teamData.checkMemberForceLoading(player.getUUID());
 			}
-			teamData.updateLimits();
-		}
+		});
 	}
 }

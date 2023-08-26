@@ -1,9 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
-import dev.ftb.mods.ftbquests.quest.Chapter;
-import dev.ftb.mods.ftbquests.quest.ChapterGroup;
-import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.reward.RewardAutoClaim;
 import net.minecraft.world.item.ItemStack;
@@ -39,20 +36,16 @@ public class WrappedQuestCache {
         wrappedQuestsCache.clear();
 
         if (ClientQuestFile.exists()) {
-            for (ChapterGroup group : ClientQuestFile.INSTANCE.chapterGroups) {
-                for (Chapter chapter : group.chapters) {
-                    for (Quest quest : chapter.quests) {
-                        if (ClientQuestFile.INSTANCE.self.canStartTasks(quest) && !quest.rewards.isEmpty() && !quest.disableJEI.get(ClientQuestFile.INSTANCE.defaultQuestDisableJEI)) {
-                            List<Reward> rewards = quest.rewards.stream()
-                                    .filter(reward -> reward.getAutoClaimType() != RewardAutoClaim.INVISIBLE && reward.getIngredient() != null)
-                                    .toList();
-                            if (!rewards.isEmpty()) {
-                                wrappedQuestsCache.add(new WrappedQuest(quest, rewards));
-                            }
-                        }
+            ClientQuestFile.INSTANCE.forAllQuests(quest -> {
+                if (ClientQuestFile.INSTANCE.selfTeamData.canStartTasks(quest) && !quest.getRewards().isEmpty() && quest.showInRecipeMod()) {
+                    List<Reward> rewards = quest.getRewards().stream()
+                            .filter(reward -> reward.getAutoClaimType() != RewardAutoClaim.INVISIBLE && reward.getIcon().getIngredient() != null)
+                            .toList();
+                    if (!rewards.isEmpty()) {
+                        wrappedQuestsCache.add(new WrappedQuest(quest, rewards));
                     }
                 }
-            }
+            });
         }
     }
 

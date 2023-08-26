@@ -23,6 +23,11 @@ subprojects {
     }
 }
 
+configurations.configureEach {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
@@ -43,7 +48,15 @@ allprojects {
         }
 
         maven {
-            url "https://maven.saps.dev/minecraft"
+            url "https://maven.saps.dev/releases"
+            content {
+                includeGroup "dev.latvian.mods"
+                includeGroup "dev.ftb.mods"
+            }
+        }
+
+        maven {
+            url "https://maven.saps.dev/snapshots"
             content {
                 includeGroup "dev.latvian.mods"
                 includeGroup "dev.ftb.mods"
@@ -55,6 +68,7 @@ allprojects {
             content {
                 includeGroup "mezz.jei"
                 includeGroup "net.darkhax.gamestages"
+                includeGroup "com.faux.ingredientextension"
             }
         }
 

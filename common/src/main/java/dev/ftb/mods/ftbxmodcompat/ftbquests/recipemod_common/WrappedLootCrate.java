@@ -26,23 +26,23 @@ public class WrappedLootCrate {
 	public WrappedLootCrate(LootCrate c) {
 		crate = c;
 		crateStack = crate.createStack();
-		outputs = new ArrayList<>(c.table.rewards.size());
-		sortedRewards = c.table.rewards.stream().sorted(WeightedReward::compareTo).toList();
+		outputs = new ArrayList<>(c.getTable().getWeightedRewards().size());
+		sortedRewards = c.getTable().getWeightedRewards().stream().sorted(WeightedReward::compareTo).toList();
 
 		for (WeightedReward reward : sortedRewards) {
-			Object object = reward.reward.getIngredient();
+			Object object = reward.getReward().getIcon().getIngredient();
 			ItemStack stack = object instanceof ItemStack ? (ItemStack) object : ItemStack.EMPTY;
 
 			if (!stack.isEmpty()) {
 				outputs.add(stack.copy());
-			} else if (reward.reward.getIcon() instanceof ItemIcon) {
-				stack = ((ItemIcon) reward.reward.getIcon()).getStack().copy();
-				stack.setHoverName(reward.reward.getTitle());
+			} else if (reward.getReward().getIcon() instanceof ItemIcon) {
+				stack = ((ItemIcon) reward.getReward().getIcon()).getStack().copy();
+				stack.setHoverName(reward.getReward().getTitle());
 				outputs.add(stack);
 			} else {
 				stack = new ItemStack(Items.PAINTING);
-				stack.setHoverName(reward.reward.getTitle());
-				stack.addTagElement("icon", StringTag.valueOf(reward.reward.getIcon().toString()));
+				stack.setHoverName(reward.getReward().getTitle());
+				stack.addTagElement("icon", StringTag.valueOf(reward.getReward().getIcon().toString()));
 				outputs.add(stack);
 			}
 		}

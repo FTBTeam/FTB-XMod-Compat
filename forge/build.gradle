@@ -38,9 +38,9 @@ dependencies {
     modApi("dev.ftb.mods:ftb-ranks-forge:${rootProject.ftb_ranks_version}")
 
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
-    modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-${rootProject.minecraft_version}:${rootProject.gamestages_version}")
+    modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-${rootProject.minecraft_version}:${rootProject.gamestages_version}") { transitive false }
 
-    modImplementation("dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}")
+//    modCompileOnlyApi("dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}")
 	modImplementation("curse.maven:balm-531761:${balm_forge_version}")
 	modImplementation("curse.maven:waystones-245755:${waystones_forge_version}")
 

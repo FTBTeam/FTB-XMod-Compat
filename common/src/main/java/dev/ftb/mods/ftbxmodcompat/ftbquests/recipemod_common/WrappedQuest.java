@@ -2,7 +2,6 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import com.google.common.collect.ImmutableList;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
-import dev.ftb.mods.ftblibrary.util.WrappedIngredient;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
@@ -33,7 +32,7 @@ public class WrappedQuest {
         input = new ArrayList<>(5);
         output = new ArrayList<>(5);
 
-        if (quest.tasks.size() == 1) {
+        if (quest.getTasks().size() == 1) {
             // padding to center the ingredient in a 3x3 grid
             input.add(Collections.emptyList());
             input.add(Collections.emptyList());
@@ -41,11 +40,11 @@ public class WrappedQuest {
             input.add(Collections.emptyList());
         }
 
-        for (Task task : quest.tasks) {
+        for (Task task : quest.getTasks()) {
             if (task instanceof ItemTask itemTask) {
-                input.add(Collections.singletonList(itemTask.item));
+                input.add(Collections.singletonList(itemTask.getItemStack()));
             } else {
-                Object object = task.getIngredient();
+                Object object = task.getIcon().getIngredient();
                 ItemStack stack = object instanceof ItemStack ? (ItemStack) object : ItemStack.EMPTY;
 
                 if (!stack.isEmpty()) {
@@ -74,13 +73,13 @@ public class WrappedQuest {
         }
 
         for (Reward reward : rewards) {
-            Object object = reward.getIngredient();
+            Object object = reward.getIcon().getIngredient();
             ItemStack stack = ItemStack.EMPTY;
             if (object instanceof ItemStack s) {
                 stack = s;
-            } else if (object instanceof WrappedIngredient w && w.wrappedIngredient instanceof ItemStack s) {
+            } /*else if (object instanceof WrappedIngredient w && w.wrappedIngredient instanceof ItemStack s) {
                 stack = s;
-            }
+            }*/
 
             if (!stack.isEmpty()) {
                 output.add(Collections.singletonList(stack.copy()));
@@ -88,13 +87,13 @@ public class WrappedQuest {
                 RewardTable table = r.getTable();
                 if (table != null) {
                     ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
-                    if (table.hideTooltip) {
+                    if (table.shouldShowTooltip()) {
                         ItemStack unknown = new ItemStack(Items.BARRIER);
                         unknown.setHoverName(Component.literal("Unknown Reward"));
                         builder.add(unknown);
                     } else {
-                        for (WeightedReward wr : table.rewards) {
-                            if (wr.reward.getIngredient() instanceof ItemStack s) {
+                        for (WeightedReward wr : table.getWeightedRewards()) {
+                            if (wr.getReward().getIcon().getIngredient() instanceof ItemStack s) {
                                 builder.add(s);
                             }
                         }
@@ -125,7 +124,7 @@ public class WrappedQuest {
 	public boolean hasInput(ItemStack stack) {
 		for (var l : input) {
 			for (var stack1 : l) {
-				if (ItemStack.isSame(stack1, stack)) return true;
+				if (ItemStack.isSameItemSameTags(stack1, stack)) return true;
 			}
 		}
 		return false;
@@ -134,7 +133,7 @@ public class WrappedQuest {
 	public boolean hasOutput(ItemStack stack) {
 		for (var l : output) {
 			for (var stack1 : l) {
-				if (ItemStack.isSame(stack1, stack)) return true;
+				if (ItemStack.isSameItemSameTags(stack1, stack)) return true;
 			}
 		}
 		return false;

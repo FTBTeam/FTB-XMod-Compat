@@ -1,9 +1,9 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei.helper;
 
-import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.LootCrateRecipeManagerPlugin;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.QuestRecipeManagerPlugin;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
 import net.minecraft.world.item.ItemStack;
 
 public class JEIRecipeHelper extends BaseRecipeHelper {
