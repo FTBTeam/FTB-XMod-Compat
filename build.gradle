@@ -78,6 +78,8 @@ allprojects {
                 includeGroup "curse.maven"
             }
         }
+
+        maven { url 'https://jitpack.io' }
     }
 
     tasks.withType(JavaCompile) {
