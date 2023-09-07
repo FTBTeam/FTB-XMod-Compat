@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.emi.helper;
 
 import dev.ftb.mods.ftbxmodcompat.ftbquests.emi.FTBQuestsEMIIntegration;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.emi.QuestRecipeManager;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,7 +17,7 @@ public class EMIRecipeHelper extends BaseRecipeHelper {
     }
 
     protected void refreshQuests() {
-        // TODO
+        QuestRecipeManager.INSTANCE.refresh();
     }
 
     protected void refreshLootcrates() {
