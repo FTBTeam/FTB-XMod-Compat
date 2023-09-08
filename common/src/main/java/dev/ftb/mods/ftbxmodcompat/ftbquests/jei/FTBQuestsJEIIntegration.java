@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
+import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.QuestItems;
 import mezz.jei.api.IModPlugin;
@@ -22,6 +23,10 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime r) {
 		runtime = FTBXModCompat.isFTBQuestsLoaded ? r : null;
+
+		if (ClientQuestFile.exists()) {
+			ClientQuestFile.INSTANCE.updateLootCrates();
+		}
 	}
 
 	@Override

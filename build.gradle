@@ -52,6 +52,7 @@ allprojects {
             content {
                 includeGroup "dev.latvian.mods"
                 includeGroup "dev.ftb.mods"
+                includeGroup "com.github.llamalad7.mixinextras"
             }
         }
 
