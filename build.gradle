@@ -52,6 +52,7 @@ allprojects {
             content {
                 includeGroup "dev.latvian.mods"
                 includeGroup "dev.ftb.mods"
+                includeGroup "com.github.llamalad7.mixinextras"
             }
         }
 
@@ -78,8 +79,6 @@ allprojects {
                 includeGroup "curse.maven"
             }
         }
-
-        maven { url 'https://jitpack.io' }
     }
 
     tasks.withType(JavaCompile) {
