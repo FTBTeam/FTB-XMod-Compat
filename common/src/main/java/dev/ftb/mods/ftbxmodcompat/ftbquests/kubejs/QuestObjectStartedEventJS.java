@@ -9,9 +9,6 @@ import dev.latvian.mods.kubejs.util.UtilsJS;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * @author LatvianModder
- */
 public class QuestObjectStartedEventJS extends ServerEventJS {
 	public final ObjectStartedEvent<?> event;
 	private final FTBQuestsKubeJSTeamDataWrapper wrapper;

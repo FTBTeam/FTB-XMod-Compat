@@ -4,9 +4,6 @@ import dev.ftb.mods.ftbquests.events.CustomTaskEvent;
 import dev.ftb.mods.ftbquests.quest.task.CustomTask;
 import dev.latvian.mods.kubejs.event.EventJS;
 
-/**
- * @author LatvianModder
- */
 public class CustomTaskEventJS extends EventJS {
 	public final CustomTaskEvent event;
 

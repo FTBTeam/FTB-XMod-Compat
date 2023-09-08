@@ -3,9 +3,6 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs;
 import dev.ftb.mods.ftbquests.quest.BaseQuestFile;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 
-/**
- * @author LatvianModder
- */
 public class FTBQuestsKubeJSTeamDataWrapper extends FTBQuestsKubeJSTeamData {
 	private final TeamData teamData;
 
