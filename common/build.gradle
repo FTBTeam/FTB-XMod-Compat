@@ -17,6 +17,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-quests:${rootProject.ftb_quests_version}")
     modApi("dev.ftb.mods:ftb-chunks:${rootProject.ftb_chunks_version}")
     modApi("dev.ftb.mods:ftb-ranks:${rootProject.ftb_ranks_version}")
+    modApi("dev.ftb.mods:ftb-essentials:${rootProject.ftb_essentials_version}")
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
