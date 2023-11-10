@@ -41,6 +41,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}")
     modApi("dev.ftb.mods:ftb-chunks-fabric:${rootProject.ftb_chunks_version}")
     modApi("dev.ftb.mods:ftb-ranks-fabric:${rootProject.ftb_ranks_version}")
+    modApi("dev.ftb.mods:ftb-teams-fabric:${rootProject.ftb_teams_version}")
 
 	modCompileOnly("eu.pb4:common-protection-api:${common_prot_api_version}") { transitive = false }
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
