@@ -42,6 +42,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-chunks-fabric:${rootProject.ftb_chunks_version}")
     modApi("dev.ftb.mods:ftb-ranks-fabric:${rootProject.ftb_ranks_version}")
     modApi("dev.ftb.mods:ftb-essentials-fabric:${rootProject.ftb_essentials_version}")
+    modApi("dev.ftb.mods:ftb-teams-fabric:${rootProject.ftb_teams_version}")
 
 	modCompileOnly("eu.pb4:common-protection-api:${common_prot_api_version}") { transitive = false }
 
