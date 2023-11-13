@@ -21,6 +21,7 @@ dependencies {
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+    modCompileOnly("dev.emi:emi-xplat-intermediary:${rootProject.emi_version}+${rootProject.minecraft_version}:api")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
