@@ -19,6 +19,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-ranks:${rootProject.ftb_ranks_version}")
     modApi("dev.ftb.mods:ftb-essentials:${rootProject.ftb_essentials_version}")
     modApi("dev.ftb.mods:ftb-teams:${rootProject.ftb_teams_version}")
+    modApi("dev.ftb.mods:ftb-filter-system:${rootProject.ftb_filter_system_version}")
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
@@ -26,6 +27,7 @@ dependencies {
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
     modCompileOnlyApi "dev.latvian.mods:kubejs:${rootProject.kubejs_version}"
+    modCompileOnlyApi "dev.latvian.mods:item-filters:${rootProject.itemfilters_version}"
 }
 
 publishing {

@@ -2,6 +2,7 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests;
 
 import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.filtering.ItemFilteringSetup;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.helper.JEIRecipeHelper;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.rei.helper.REIRecipeHelper;
 
@@ -13,5 +14,7 @@ public class FTBQuestsSetup {
             FTBQuests.setRecipeModHelper(new REIRecipeHelper());
         }
         FTBXModCompat.LOGGER.info("[FTB Quests] recipe helper provider is [{}]", FTBQuests.getRecipeModHelper().getHelperName());
+
+        ItemFilteringSetup.init();
     }
 }
