@@ -11,4 +11,6 @@ public interface FTBQuestsKubeJSEvents {
 	EventHandler CUSTOM_REWARD = EVENT_GROUP.server("customReward", () -> CustomRewardEventJS.class).extra(Extra.STRING).hasResult();
 	EventHandler OBJECT_COMPLETED = EVENT_GROUP.server("completed", () -> QuestObjectCompletedEventJS.class).extra(Extra.STRING);
 	EventHandler OBJECT_STARTED = EVENT_GROUP.server("started", () -> QuestObjectStartedEventJS.class).extra(Extra.STRING);
+
+	EventHandler CUSTOM_FILTER_ITEM = EVENT_GROUP.client("customFilterItem", () -> CustomFilterItemEventJS.class);
 }
