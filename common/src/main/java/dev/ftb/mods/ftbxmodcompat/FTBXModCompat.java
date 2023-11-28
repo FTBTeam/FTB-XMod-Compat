@@ -19,8 +19,10 @@ public class FTBXModCompat {
     public static boolean isFTBChunksLoaded;
     public static boolean isFTBRanksLoaded;
     public static boolean isFTBEssentialsLoaded;
+    public static boolean isFTBFilterSystemLoaded;
 
     public static boolean isKubeJSLoaded;
+    public static boolean isItemFiltersLoaded;
     public static boolean isGameStagesLoaded;
     public static boolean isREILoaded;
     public static boolean isJEILoaded;
@@ -48,8 +50,10 @@ public class FTBXModCompat {
         isFTBChunksLoaded = Platform.isModLoaded("ftbchunks");
         isFTBRanksLoaded = Platform.isModLoaded("ftbranks");
         isFTBEssentialsLoaded = Platform.isModLoaded("ftbessentials");
+        isFTBFilterSystemLoaded = Platform.isModLoaded("ftbfiltersystem");
 
         isKubeJSLoaded = Platform.isModLoaded("kubejs");
+        isItemFiltersLoaded = Platform.isModLoaded("itemfilters");
         isGameStagesLoaded = Platform.isModLoaded("gamestages");
         isREILoaded = Platform.isModLoaded("roughlyenoughitems");
         isJEILoaded = Platform.isModLoaded("jei");

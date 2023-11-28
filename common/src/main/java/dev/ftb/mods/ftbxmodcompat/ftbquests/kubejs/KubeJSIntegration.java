@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs;
 
 import dev.architectury.event.EventResult;
+import dev.ftb.mods.ftbquests.api.event.CustomFilterDisplayItemsEvent;
 import dev.ftb.mods.ftbquests.events.CustomRewardEvent;
 import dev.ftb.mods.ftbquests.events.CustomTaskEvent;
 import dev.ftb.mods.ftbquests.events.ObjectCompletedEvent;
@@ -21,6 +22,7 @@ public class KubeJSIntegration extends KubeJSPlugin {
 		CustomRewardEvent.EVENT.register(KubeJSIntegration::onCustomReward);
 		ObjectCompletedEvent.GENERIC.register(KubeJSIntegration::onCompleted);
 		ObjectStartedEvent.GENERIC.register(KubeJSIntegration::onStarted);
+		CustomFilterDisplayItemsEvent.ADD_ITEMSTACK.register(KubeJSIntegration::onCustomFilterItem);
 
 		Stages.added(event -> {
 			if (event.getPlayer() instanceof ServerPlayer sp) StageTask.checkStages(sp);
@@ -45,6 +47,10 @@ public class KubeJSIntegration extends KubeJSPlugin {
 	@Override
 	public void registerEvents() {
 		FTBQuestsKubeJSEvents.EVENT_GROUP.register();
+	}
+
+	private static void onCustomFilterItem(CustomFilterDisplayItemsEvent event) {
+		FTBQuestsKubeJSEvents.CUSTOM_FILTER_ITEM.post(ScriptType.CLIENT, new CustomFilterItemEventJS(event));
 	}
 
 	public static EventResult onCustomTask(CustomTaskEvent event) {
