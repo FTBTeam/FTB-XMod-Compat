@@ -14,7 +14,7 @@ public class FTBXModCompatFabric implements ModInitializer {
             WaystonesCompat.init();
         }
 
-        if (FTBXModCompat.isCommonProtLoaded) {
+        if (FTBXModCompat.isFTBChunksLoaded && FTBXModCompat.isCommonProtLoaded) {
             FTBChunksProtectionProvider.init();
         }
     }
