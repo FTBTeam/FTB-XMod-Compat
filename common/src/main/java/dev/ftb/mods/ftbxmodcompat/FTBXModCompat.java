@@ -16,6 +16,7 @@ public class FTBXModCompat {
     public static boolean isFTBQuestsLoaded;
     public static boolean isFTBChunksLoaded;
     public static boolean isFTBRanksLoaded;
+    public static boolean isFTBEssentialsLoaded;
 
     public static boolean isKubeJSLoaded;
     public static boolean isGameStagesLoaded;
@@ -42,6 +43,7 @@ public class FTBXModCompat {
         isFTBQuestsLoaded = Platform.isModLoaded("ftbquests");
         isFTBChunksLoaded = Platform.isModLoaded("ftbchunks");
         isFTBRanksLoaded = Platform.isModLoaded("ftbranks");
+        isFTBEssentialsLoaded = Platform.isModLoaded("ftbessentials");
 
         isKubeJSLoaded = Platform.isModLoaded("kubejs");
         isGameStagesLoaded = Platform.isModLoaded("gamestages");
