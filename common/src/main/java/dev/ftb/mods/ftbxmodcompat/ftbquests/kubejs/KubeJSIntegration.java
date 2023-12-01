@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class KubeJSIntegration extends KubeJSPlugin {
+	@Override
 	public void init() {
 		CustomTaskEvent.EVENT.register(KubeJSIntegration::onCustomTask);
 		CustomRewardEvent.EVENT.register(KubeJSIntegration::onCustomReward);
