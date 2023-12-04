@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4]
+
+### Fixed
+
+* Fixed FTB Ranks / Luckperms integration not being picked up correctly due to bug introduced in 2.0.2
+
 ## [2.0.3]
 
 ### Fixed
@@ -13,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Basic KJS/FTB Teams integration; fire events when a player joins or leaves a team
+* Added configurability for backend implementations of stages and permissions mods
 
 ## [2.0.1]
 
