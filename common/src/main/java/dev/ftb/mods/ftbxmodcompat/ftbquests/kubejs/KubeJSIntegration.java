@@ -32,7 +32,7 @@ public class KubeJSIntegration extends KubeJSPlugin {
 			if (event.getPlayer() instanceof ServerPlayer sp) StageTask.checkStages(sp);
 		});
 
-		FTBXModCompat.LOGGER.info("FTB Quests: Enabled KubeJS integration");
+		FTBXModCompat.LOGGER.info("[FTB Quests] Enabled KubeJS integration");
 	}
 
 	@Override

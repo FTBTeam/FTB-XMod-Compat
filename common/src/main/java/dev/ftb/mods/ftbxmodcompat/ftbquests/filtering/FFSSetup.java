@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 class FFSSetup {
     public static void init() {
         FTBQuestsAPI.api().registerFilterAdapter(new FFSAdapter());
-        FTBXModCompat.LOGGER.info("FTB Quests: Enabled FTB Filter System integration");
+        FTBXModCompat.LOGGER.info("[FTB Quests] Enabled FTB Filter System integration");
     }
 
     private static class FFSAdapter implements ItemFilterAdapter {

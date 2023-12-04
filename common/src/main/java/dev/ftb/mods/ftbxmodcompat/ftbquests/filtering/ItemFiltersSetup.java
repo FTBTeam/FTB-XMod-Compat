@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 class ItemFiltersSetup {
     public static void init() {
         FTBQuestsAPI.api().registerFilterAdapter(new ItemFiltersAdapter());
-        FTBXModCompat.LOGGER.info("FTB Quests: Enabled Item Filters integration");
+        FTBXModCompat.LOGGER.info("[FTB Quests] Enabled Item Filters integration");
     }
 
     private static class ItemFiltersAdapter implements ItemFilterAdapter {
