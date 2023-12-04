@@ -4,6 +4,7 @@ import dev.ftb.mods.ftblibrary.integration.permissions.PermissionHelper;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig.PermSelector;
+import org.jetbrains.annotations.NotNull;
 
 public class PermissionsSetup {
     public static void init() {
@@ -13,13 +14,25 @@ public class PermissionsSetup {
             sel = PermSelector.DEFAULT;
         }
 
+        PermissionHelper pHelper = setupPermissionHelper(sel);
+
+        FTBXModCompat.LOGGER.info("Chose [{}] as the active permissions implementation", pHelper.getProvider().getName());
+    }
+
+    @NotNull
+    private static PermissionHelper setupPermissionHelper(PermSelector sel) {
         PermissionHelper pHelper = PermissionHelper.INSTANCE;
         switch (sel) {
             case LUCKPERMS -> pHelper.setProviderImpl(new LuckPermsProvider());
             case FTB_RANKS -> pHelper.setProviderImpl(new FTBRanksProvider());
-            case DEFAULT -> { /* do nothing, this is the fallback */ }
+            case DEFAULT -> {
+                if (FTBXModCompat.isFTBRanksLoaded) {
+                    pHelper.setProviderImpl(new FTBRanksProvider());
+                } else if (FTBXModCompat.isLuckPermsLoaded) {
+                    pHelper.setProviderImpl(new LuckPermsProvider());
+                }
+            }
         }
-
-        FTBXModCompat.LOGGER.info("Chose [{}] as the active permissions implementation", pHelper.getProvider().getName());
+        return pHelper;
     }
 }
