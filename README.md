@@ -28,9 +28,17 @@ If either REI or JEI is present:
 * FTB Quests will use that mod for displaying the items obtained from any configured loot crates (rewards from the reward table which have loot crates enabled)
 * FTB Quests will use that mod to show the recipes for items in item tasks (as viewed in the quest display panel)
 
+### Item Filters and FTB Filter System
+
+As of version 2.1.0, FTB XMod Compat provides FTB Quests integration for the Item Filters and FTB Filter System mods. Item Filters was previously a hard dependency for FTB Quests, but is now an optional dependency, along with the new FTB Filter System mod. Using FTB Filter System will be the recommended path for future modpacks.
+
+With KubeJS installed, FTB Filter System's "Custom" filter fires a KubeJS event allowing pack developers to match items using an external KJS script. See https://github.com/FTBTeam/FTB-Filter-System/blob/main/README.md for more information on this, including examples.
+
 ### Fallbacks
 
 If neither KubeJS nor Game Stages is loaded, FTB Quests will use an inbuilt stages implementation based on string "tags" which can be added to players. This works but is extremely limited in functionality (either a player has a given tag, or doesn't).
+
+If neither Item Filters nor FTB Filter System is load, only simple item matching will be available for FTB Quests item tasks.
 
 ## FTB Chunks
 
