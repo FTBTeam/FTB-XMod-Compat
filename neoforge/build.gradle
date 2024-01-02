@@ -7,16 +7,11 @@ def ENV = System.getenv()
 
 architectury {
     platformSetupLoomIde()
-    forge()
+    neoForge()
 }
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
-
-    forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-    }
 }
 
 configurations {
@@ -24,22 +19,30 @@ configurations {
     shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
+    developmentNeoForge.extendsFrom common
+}
+
+repositories {
+    maven {
+        url "https://maven.neoforged.net/releases/"
+    }
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+    neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
+    modApi "dev.architectury:architectury-neoforge:${rootProject.architectury_version}"
 
-    modApi("dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}") { transitive false }
-    modApi("dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}")
-    modApi("dev.ftb.mods:ftb-chunks-forge:${rootProject.ftb_chunks_version}")
-    modApi("dev.ftb.mods:ftb-ranks-forge:${rootProject.ftb_ranks_version}")
-    modApi("dev.ftb.mods:ftb-essentials-forge:${rootProject.ftb_essentials_version}")
-    modApi("dev.ftb.mods:ftb-teams-forge:${rootProject.ftb_teams_version}")
+    modApi("dev.ftb.mods:ftb-library-neoforge:${rootProject.ftb_library_version}") { transitive false }
+    modApi("dev.ftb.mods:ftb-quests-neoforge:${rootProject.ftb_quests_version}")
+    modApi("dev.ftb.mods:ftb-chunks-neoforge:${rootProject.ftb_chunks_version}")
+    modApi("dev.ftb.mods:ftb-ranks-neoforge:${rootProject.ftb_ranks_version}")
+    modApi("dev.ftb.mods:ftb-essentials-neoforge:${rootProject.ftb_essentials_version}")
+    modApi("dev.ftb.mods:ftb-teams-neoforge:${rootProject.ftb_teams_version}")
 
-    modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
+    modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}")
+    compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
+
+    // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
 
     modCompileOnly("dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}")
@@ -48,10 +51,8 @@ dependencies {
 
     modCompileOnly("mezz.jei:jei-1.20.2-forge-api:${rootProject.jei_version}")
 
-    compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
-
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 }
 
 apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/extra-local-mods.gradle"
@@ -60,7 +61,16 @@ processResources {
     inputs.property "version", project.version
 
     filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+        expand "version": project.version,
+                "archversion": project.architectury_version,
+                "neoforgeversion": project.neoforge_version,
+                "neoforgeloaderversion": project.neoforge_loader_version,
+                "mcversion": project.minecraft_version,
+                "ftblibraryversion": project.ftb_library_version,
+                "ftbquestsversion": project.ftb_quests_version,
+                "ftbchunksversion": project.ftb_chunks_version,
+                "ftbranksversion": project.ftb_ranks_version,
+                "ftbteamsversion": project.ftb_teams_version
     }
 }
 

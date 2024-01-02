@@ -17,6 +17,7 @@ import eu.pb4.common.protection.api.ProtectionProvider;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -150,7 +151,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
     private static class OfflineServerPlayer extends ServerPlayer {
         public OfflineServerPlayer(ServerLevel serverLevel, GameProfile gameProfile) {
-            super(serverLevel.getServer(), serverLevel, gameProfile);
+            super(serverLevel.getServer(), serverLevel, gameProfile, ClientInformation.createDefault());
         }
     }
 }
