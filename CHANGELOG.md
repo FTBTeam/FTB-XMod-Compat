@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.2]
+
+### Changed
+* Ported to Minecraft 1.20.4. Supports Forge, NeoForge and Fabric.
+  * Integration is not available for KubeJS or Gamestages, since those mods are not yet releases on 1.20.4
+
 ## [2.1.0]
 
 ### Added
-
 * Added FTB Quests integration for Item Filters and FTB Filter System mods
   * FTB Quests 2001.3.0 now required; it now supports external filtering mods via an abstraction layer
   * Item Filter is no longer a hard dependency for FTB Quests; it's supported along with FTB Filter System by FTB XMod Compat
@@ -15,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.4]
 
 ### Fixed
-
 * Fixed FTB Ranks / Luckperms integration not being picked up correctly due to bug introduced in 2.0.2
 
 ## [2.0.3]

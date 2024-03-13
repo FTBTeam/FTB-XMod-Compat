@@ -15,70 +15,70 @@ Provides cross-mod compatibilty/integration for all main FTB mods
 
 [[dependencies.ftbxmodcompat]]
 modId = "neoforge"
-mandatory = true
+type = "required"
 versionRange = "[${neoforgeversion},)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "minecraft"
-mandatory = true
+type = "required"
 versionRange = "[${mcversion},)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "architectury"
-mandatory = true
+type = "required"
 versionRange = "[${archversion},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftblibrary"
-mandatory = true
+type = "required"
 versionRange = "[${ftblibraryversion},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbquests"
-mandatory = false
+type = "optional"
 versionRange = "[${ftbquestsversion},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbchunks"
-mandatory = false
+type = "optional"
 versionRange = "[${ftbchunksversion},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "ftbranks"
-mandatory = false
+type = "optional"
 versionRange = "[${ftbranksversion},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "jei"
-mandatory = false
+type = "optional"
 versionRange = "[16,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "kubejs"
-mandatory = false
+type = "optional"
 versionRange = "[2001.6.3,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "luckperms"
-mandatory = false
+type = "optional"
 versionRange = "[5.4.112,)"
 ordering = "AFTER"
 side = "SERVER"
