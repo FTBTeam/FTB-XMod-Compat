@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.4]
 
 ### Fixed
-* Fixed FTB Ranks / Luckperms integration not being picked up correctly due to bug introduced in 2.0.2
+* Fixed FTB Ranks / Luckperms integration not being picked  up correctly due to bug introduced in 2.0.2
 
 ## [2.0.3]
 
