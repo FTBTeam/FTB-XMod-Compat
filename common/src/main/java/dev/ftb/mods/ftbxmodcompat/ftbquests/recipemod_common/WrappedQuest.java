@@ -3,6 +3,7 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 import com.google.common.collect.ImmutableList;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
+import dev.ftb.mods.ftbquests.integration.item_filtering.ItemMatchingSystem;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
@@ -10,7 +11,6 @@ import dev.ftb.mods.ftbquests.quest.reward.RandomReward;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.ItemTask;
 import dev.ftb.mods.ftbquests.quest.task.Task;
-import dev.latvian.mods.itemfilters.api.ItemFiltersAPI;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -48,9 +48,8 @@ public class WrappedQuest {
                 ItemStack stack = object instanceof ItemStack ? (ItemStack) object : ItemStack.EMPTY;
 
                 if (!stack.isEmpty()) {
-                    List<ItemStack> list = new ArrayList<>();
-                    ItemFiltersAPI.getDisplayItemStacks(stack, list);
-                    input.add(List.copyOf(list));
+                    // TODO using non-API access to FTBQ here
+                    input.add(List.copyOf(ItemMatchingSystem.INSTANCE.getAllMatchingStacks(stack)));
                 } else if (task.getIcon() instanceof ItemIcon itemIcon) {
                     stack = itemIcon.getStack().copy();
                     stack.setHoverName(task.getTitle());

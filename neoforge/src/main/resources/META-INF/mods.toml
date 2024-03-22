@@ -1,0 +1,84 @@
+modLoader = "javafml"
+loaderVersion = "[${neoforgeloaderversion},)"
+#issueTrackerURL = ""
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "ftbxmodcompat"
+version = "${version}"
+displayName = "FTB XMod Compat"
+authors = "FTB Team"
+description = '''
+Provides cross-mod compatibilty/integration for all main FTB mods
+'''
+#logoFile = ""
+
+[[dependencies.ftbxmodcompat]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neoforgeversion},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "minecraft"
+type = "required"
+versionRange = "[${mcversion},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "architectury"
+type = "required"
+versionRange = "[${archversion},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "ftblibrary"
+type = "required"
+versionRange = "[${ftblibraryversion},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "ftbquests"
+type = "optional"
+versionRange = "[${ftbquestsversion},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "ftbchunks"
+type = "optional"
+versionRange = "[${ftbchunksversion},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "ftbranks"
+type = "optional"
+versionRange = "[${ftbranksversion},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "jei"
+type = "optional"
+versionRange = "[16,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "kubejs"
+type = "optional"
+versionRange = "[2001.6.3,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
+modId = "luckperms"
+type = "optional"
+versionRange = "[5.4.112,)"
+ordering = "AFTER"
+side = "SERVER"

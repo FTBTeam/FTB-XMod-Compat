@@ -8,7 +8,8 @@ import net.minecraft.world.level.Level;
 import java.util.*;
 
 public class WaystonesCommon {
-    private static final Map<ResourceKey<Level>, List<WaystoneMapIcon>> WAYSTONES = new HashMap<>();
+    private static final Map<ResourceKey<Level>, Map<UUID,WaystoneMapIcon>> WAYSTONES = new HashMap<>();
+    private static final Map<UUID,ResourceKey<Level>> BY_ID = new HashMap<>();
 
     public static void init() {
         MapIconEvent.MINIMAP.register(WaystonesCommon::mapWidgets);
@@ -17,19 +18,22 @@ public class WaystonesCommon {
         FTBXModCompat.LOGGER.info("[FTB Chunks] Enabled Waystones integration");
     }
 
-    public static void updateWaystones(List<WaystoneData> waystoneData) {
-        WAYSTONES.clear();
-
-        waystoneData.forEach(w -> WAYSTONES.computeIfAbsent(w.dimension(), k -> new ArrayList<>()).add(w.icon()));
+    public static void mapWidgets(MapIconEvent event) {
+        WAYSTONES.getOrDefault(event.getDimension(), Collections.emptyMap())
+                .values().forEach(event::add);
     }
 
-    public static void mapWidgets(MapIconEvent event) {
-        List<WaystoneMapIcon> list = WAYSTONES.getOrDefault(event.getDimension(), Collections.emptyList());
-
-        if (!list.isEmpty()) {
-            for (WaystoneMapIcon icon : list) {
-                event.add(icon);
-            }
+    public static void removeWaystone(UUID waystoneId) {
+        var dim = BY_ID.get(waystoneId);
+        if (dim != null && WAYSTONES.containsKey(dim)) {
+            WAYSTONES.get(dim).remove(waystoneId);
+            BY_ID.remove(waystoneId);
         }
+    }
+
+    public static void updateWaystone(UUID waystoneUid, WaystoneData waystoneData) {
+        WAYSTONES.computeIfAbsent(waystoneData.dimension(), k -> new HashMap<>())
+                .put(waystoneUid, waystoneData.icon());
+        BY_ID.put(waystoneUid, waystoneData.dimension());
     }
 }

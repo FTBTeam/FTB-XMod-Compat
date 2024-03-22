@@ -6,14 +6,15 @@ import dev.ftb.mods.ftblibrary.icon.Icon;
 import dev.ftb.mods.ftblibrary.util.TooltipList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 
 public class WaystoneMapIcon extends StaticMapIcon {
 	public static final Icon ICON = Icon.getIcon("ftbchunks:textures/waystone.png");
 	public static final Icon ICON_GLOBAL = ICON.withTint(Color4I.rgb(0xEB78E5));
-	public final String name;
+	public final Component name;
 	public final boolean global;
 
-	public WaystoneMapIcon(BlockPos pos, String n, boolean g) {
+	public WaystoneMapIcon(BlockPos pos, Component n, boolean g) {
 		super(pos);
 		name = n;
 		global = g;
@@ -27,7 +28,7 @@ public class WaystoneMapIcon extends StaticMapIcon {
 
 	@Override
 	public void addTooltip(TooltipList list) {
-		list.string(name);
+		list.add(name);
 
 		if (global) {
 			list.styledString("Global", ChatFormatting.LIGHT_PURPLE);

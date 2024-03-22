@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbxmodcompat.fabric.ftbchunks.waystones;
+package dev.ftb.mods.ftbxmodcompat.neoforge.ftbchunks.waystones;
 
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystoneData;
@@ -7,9 +7,7 @@ import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystonesCommon;
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.waystones.api.Waystone;
 import net.blay09.mods.waystones.api.WaystoneVisibility;
-import net.blay09.mods.waystones.api.event.WaystoneRemoveReceivedEvent;
-import net.blay09.mods.waystones.api.event.WaystoneUpdatedEvent;
-import net.blay09.mods.waystones.api.event.WaystonesLoadedEvent;
+import net.blay09.mods.waystones.api.event.*;
 
 public class WaystonesCompat {
 	public static void init() {
