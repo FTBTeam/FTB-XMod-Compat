@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat;
 
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.snbt.config.ConfigUtil;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
@@ -35,6 +36,10 @@ public class FTBXModCompat {
 
         ConfigUtil.loadDefaulted(FTBXModConfig.CONFIG, ConfigUtil.CONFIG_DIR, MOD_ID);
 
+        LifecycleEvent.SETUP.register(FTBXModCompat::onSetup);
+    }
+
+    private static void onSetup() {
         StagesSetup.init();
         PermissionsSetup.init();
         if (isFTBQuestsLoaded) {
