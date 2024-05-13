@@ -143,7 +143,7 @@ if (ENV.CURSEFORGE_KEY) {
         project {
             id = project.curseforge_id
             releaseType = ftbPublishing.relType
-            addGameVersion "Forge"
+            addGameVersion "NeoForge"
             addGameVersion project.minecraft_version
             mainArtifact(remapJar.archiveFile)
             relations {
