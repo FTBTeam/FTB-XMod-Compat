@@ -45,7 +45,7 @@ dependencies {
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
 
-    modCompileOnly("dev.latvian.mods:kubejs-forge:${rootProject.kubejs_version}")
+    modCompileOnly("dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}")
     modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
     modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
@@ -60,7 +60,7 @@ apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/ext
 processResources {
     inputs.property "version", project.version
 
-    filesMatching("META-INF/mods.toml") {
+    filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version,
                 "archversion": project.architectury_version,
                 "neoforgeversion": project.neoforge_version,

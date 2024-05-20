@@ -2,8 +2,8 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
+import dev.ftb.mods.ftbquests.registry.ModItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.LootCrateTextRenderer;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
 import mezz.jei.api.constants.VanillaTypes;
@@ -51,7 +51,7 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 				if (!crates.isEmpty()) {
 					GuiHelper.drawItem(graphics, crates.get((int) ((System.currentTimeMillis() / 1000L) % crates.size())).crateStack, 0, true, null);
 				} else {
-					GuiHelper.drawItem(graphics, new ItemStack(FTBQuestsItems.LOOTCRATE.get()), 0, true, null);
+					GuiHelper.drawItem(graphics, new ItemStack(ModItems.LOOTCRATE.get()), 0, true, null);
 				}
 
 				poseStack.popPose();
@@ -87,7 +87,7 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 					.addIngredients(() -> Ingredient.class, recipe.outputIngredients())
 					.addTooltipCallback((recipeSlotView, tooltip) -> recipeSlotView.getDisplayedIngredient()
 							.flatMap(ingr -> ingr.getIngredient(VanillaTypes.ITEM_STACK)).ifPresent(stack -> {
-								if (ItemStack.isSameItemSameTags(stack, recipe.outputs.get(finalSlot))) {
+								if (ItemStack.isSameItemSameComponents(stack, recipe.outputs.get(finalSlot))) {
 									String chanceStr = ChatFormatting.GOLD + WeightedReward.chanceString(
 											recipe.sortedRewards.get(finalSlot).getWeight(),
 											recipe.crate.getTable().getTotalWeight(true)

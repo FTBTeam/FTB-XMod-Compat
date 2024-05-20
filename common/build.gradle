@@ -26,7 +26,7 @@ dependencies {
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
-    modCompileOnlyApi "dev.latvian.mods:kubejs:${rootProject.kubejs_version}"
+    modCompileOnlyApi "dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}"
 }
 
 publishing {

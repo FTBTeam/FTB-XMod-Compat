@@ -2,7 +2,6 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 
 import it.unimi.dsi.fastutil.Hash;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenCustomHashMap;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -40,18 +39,12 @@ public class ItemStackToListCache<T> {
     private static class ItemStackHashingStrategy implements Hash.Strategy<ItemStack> {
         @Override
         public int hashCode(ItemStack object) {
-            int hashCode = Item.getId(object.getItem());
-            if (object.getTag() != null)
-                hashCode += 37 * object.getTag().hashCode();
-            return hashCode;
+            return ItemStack.hashItemAndComponents(object);
         }
 
         @Override
         public boolean equals(ItemStack o1, ItemStack o2) {
-            return (o1 == o2) ||
-                    o1 != null && o2 != null
-                            && o1.getItem() == o2.getItem()
-                            && (o1.getTag() == null || o1.getTag().equals(o2.getTag()));
+            return ItemStack.isSameItemSameComponents(o1, o2);
         }
     }
 }

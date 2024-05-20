@@ -1,6 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
+import dev.ftb.mods.ftbquests.registry.ModItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrateCache;
 import mezz.jei.api.constants.VanillaTypes;
@@ -33,7 +33,7 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     public <V> List<RecipeType<?>> getRecipeTypes(IFocus<V> focus) {
         if (focus.getTypedValue().getIngredient() instanceof ItemStack stack)
             if (focus.getRole() == RecipeIngredientRole.INPUT) {
-                if (stack.getItem() == FTBQuestsItems.LOOTCRATE.get()) {
+                if (stack.getItem() == ModItems.LOOTCRATE.get()) {
                     return List.of(JEIRecipeTypes.LOOT_CRATE);
                 }
             } else if (focus.getRole() == RecipeIngredientRole.OUTPUT) {
@@ -48,7 +48,7 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     @Override
     public <T, V> List<T> getRecipes(IRecipeCategory<T> recipeCategory, IFocus<V> focus) {
         if (recipeCategory instanceof LootCrateCategory && focus.getTypedValue().getIngredient() instanceof ItemStack stack) {
-            if (stack.getItem() == FTBQuestsItems.LOOTCRATE.get() && focus.getRole() == RecipeIngredientRole.CATALYST) {
+            if (stack.getItem() == ModItems.LOOTCRATE.get() && focus.getRole() == RecipeIngredientRole.CATALYST) {
                 // safe to cast here since we've checked the category
                 //noinspection unchecked
                 return (List<T>) cache.getWrappedLootCrates();

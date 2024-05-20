@@ -1,8 +1,8 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.rei;
 
 import com.google.common.collect.Lists;
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
+import dev.ftb.mods.ftbquests.registry.ModItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.LootCrateTextRenderer;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
 import me.shedaniel.math.Point;
@@ -34,7 +34,7 @@ public class LootCrateDisplayCategory implements DisplayCategory<LootCrateDispla
 
     @Override
     public Renderer getIcon() {
-        return EntryStack.of(VanillaEntryTypes.ITEM, new ItemStack(FTBQuestsItems.LOOTCRATE.get()));
+        return EntryStack.of(VanillaEntryTypes.ITEM, new ItemStack(ModItems.LOOTCRATE.get()));
     }
 
     @Override

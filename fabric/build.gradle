@@ -46,7 +46,7 @@ dependencies {
 
     modCompileOnly("eu.pb4:common-protection-api:${common_prot_api_version}") { transitive = false }
 
-    modCompileOnly "dev.latvian.mods:kubejs-fabric:${rootProject.kubejs_version}"
+//    modCompileOnly "dev.latvian.mods:kubejs-fabric:${rootProject.kubejs_version}"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
 
     // compile-only because for some reason loom isn't deobfuscating these...
