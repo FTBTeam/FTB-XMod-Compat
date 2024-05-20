@@ -35,6 +35,6 @@ public class AfterEventJS extends EntityEventJS {
     }
 
 	public BlockPos getClaimPos() {
-		return chunk.getPos().getChunkPos().getWorldPosition();
+		return chunk.getPos().chunkPos().getWorldPosition();
 	}
 }

@@ -11,13 +11,14 @@ import dev.ftb.mods.ftbquests.quest.reward.RandomReward;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.ItemTask;
 import dev.ftb.mods.ftbquests.quest.task.Task;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,12 +53,12 @@ public class WrappedQuest {
                     input.add(List.copyOf(ItemMatchingSystem.INSTANCE.getAllMatchingStacks(stack)));
                 } else if (task.getIcon() instanceof ItemIcon itemIcon) {
                     stack = itemIcon.getStack().copy();
-                    stack.setHoverName(task.getTitle());
+                    stack.set(DataComponents.CUSTOM_NAME, task.getTitle());
                     input.add(Collections.singletonList(stack));
                 } else {
                     stack = new ItemStack(Items.PAINTING);
-                    stack.setHoverName(task.getTitle());
-                    stack.addTagElement("icon", StringTag.valueOf(task.getIcon().toString()));
+                    stack.set(DataComponents.CUSTOM_NAME, task.getTitle());
+//                    stack.addTagElement("icon", StringTag.valueOf(task.getIcon().toString()));
                     input.add(Collections.singletonList(stack));
                 }
             }
@@ -88,7 +89,7 @@ public class WrappedQuest {
                     ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
                     if (table.shouldShowTooltip()) {
                         ItemStack unknown = new ItemStack(Items.BARRIER);
-                        unknown.setHoverName(Component.literal("Unknown Reward"));
+                        unknown.set(DataComponents.CUSTOM_NAME, Component.literal("Unknown Reward"));
                         builder.add(unknown);
                     } else {
                         for (WeightedReward wr : table.getWeightedRewards()) {
@@ -101,12 +102,12 @@ public class WrappedQuest {
                 }
             } else if (reward.getIcon() instanceof ItemIcon itemIcon) {
                 stack = itemIcon.getStack().copy();
-                stack.setHoverName(reward.getTitle());
+                stack.set(DataComponents.CUSTOM_NAME, reward.getTitle());
                 output.add(Collections.singletonList(stack));
             } else {
                 stack = new ItemStack(Items.PAINTING);
-                stack.setHoverName(reward.getTitle());
-                stack.addTagElement("icon", StringTag.valueOf(reward.getIcon().toString()));
+                stack.set(DataComponents.CUSTOM_NAME, reward.getTitle());
+//                stack.addTagElement("icon", StringTag.valueOf(reward.getIcon().toString()));
                 output.add(Collections.singletonList(stack));
             }
         }
@@ -121,21 +122,11 @@ public class WrappedQuest {
     }
 
 	public boolean hasInput(ItemStack stack) {
-		for (var l : input) {
-			for (var stack1 : l) {
-				if (ItemStack.isSameItemSameTags(stack1, stack)) return true;
-			}
-		}
-		return false;
+        return input.stream().flatMap(Collection::stream).anyMatch(stack1 -> ItemStack.isSameItemSameComponents(stack1, stack));
 	}
 
 	public boolean hasOutput(ItemStack stack) {
-		for (var l : output) {
-			for (var stack1 : l) {
-				if (ItemStack.isSameItemSameTags(stack1, stack)) return true;
-			}
-		}
-		return false;
+        return output.stream().flatMap(Collection::stream).anyMatch(stack1 -> ItemStack.isSameItemSameComponents(stack1, stack));
 	}
 
     public void openQuestGui() {

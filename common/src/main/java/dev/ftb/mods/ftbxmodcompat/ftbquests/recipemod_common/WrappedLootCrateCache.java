@@ -67,7 +67,7 @@ public class WrappedLootCrateCache {
 
     public List<WrappedLootCrate> findCratesWithInput(ItemStack stack) {
         return inputCache.getList(stack, k -> getWrappedLootCrates().stream()
-                .filter(crate -> ItemStack.isSameItemSameTags(crate.crateStack, stack))
+                .filter(crate -> ItemStack.isSameItemSameComponents(crate.crateStack, stack))
                 .toList()
         );
     }

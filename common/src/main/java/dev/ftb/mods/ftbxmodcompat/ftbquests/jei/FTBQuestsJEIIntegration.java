@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
+import dev.ftb.mods.ftbquests.registry.ModDataComponents;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.QuestItems;
 import mezz.jei.api.IModPlugin;
@@ -38,7 +39,7 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	public void registerItemSubtypes(ISubtypeRegistration r) {
 		if (FTBXModCompat.isFTBQuestsLoaded) {
 			r.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, QuestItems.lootCrate(),
-					(stack, uidContext) -> stack.hasTag() ? stack.getTag().getString("type") : "");
+					(stack, uidContext) -> stack.getOrDefault(ModDataComponents.LOOT_CRATE.get(),  ""));
 		}
 	}
 

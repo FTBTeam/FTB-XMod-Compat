@@ -29,9 +29,9 @@ public abstract class FTBQuestsKubeJSTeamData {
 	public void changeProgress(Object id, Consumer<ProgressChange> consumer) {
 		TeamData data = getData();
 		QuestObjectBase origin = data.getFile().getBase(data.getFile().getID(id));
-		ProgressChange progressChange = new ProgressChange(data.getFile(), origin, Util.NIL_UUID);
 
 		if (origin != null) {
+			ProgressChange progressChange = new ProgressChange(origin, Util.NIL_UUID);
 			consumer.accept(progressChange);
 			origin.forceProgressRaw(data, progressChange);
 		}

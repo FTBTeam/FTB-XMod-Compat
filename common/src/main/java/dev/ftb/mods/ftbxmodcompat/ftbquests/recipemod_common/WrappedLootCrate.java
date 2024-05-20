@@ -3,7 +3,7 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -37,12 +37,12 @@ public class WrappedLootCrate {
 				outputs.add(stack.copy());
 			} else if (reward.getReward().getIcon() instanceof ItemIcon) {
 				stack = ((ItemIcon) reward.getReward().getIcon()).getStack().copy();
-				stack.setHoverName(reward.getReward().getTitle());
+				stack.set(DataComponents.CUSTOM_NAME, reward.getReward().getTitle());
 				outputs.add(stack);
 			} else {
 				stack = new ItemStack(Items.PAINTING);
-				stack.setHoverName(reward.getReward().getTitle());
-				stack.addTagElement("icon", StringTag.valueOf(reward.getReward().getIcon().toString()));
+				stack.set(DataComponents.CUSTOM_NAME, reward.getReward().getTitle());
+//				stack.addTagElement("icon", StringTag.valueOf(reward.getReward().getIcon().toString()));
 				outputs.add(stack);
 			}
 		}
@@ -51,7 +51,7 @@ public class WrappedLootCrate {
 			cycledOutputs = new ArrayList<>(outputs.size());
 
 			for (ItemStack stack : outputs) {
-				cycledOutputs.add(Collections.singletonList(stack));
+				cycledOutputs.add(List.of(stack));
 			}
 		} else {
 			// too many items to fit in display; cycle them

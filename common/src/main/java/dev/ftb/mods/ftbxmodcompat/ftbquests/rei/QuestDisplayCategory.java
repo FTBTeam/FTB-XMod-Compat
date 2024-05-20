@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.rei;
 
 import com.google.common.collect.Lists;
-import dev.ftb.mods.ftbquests.item.FTBQuestsItems;
+import dev.ftb.mods.ftbquests.registry.ModItems;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -32,7 +32,7 @@ public class QuestDisplayCategory implements DisplayCategory<QuestDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStack.of(VanillaEntryTypes.ITEM, new ItemStack(FTBQuestsItems.BOOK.get()));
+        return EntryStack.of(VanillaEntryTypes.ITEM, new ItemStack(ModItems.BOOK.get()));
     }
 
     @Override
