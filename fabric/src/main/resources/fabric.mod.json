@@ -23,9 +23,9 @@
   },
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.20.1",
-    "architectury": ">=9.0.8",
-    "ftblibrary": ">=2001.1.3"
+    "minecraft": ">=${mcversion}",
+    "architectury": ">=${archversion}",
+    "ftblibrary": ">=${ftblibraryversion}"
   },
   "breaks": {
     "ftbquests": "<2001.3.0",
