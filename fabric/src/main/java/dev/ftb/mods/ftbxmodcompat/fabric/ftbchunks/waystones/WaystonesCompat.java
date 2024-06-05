@@ -9,7 +9,6 @@ import net.blay09.mods.waystones.api.Waystone;
 import net.blay09.mods.waystones.api.WaystoneVisibility;
 import net.blay09.mods.waystones.api.event.WaystoneRemoveReceivedEvent;
 import net.blay09.mods.waystones.api.event.WaystoneUpdatedEvent;
-import net.blay09.mods.waystones.api.event.WaystonesLoadedEvent;
 
 public class WaystonesCompat {
 	public static void init() {
