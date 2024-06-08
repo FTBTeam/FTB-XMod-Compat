@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
+import dev.architectury.fluid.FluidStack;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.QuestItems;
@@ -71,6 +72,16 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 			runtime.getIngredientManager().getIngredientTypeChecked(stack)
 					.ifPresent(type -> runtime.getRecipesGui().show(
 							runtime.getJeiHelpers().getFocusFactory().createFocus(RecipeIngredientRole.OUTPUT, type, stack)
+					));
+		}
+	}
+
+	public static void showRecipes(FluidStack stack) {
+		if (runtime != null) {
+			var nativeStack = runtime.getJeiHelpers().getPlatformFluidHelper().create(stack.getFluid(), stack.getAmount());
+			runtime.getIngredientManager().getIngredientTypeChecked(nativeStack)
+					.ifPresent(type -> runtime.getRecipesGui().show(
+							runtime.getJeiHelpers().getFocusFactory().createFocus(RecipeIngredientRole.OUTPUT, type, nativeStack)
 					));
 		}
 	}
