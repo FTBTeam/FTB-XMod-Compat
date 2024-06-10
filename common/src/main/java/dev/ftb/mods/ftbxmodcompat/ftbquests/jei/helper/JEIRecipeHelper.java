@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei.helper;
 
+import dev.architectury.fluid.FluidStack;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.LootCrateRecipeManagerPlugin;
@@ -15,6 +16,11 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
     @Override
     public void showRecipes(ItemStack itemStack) {
         FTBQuestsJEIIntegration.showRecipes(itemStack);
+    }
+
+    @Override
+    public void showRecipes(FluidStack fluidStack) {
+        FTBQuestsJEIIntegration.showRecipes(fluidStack);
     }
 
     @Override
