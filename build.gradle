@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.5.1"
 }
 
 architectury {
@@ -81,7 +82,7 @@ allprojects {
         }
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release = 21
     }
@@ -89,6 +90,85 @@ allprojects {
     java {
         withSourcesJar()
     }
+
+    publishing {
+        repositories {
+            if (ftbPublishing.ftbToken) {
+                maven {
+                    url ftbPublishing.ftbURL
+                    credentials {
+                        username = ftbPublishing.ftbUser
+                        password = ftbPublishing.ftbToken
+                    }
+                }
+            }
+
+            if (ftbPublishing.sapsToken) {
+                maven {
+                    url ftbPublishing.sapsURL
+                    credentials {
+                        username = ftbPublishing.sapsUser
+                        password = ftbPublishing.sapsToken
+                    }
+                }
+            }
+        }
+    }
 }
 
-task curseforgePublish
+publishMods {
+    dryRun = providers.environmentVariable("CURSEFORGE_KEY").getOrNull() == null
+    changelog = providers.environmentVariable("CHANGELOG").getOrElse("No changelog provided")
+    version = "${mod_version}"
+
+    // TODO: Migrate to something else
+    def tag = providers.environmentVariable("TAG").getOrElse("release")
+    type = tag == "beta" ? BETA : (tag == "alpha" ? ALPHA : STABLE)
+
+    def createOptions = (String projectName) -> {
+        publishOptions {
+            file = project.provider { project(":$projectName").tasks.remapJar }.flatMap { it.archiveFile }
+            displayName = "[${projectName.toUpperCase()}][${minecraft_version}] ${readable_name} ${mod_version}"
+            modLoaders.add(projectName.toLowerCase())
+        }
+    }
+
+    def fabricOptions = createOptions("fabric")
+    def neoForgeOptions = createOptions("neoforge")
+//    def forgeOptions = createOptions("forge")
+
+    def curseForgeOptions = curseforgeOptions {
+        accessToken = providers.environmentVariable("CURSEFORGE_KEY")
+        projectId = curseforge_id
+        minecraftVersions.add("${minecraft_version}")
+        requires('architectury-api')
+        optional('jei')
+        optional('roughly-enough-items')
+    }
+
+    curseforge("curseforgeFabric") {
+        from(curseForgeOptions, fabricOptions)
+        requires('fabric-api')
+        requires('ftb-library-fabric')
+        optional('ftb-quests-fabric')
+        optional('ftb-ranks-fabric')
+        optional('waystones-fabric')
+    }
+
+    curseforge("curseforgeNeoForge") {
+        from(curseForgeOptions, neoForgeOptions)
+        requires('ftb-library-neoforge')
+        optional('ftb-quests-neoforge')
+        optional('ftb-ranks-neoforge')
+        optional('waystones')
+        optional('kubejs')
+    }
+
+//    curseforge("curseforgeForge") {
+//        from(curseForgeOptions, forgeOptions)
+//        requires('ftb-library-forge')
+//        optional('ftb-quests-forge')
+//        optional('ftb-ranks-forge')
+//        optional('waystones')
+//    }
+}

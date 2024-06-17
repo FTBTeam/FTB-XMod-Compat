@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.TimeUnit;
 
 public class FTBChunksProtectionProvider implements ProtectionProvider {
-    public static ResourceLocation ID = new ResourceLocation(FTBChunks.MOD_ID, "provider");
+    public static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FTBChunks.MOD_ID, "provider");
     private static LoadingCache<GameProfile, ServerPlayer> FAKE_PLAYERS = null;
 
     public static void init() {

@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 public class QuestItems {
-    private static final ResourceKey<Item> QUEST_BOOK = ResourceKey.create(Registries.ITEM, new ResourceLocation("ftbquests:book"));
-    private static final ResourceKey<Item> LOOT_CRATE = ResourceKey.create(Registries.ITEM, new ResourceLocation("ftbquests:lootcrate"));
+    private static final ResourceKey<Item> QUEST_BOOK = ResourceKey.create(Registries.ITEM, ResourceLocation.parse("ftbquests:book"));
+    private static final ResourceKey<Item> LOOT_CRATE = ResourceKey.create(Registries.ITEM, ResourceLocation.parse("ftbquests:lootcrate"));
 
     private static Item questBook;
     private static Item lootCrate;

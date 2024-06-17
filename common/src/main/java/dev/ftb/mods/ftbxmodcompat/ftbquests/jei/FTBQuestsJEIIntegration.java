@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 
 @JeiPlugin
 public class FTBQuestsJEIIntegration implements IModPlugin {
-	private static final ResourceLocation UID = new ResourceLocation(FTBXModCompat.MOD_ID, "ftbquests_jei");
+	private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FTBXModCompat.MOD_ID, "ftbquests_jei");
 	public static IJeiRuntime runtime;
 
 	@Override

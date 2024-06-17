@@ -22,7 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class QuestCategory implements IRecipeCategory<WrappedQuest> {
-	public static final ResourceLocation TEXTURE = new ResourceLocation(FTBQuestsAPI.MOD_ID + ":textures/gui/jei/quest.png");
+	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FTBQuestsAPI.MOD_ID, "textures/gui/jei/quest.png");
 
 	private final IDrawable background;
 	private final IDrawable icon;
