@@ -49,7 +49,7 @@ dependencies {
     modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
     modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
-    modCompileOnly("mezz.jei:jei-1.20.4-forge-api:${rootProject.jei_version}")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
