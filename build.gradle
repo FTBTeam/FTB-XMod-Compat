@@ -157,9 +157,9 @@ publishMods {
 
     curseforge("curseforgeNeoForge") {
         from(curseForgeOptions, neoForgeOptions)
-        requires('ftb-library-neoforge')
-        optional('ftb-quests-neoforge')
-        optional('ftb-ranks-neoforge')
+        requires('ftb-library-forge')
+        optional('ftb-quests-forge')
+        optional('ftb-ranks-forge')
         optional('waystones')
         optional('kubejs')
     }
