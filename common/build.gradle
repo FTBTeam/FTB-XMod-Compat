@@ -22,7 +22,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-filter-system:${rootProject.ftb_filter_system_version}")
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
-    modCompileOnly("mezz.jei:jei-1.20.4-common-api:${rootProject.jei_version}")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
@@ -35,28 +35,6 @@ publishing {
             artifactId = rootProject.archives_base_name
             version ftbPublishing.mavenVersion
             from components.java
-        }
-    }
-
-    repositories {
-        if (ftbPublishing.ftbToken) {
-            maven {
-                url ftbPublishing.ftbURL
-                credentials {
-                    username = ftbPublishing.ftbUser
-                    password = ftbPublishing.ftbToken
-                }
-            }
-        }
-
-        if (ftbPublishing.sapsToken) {
-            maven {
-                url ftbPublishing.sapsURL
-                credentials {
-                    username = ftbPublishing.sapsUser
-                    password = ftbPublishing.sapsToken
-                }
-            }
         }
     }
 }

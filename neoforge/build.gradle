@@ -49,7 +49,7 @@ dependencies {
     modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
     modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
-    modCompileOnly("mezz.jei:jei-1.20.4-forge-api:${rootProject.jei_version}")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
@@ -107,60 +107,10 @@ components.java {
 
 publishing {
     publications {
-        mavenForge(MavenPublication) {
+        mavenNeoForge(MavenPublication) {
             artifactId = "${rootProject.archives_base_name}-${project.name}"
             version ftbPublishing.mavenVersion
             from components.java
         }
     }
-
-    repositories {
-        if (ftbPublishing.ftbToken) {
-            maven {
-                url ftbPublishing.ftbURL
-                credentials {
-                    username = ftbPublishing.ftbUser
-                    password = ftbPublishing.ftbToken
-                }
-            }
-        }
-
-        if (ftbPublishing.sapsToken) {
-            maven {
-                url ftbPublishing.sapsURL
-                credentials {
-                    username = ftbPublishing.sapsUser
-                    password = ftbPublishing.sapsToken
-                }
-            }
-        }
-    }
 }
-
-if (ENV.CURSEFORGE_KEY) {
-    curseforge {
-        apiKey = ENV.CURSEFORGE_KEY
-        project {
-            id = project.curseforge_id
-            releaseType = ftbPublishing.relType
-            addGameVersion "NeoForge"
-            addGameVersion project.minecraft_version
-            mainArtifact(remapJar.archiveFile)
-            relations {
-                requiredDependency 'architectury-api'
-                requiredDependency 'ftb-library-forge'
-                optionalDependency 'ftb-quests-forge'
-                optionalDependency 'ftb-ranks-forge'
-                optionalDependency 'kubejs'
-                optionalDependency 'jei'
-                optionalDependency 'roughly-enough-items'
-                optionalDependency 'game-stages'
-                optionalDependency 'waystones'
-            }
-            changelog = ENV.CHANGELOG  // expected to exist if ENV.CURSEFORGE_KEY does
-            changelogType = 'markdown'
-        }
-    }
-}
-
-rootProject.tasks.getByName("curseforgePublish").dependsOn tasks.getByName("curseforge")
