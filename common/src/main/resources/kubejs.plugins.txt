@@ -1,4 +1,0 @@
-dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs.KubeJSIntegration ftbquests
-dev.ftb.mods.ftbxmodcompat.ftbchunks.kubejs.FTBChunksKubeJSPlugin ftbchunks
-dev.ftb.mods.ftbxmodcompat.ftbteams.kubejs.FTBTeamsKubeJSPlugin ftbteams
-dev.ftb.mods.ftbxmodcompat.ftbfiltersystem.kubejs.FFSKubeJSPlugin ftbfiltersystem

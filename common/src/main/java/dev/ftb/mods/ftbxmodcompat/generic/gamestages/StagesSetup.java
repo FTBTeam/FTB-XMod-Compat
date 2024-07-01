@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.generic.gamestages;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.ftb.mods.ftblibrary.integration.stages.StageHelper;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
@@ -14,18 +15,24 @@ public class StagesSetup {
         }
 
         switch (sel) {
-            case KUBEJS -> StageHelper.getInstance().setProviderImpl(new KubeJSStageProvider());
+            case KUBEJS -> addKubeJSProvider();
             case GAMESTAGES -> StageHelper.getInstance().setProviderImpl(new GameStagesStageProvider());
             case VANILLA -> { /* do nothing, this is the fallback */ }
             case DEFAULT -> {
-                if (FTBXModCompat.isKubeJSLoaded) {
-                    StageHelper.getInstance().setProviderImpl(new KubeJSStageProvider());
+                // TODO: nothing for now, neither KJS nor Gamestages have a working stages implementation yet on 1.21
+               /* if (FTBXModCompat.isKubeJSLoaded) {
+                    addKubeJSProvider();
                 } else if (FTBXModCompat.isGameStagesLoaded) {
                     StageHelper.getInstance().setProviderImpl(new GameStagesStageProvider());
-                }
+                }*/
             }
         }
 
         FTBXModCompat.LOGGER.info("Chose [{}] as the active game stages implementation", StageHelper.getInstance().getProvider().getName());
+    }
+
+    @ExpectPlatform
+    public static void addKubeJSProvider() {
+        throw new AssertionError();
     }
 }

@@ -38,14 +38,15 @@ dependencies {
     modApi("dev.ftb.mods:ftb-ranks-neoforge:${rootProject.ftb_ranks_version}")
     modApi("dev.ftb.mods:ftb-essentials-neoforge:${rootProject.ftb_essentials_version}")
     modApi("dev.ftb.mods:ftb-teams-neoforge:${rootProject.ftb_teams_version}")
+    modApi("dev.ftb.mods:ftb-filter-system-neoforge:${rootProject.ftb_filter_system_version}")
 
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}")
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
+    modApi("dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}")
+
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
-
-    modCompileOnly("dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}")
     modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
     modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
