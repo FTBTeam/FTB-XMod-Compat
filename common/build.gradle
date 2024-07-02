@@ -25,8 +25,6 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
-
-    modCompileOnlyApi "dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}"
 }
 
 publishing {

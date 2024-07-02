@@ -65,14 +65,14 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "jei"
 type = "optional"
-versionRange = "[16,)"
+versionRange = "[19,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
 modId = "kubejs"
 type = "optional"
-versionRange = "[2001.6.3,)"
+versionRange = "[2100.7.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
