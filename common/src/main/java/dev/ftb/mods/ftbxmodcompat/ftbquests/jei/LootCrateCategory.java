@@ -84,7 +84,7 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 		for (int slot = 0; slot < Math.min(WrappedLootCrate.ITEMS, recipe.outputs.size()); slot++) {
 			int finalSlot = slot;
 			builder.addSlot(RecipeIngredientRole.OUTPUT, (slot % WrappedLootCrate.ITEMSX) * 18, (slot / WrappedLootCrate.ITEMSX) * 18 + 36)
-					.addIngredients(() -> Ingredient.class, recipe.outputIngredients())
+					.addIngredients(recipe.outputIngredients().get(slot))
 					.addTooltipCallback((recipeSlotView, tooltip) -> recipeSlotView.getDisplayedIngredient()
 							.flatMap(ingr -> ingr.getIngredient(VanillaTypes.ITEM_STACK)).ifPresent(stack -> {
 								if (ItemStack.isSameItemSameTags(stack, recipe.outputs.get(finalSlot))) {
