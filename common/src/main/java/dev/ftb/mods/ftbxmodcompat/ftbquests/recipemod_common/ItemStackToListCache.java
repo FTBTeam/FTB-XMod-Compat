@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * An LRU cache to quickly map an itemstack (with possible NBT) to a list of something (either wrapped quest or loot
- * crate "recipes"). Important for fast JEI/REI lookup.
+ * An LRU cache to quickly map an itemstack (with possible component data) to a list of something (either wrapped
+ * quest or loot crate "recipes"). Important for fast JEI/REI lookup.
  *
  * @param <T> type of recipe being mapped to
  */
@@ -44,7 +44,8 @@ public class ItemStackToListCache<T> {
 
         @Override
         public boolean equals(ItemStack o1, ItemStack o2) {
-            return ItemStack.isSameItemSameComponents(o1, o2);
+            // they _shouldn't_ ever be null, but it's apparently happened...
+            return o1 != null && o2 != null && ItemStack.isSameItemSameComponents(o1, o2);
         }
     }
 }
