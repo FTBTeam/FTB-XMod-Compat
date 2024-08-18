@@ -67,8 +67,7 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "archversion": project.architectury_version,
-                "neoforgeversion": project.neoforge_version,
-                "neoforgeloaderversion": project.neoforge_loader_version,
+                "fabricversionrange": project.fabric_api_version_range,
                 "mcversion": project.minecraft_version,
                 "ftblibraryversion": project.ftb_library_version,
                 "ftbquestsversion": project.ftb_quests_version,

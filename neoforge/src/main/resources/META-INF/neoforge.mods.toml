@@ -16,7 +16,7 @@ Provides cross-mod compatibilty/integration for all main FTB mods
 [[dependencies.ftbxmodcompat]]
 modId = "neoforge"
 type = "required"
-versionRange = "[${neoforgeversion},)"
+versionRange = "${neoforgeversionrange}"
 ordering = "NONE"
 side = "BOTH"
 

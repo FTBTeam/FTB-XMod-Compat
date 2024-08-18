@@ -8,6 +8,9 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.inputs.IJeiInputHandler;
+import mezz.jei.api.gui.inputs.IJeiUserInput;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -17,6 +20,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -24,12 +28,19 @@ import net.minecraft.world.item.ItemStack;
 public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FTBQuestsAPI.MOD_ID, "textures/gui/jei/quest.png");
 
+	private static final ScreenRectangle INPUT_AREA = new ScreenRectangle(0, 0, 144, 20);
+
 	private final IDrawable background;
 	private final IDrawable icon;
 
 	public QuestCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(TEXTURE, 0, 0, 144, 74);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModItems.BOOK.get()));
+	}
+
+	@Override
+	public void createRecipeExtras(IRecipeExtrasBuilder builder, WrappedQuest recipe, IFocusGroup focuses) {
+		builder.addInputHandler(new ClickHandler(INPUT_AREA, recipe));
 	}
 
 	@Override
@@ -78,12 +89,19 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 		graphics.drawString(font, text, x, y, highlight ? 0xFFA87A5E : 0xFF3F2E23, false);
 	}
 
-	@Override
-	public boolean handleInput(WrappedQuest recipe, double mouseX, double mouseY, InputConstants.Key input) {
-		if (input.getType() == InputConstants.Type.MOUSE && mouseY >= 0 && mouseY < 20) {
-			recipe.openQuestGui();
-			return true;
+	public record ClickHandler(ScreenRectangle area, WrappedQuest recipe) implements IJeiInputHandler {
+		@Override
+		public ScreenRectangle getArea() {
+			return area;
 		}
-		return false;
+
+		@Override
+		public boolean handleInput(double mouseX, double mouseY, IJeiUserInput input) {
+			if (input.getKey().getType() == InputConstants.Type.MOUSE && mouseY >= 0 && mouseY < 20) {
+				recipe.openQuestGui();
+				return true;
+			}
+			return false;
+		}
 	}
 }

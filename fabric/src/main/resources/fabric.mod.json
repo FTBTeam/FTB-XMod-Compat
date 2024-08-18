@@ -22,7 +22,7 @@
     ]
   },
   "depends": {
-    "fabric": "*",
+    "fabric": "${fabricversionrange}",
     "minecraft": ">=${mcversion}",
     "architectury": ">=${archversion}",
     "ftblibrary": ">=${ftblibraryversion}"
