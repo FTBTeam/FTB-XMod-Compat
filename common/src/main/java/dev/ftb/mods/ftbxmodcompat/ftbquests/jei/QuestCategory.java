@@ -97,7 +97,7 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 
 		@Override
 		public boolean handleInput(double mouseX, double mouseY, IJeiUserInput input) {
-			if (input.getKey().getType() == InputConstants.Type.MOUSE && mouseY >= 0 && mouseY < 20) {
+			if (input.getKey().getType() == InputConstants.Type.MOUSE) {
 				recipe.openQuestGui();
 				return true;
 			}
