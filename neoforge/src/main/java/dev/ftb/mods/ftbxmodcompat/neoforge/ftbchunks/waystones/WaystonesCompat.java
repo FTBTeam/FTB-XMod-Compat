@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.neoforge.ftbchunks.waystones;
 
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
+import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystoneData;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystoneMapIcon;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystonesCommon;
@@ -8,6 +9,8 @@ import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.waystones.api.Waystone;
 import net.blay09.mods.waystones.api.WaystoneVisibility;
 import net.blay09.mods.waystones.api.event.*;
+import net.blay09.mods.waystones.core.PlayerWaystoneManager;
+import net.minecraft.client.Minecraft;
 
 public class WaystonesCompat {
 	public static void init() {
@@ -23,6 +26,8 @@ public class WaystonesCompat {
 	private static void updateWaystone(WaystoneUpdatedEvent event) {
 		FTBXModCompat.LOGGER.info("waystone updated: " + event.getWaystone().getWaystoneUid());
 		Waystone w = event.getWaystone();
-		WaystonesCommon.updateWaystone(w.getWaystoneUid(), new WaystoneData(w.getDimension(), new WaystoneMapIcon(w.getPos(), w.getName(), w.getVisibility() == WaystoneVisibility.GLOBAL)));
+		if (!FTBXModConfig.ONLY_SHOW_KNOW_WAYSTONES.get() || PlayerWaystoneManager.isWaystoneActivated(Minecraft.getInstance().player, w)) {
+			WaystonesCommon.updateWaystone(w.getWaystoneUid(), new WaystoneData(w.getDimension(), new WaystoneMapIcon(w.getPos(), w.getName(), w.getVisibility() == WaystoneVisibility.GLOBAL)));
+		}
 	}
 }
