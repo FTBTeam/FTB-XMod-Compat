@@ -17,7 +17,7 @@ public interface FTBXModConfig {
     EnumValue<PermSelector> PERMISSION_SELECTOR = CONFIG.addEnum("permission_selector", NameMap.of(PermSelector.DEFAULT, PermSelector.values()).create())
             .comment("Select the permissions implementation to use", "DEFAULT: use FTB Ranks then Luckperms in preference order, depending on mod availability");
 
-    BooleanValue ONLY_SHOW_KNOW_WAYSTONES = CONFIG.addBoolean("only_show_known_waystones", true)
+    BooleanValue ONLY_SHOW_KNOWN_WAYSTONES = CONFIG.addBoolean("only_show_known_waystones", true)
             .comment("Only show waystones that have been discovered");
 
     enum StageSelector {

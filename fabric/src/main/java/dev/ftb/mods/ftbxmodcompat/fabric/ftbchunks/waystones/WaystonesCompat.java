@@ -30,7 +30,7 @@ public class WaystonesCompat {
 	private static void updateWaystone(WaystoneUpdatedEvent event) {
 		LOGGER.trace("waystone updated: {} {}", event.getWaystone().getWaystoneUid(), event.getWaystone().getVisibility());
 		Waystone w = event.getWaystone();
-		if (!FTBXModConfig.ONLY_SHOW_KNOW_WAYSTONES.get() || WaystonesAPI.isWaystoneActivated(Minecraft.getInstance().player, w)) {
+		if (!FTBXModConfig.ONLY_SHOW_KNOWN_WAYSTONES.get() || WaystonesAPI.isWaystoneActivated(Minecraft.getInstance().player, w)) {
 			WaystonesCommon.updateWaystone(w.getWaystoneUid(), new WaystoneData(w.getDimension(), new WaystoneMapIcon(w.getPos(), w.getName(), w.getVisibility() == WaystoneVisibility.GLOBAL)));
 		}
 	}
