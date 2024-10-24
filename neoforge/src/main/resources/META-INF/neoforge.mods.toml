@@ -82,3 +82,8 @@ type = "optional"
 versionRange = "[5.4.112,)"
 ordering = "AFTER"
 side = "SERVER"
+
+[[dependencies.ftbxmodcompat]]
+modId = "waystones"
+type = "optional"
+versionRange = "[${required_waystones_version},)"
