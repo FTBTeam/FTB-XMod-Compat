@@ -71,7 +71,8 @@ processResources {
                 "ftbquestsversion": project.ftb_quests_version,
                 "ftbchunksversion": project.ftb_chunks_version,
                 "ftbranksversion": project.ftb_ranks_version,
-                "ftbteamsversion": project.ftb_teams_version
+                "ftbteamsversion": project.ftb_teams_version,
+                "required_waystones_version": project.required_waystones_version
     }
 }
 
