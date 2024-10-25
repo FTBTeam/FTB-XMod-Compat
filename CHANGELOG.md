@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [21.1.1]
+
+### Added
+* Waystones integration: Added a config setting "only_show_known_waystones", default true
+  * When true, only activated waystones will appear on FTB Chunks mapping
+
+### Fixed
+* Waystones integration: Fixed excessive client-side logging for waystone discovery and updating
+
 ## [21.1.0]
 
 ### Changed
