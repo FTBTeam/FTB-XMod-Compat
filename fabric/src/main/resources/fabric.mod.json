@@ -31,6 +31,7 @@
     "ftbquests": "<2001.3.0",
     "ftbchunks": "<2001.2.0",
     "jei": "<15.2",
-    "kubejs": "<2001.6.3-build.18"
+    "kubejs": "<2001.6.3-build.18",
+    "waystones": "<${required_waystones_version}"
   }
 }

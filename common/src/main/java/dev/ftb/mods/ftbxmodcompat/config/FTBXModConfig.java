@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.config;
 
 import dev.ftb.mods.ftblibrary.config.NameMap;
+import dev.ftb.mods.ftblibrary.snbt.config.BooleanValue;
 import dev.ftb.mods.ftblibrary.snbt.config.EnumValue;
 import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
@@ -15,6 +16,9 @@ public interface FTBXModConfig {
 
     EnumValue<PermSelector> PERMISSION_SELECTOR = CONFIG.addEnum("permission_selector", NameMap.of(PermSelector.DEFAULT, PermSelector.values()).create())
             .comment("Select the permissions implementation to use", "DEFAULT: use FTB Ranks then Luckperms in preference order, depending on mod availability");
+
+    BooleanValue ONLY_SHOW_KNOWN_WAYSTONES = CONFIG.addBoolean("only_show_known_waystones", true)
+            .comment("Only show waystones that have been discovered");
 
     enum StageSelector {
         DEFAULT(()-> true),
