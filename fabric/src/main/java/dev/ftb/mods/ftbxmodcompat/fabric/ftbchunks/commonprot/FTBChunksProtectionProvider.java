@@ -62,7 +62,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
     @Override
     public boolean isAreaProtected(Level world, AABB area) {
         int minCX = (int) Math.floor(area.minX / 16);
-        int minCZ = (int) Math.floor(area.minX / 16);
+        int minCZ = (int) Math.floor(area.minZ / 16);
         int maxCX = (int) Math.ceil(area.maxX / 16);
         int maxCZ = (int) Math.ceil(area.maxZ / 16);
 
