@@ -9,6 +9,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.advanced.IRecipeManagerPlugin;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -19,12 +20,16 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     private final WrappedLootCrateCache cache = new WrappedLootCrateCache(
             crates -> {
                 if (FTBQuestsJEIIntegration.runtime != null && !crates.isEmpty()) {
-                    FTBQuestsJEIIntegration.runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, crates);
+                    Minecraft.getInstance().tell(() ->
+                            FTBQuestsJEIIntegration.runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, crates)
+                    );
                 }
             },
             crates -> {
                 if (FTBQuestsJEIIntegration.runtime != null && !crates.isEmpty()) {
-                    FTBQuestsJEIIntegration.runtime.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, crates);
+                    Minecraft.getInstance().tell(() ->
+                            FTBQuestsJEIIntegration.runtime.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, crates)
+                    );
                 }
             }
     );
