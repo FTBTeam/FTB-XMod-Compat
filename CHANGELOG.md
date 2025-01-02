@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 * Fixed threading bug with JEI integration
+* (Fabric only) fixed typo in Common Protection API integration causing wrong block positions to be used
 
 ## [21.1.1]
 
