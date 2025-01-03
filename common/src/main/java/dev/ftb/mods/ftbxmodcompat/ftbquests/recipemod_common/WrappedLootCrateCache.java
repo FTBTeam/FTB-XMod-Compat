@@ -34,7 +34,7 @@ public class WrappedLootCrateCache {
     }
 
     private void rebuildWrappedLootCrateCache() {
-        preRebuild.accept(crateStacks);
+        preRebuild.accept(List.copyOf(crateStacks));
 
         wrappedLootCratesCache.clear();
         crateStacks.clear();
@@ -49,7 +49,7 @@ public class WrappedLootCrateCache {
             }
         }
 
-        postRebuild.accept(crateStacks);
+        postRebuild.accept(List.copyOf(crateStacks));
     }
 
     public void refresh() {
