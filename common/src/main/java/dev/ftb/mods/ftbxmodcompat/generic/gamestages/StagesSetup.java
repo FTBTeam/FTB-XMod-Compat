@@ -19,10 +19,11 @@ public class StagesSetup {
             case GAMESTAGES -> StageHelper.getInstance().setProviderImpl(new GameStagesStageProvider());
             case VANILLA -> { /* do nothing, this is the fallback */ }
             case DEFAULT -> {
-                // TODO: nothing for now, neither KJS nor Gamestages have a working stages implementation yet on 1.21
-               /* if (FTBXModCompat.isKubeJSLoaded) {
+                if (FTBXModCompat.isKubeJSLoaded) {
                     addKubeJSProvider();
-                } else if (FTBXModCompat.isGameStagesLoaded) {
+                }
+                // TODO: Gamestages does not have a stages implementation yet on 1.21
+                /*else if (FTBXModCompat.isGameStagesLoaded) {
                     StageHelper.getInstance().setProviderImpl(new GameStagesStageProvider());
                 }*/
             }
