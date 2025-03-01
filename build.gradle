@@ -50,9 +50,17 @@ allprojects {
         }
 
         maven {
+            url 'https://jitpack.io'
+            content {
+                includeGroup "com.github.rtyley"
+            }
+        }
+
+        maven {
             url "https://maven.saps.dev/releases"
             content {
                 includeGroup "dev.latvian.mods"
+                includeGroup "dev.latvian.apps"
                 includeGroup "dev.ftb.mods"
                 includeGroup "com.github.llamalad7.mixinextras"
             }
@@ -62,6 +70,7 @@ allprojects {
             url "https://maven.saps.dev/snapshots"
             content {
                 includeGroup "dev.latvian.mods"
+                includeGroup "dev.latvian.apps"
                 includeGroup "dev.ftb.mods"
             }
         }

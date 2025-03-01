@@ -43,14 +43,14 @@ dependencies {
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}")
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
-    modApi("dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}")
+    modCompileOnlyApi("dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}")
 
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
     modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
     modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
-    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }

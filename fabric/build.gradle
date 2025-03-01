@@ -51,7 +51,7 @@ dependencies {
 
     // compile-only because for some reason loom isn't deobfuscating these...
     modCompileOnly("curse.maven:balm-fabric-500525:${balm_fabric_version}")  { transitive = false }
-    modCompileOnly("curse.maven:waystones-fabric-500087:${waystones_fabric_version}")  { transitive = false }
+    modCompileOnly("curse.maven:waystones-245755:${waystones_fabric_version}")  { transitive = false }
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 
