@@ -147,7 +147,7 @@ if (ENV.CURSEFORGE_KEY) {
                 optionalDependency 'game-stages'
                 optionalDependency 'waystones'
             }
-            changelog = ENV.CHANGELOG  // expected to exist if ENV.CURSEFORGE_KEY does
+            changelog = createChangelog(project)
             changelogType = 'markdown'
         }
     }

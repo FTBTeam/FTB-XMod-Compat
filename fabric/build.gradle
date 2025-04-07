@@ -151,7 +151,7 @@ if (ENV.CURSEFORGE_KEY) {
                 optionalDependency 'roughly-enough-items'
                 optionalDependency 'waystones-fabric'
             }
-            changelog = ENV.CHANGELOG  // expected to exist if ENV.CURSEFORGE_KEY does
+            changelog = createChangelog(project)
             changelogType = 'markdown'
         }
     }

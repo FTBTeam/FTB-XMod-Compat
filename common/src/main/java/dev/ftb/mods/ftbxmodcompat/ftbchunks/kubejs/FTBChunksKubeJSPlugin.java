@@ -36,7 +36,7 @@ public class FTBChunksKubeJSPlugin extends KubeJSPlugin {
     }
 
 	private CompoundEventResult<ClaimResult> before(CommandSourceStack source, ClaimedChunk chunk, String id) {
-		return FTBChunksKubeJSEvents.BEFORE.post(ScriptType.SERVER, new BeforeEventJS(source, chunk)).archCompound();
+		return FTBChunksKubeJSEvents.BEFORE.post(ScriptType.SERVER, id, new BeforeEventJS(source, chunk)).archCompound();
 	}
 
 	private void after(CommandSourceStack source, ClaimedChunk chunk, String id) {
