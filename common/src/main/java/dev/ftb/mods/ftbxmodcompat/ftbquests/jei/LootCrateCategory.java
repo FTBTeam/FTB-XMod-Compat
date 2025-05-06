@@ -3,6 +3,7 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.mods.ftblibrary.ui.GuiHelper;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
+import dev.ftb.mods.ftbquests.registry.ModDataComponents;
 import dev.ftb.mods.ftbquests.registry.ModItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.LootCrateTextRenderer;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
@@ -80,6 +81,11 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, WrappedLootCrate recipe, IFocusGroup focuses) {
+		ItemStack catStack = recipe.crateStack.copy();
+		catStack.set(ModDataComponents.LOOT_CRATE.get(), recipe.crate.getStringID());
+		builder.addSlot(RecipeIngredientRole.CATALYST, 30, 11)
+				.addIngredient(VanillaTypes.ITEM_STACK, catStack);
+
 		for (int slot = 0; slot < Math.min(WrappedLootCrate.ITEMS, recipe.outputs.size()); slot++) {
 			int finalSlot = slot;
 			builder.addSlot(RecipeIngredientRole.OUTPUT, (slot % WrappedLootCrate.ITEMSX) * 18, (slot / WrappedLootCrate.ITEMSX) * 18 + 36)
