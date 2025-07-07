@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * JEI display for FTB Quests loot crate "recipes" now also shows the source loot crate in the item display
 
+### Fixed
+* KubeJS event handlers for FTB Quests no longer require the object id to be included during event registration (although it's still supported)
+  * This is more consistent with earlier versions, where event handlers can be registered for all quest objects and filtered by the Javascript code
+
 ## [21.1.3]
 
 ### Added
