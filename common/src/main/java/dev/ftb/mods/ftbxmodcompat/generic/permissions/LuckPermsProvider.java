@@ -31,9 +31,9 @@ public class LuckPermsProvider implements PermissionProvider {
     }
 
     private static Optional<String> getMetaData(UUID uuid, String meta) {
-        LuckPerms luckperms = net.luckperms.api.LuckPermsProvider.get();
         Optional<String> metaValue = Optional.empty();
         try {
+            LuckPerms luckperms = net.luckperms.api.LuckPermsProvider.get();
             User user = luckperms.getUserManager().getUser(uuid);
             if (user != null) {
                 Optional<QueryOptions> context = luckperms.getContextManager().getQueryOptions(user);
