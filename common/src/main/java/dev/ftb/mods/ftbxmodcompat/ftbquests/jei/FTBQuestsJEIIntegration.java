@@ -7,6 +7,8 @@ import dev.ftb.mods.ftbxmodcompat.ftbquests.QuestItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.registration.IAdvancedRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -15,6 +17,7 @@ import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 @JeiPlugin
 public class FTBQuestsJEIIntegration implements IModPlugin {
@@ -39,7 +42,17 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	public void registerItemSubtypes(ISubtypeRegistration r) {
 		if (FTBXModCompat.isFTBQuestsLoaded) {
 			r.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, QuestItems.lootCrate(),
-					(stack, uidContext) -> stack.getOrDefault(ModDataComponents.LOOT_CRATE.get(),  ""));
+                    new ISubtypeInterpreter<>() {
+                        @Override
+                        public @Nullable Object getSubtypeData(ItemStack ingredient, UidContext context) {
+                            return ingredient.getOrDefault(ModDataComponents.LOOT_CRATE.get(), "");
+                        }
+
+                        @Override
+                        public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+                            return "";
+                        }
+                    });
 		}
 	}
 

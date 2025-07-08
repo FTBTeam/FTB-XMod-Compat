@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [21.1.4]
+
+### Added
+* JEI display for FTB Quests loot crate "recipes" now also shows the source loot crate in the item display
+
+### Fixed
+* KubeJS event handlers for FTB Quests no longer require the object id to be included during event registration (although it's still supported)
+  * This is more consistent with earlier versions, where event handlers can be registered for all quest objects and filtered by the Javascript code
+* Hopefully prevent a Luckperms-related stall on server shutdown
+
 ## [21.1.3]
 
 ### Added
