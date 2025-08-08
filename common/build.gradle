@@ -23,6 +23,7 @@ dependencies {
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+    modCompileOnly("curse.maven:jade-324717:${jade_neoforge_version}")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 }
