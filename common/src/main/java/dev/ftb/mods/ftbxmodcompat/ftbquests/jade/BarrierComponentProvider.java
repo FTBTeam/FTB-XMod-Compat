@@ -10,7 +10,7 @@ import snownee.jade.api.IComponentProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.ui.IElement;
-import snownee.jade.impl.ui.ItemStackElement;
+import snownee.jade.api.ui.IElementHelper;
 
 public class BarrierComponentProvider implements IComponentProvider<BlockAccessor> {
     @Override
@@ -23,7 +23,7 @@ public class BarrierComponentProvider implements IComponentProvider<BlockAccesso
                 && !barrier.getSkin().isEmpty()
                 && !TeamData.get(accessor.getPlayer()).getCanEdit(accessor.getPlayer()))
         {
-            return ItemStackElement.of(barrier.getSkin());
+            return IElementHelper.get().item(barrier.getSkin());
         }
         return null;
     }
