@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbxmodcompat;
 
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
-import dev.ftb.mods.ftblibrary.snbt.config.ConfigUtil;
+import dev.ftb.mods.ftblibrary.config.manager.ConfigManager;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.FTBChunksSetup;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.FTBQuestsSetup;
@@ -34,8 +34,7 @@ public class FTBXModCompat {
     public static void init() {
         detectLoadedMods();
 
-
-        ConfigUtil.loadDefaulted(FTBXModConfig.CONFIG, ConfigUtil.CONFIG_DIR, MOD_ID);
+        ConfigManager.getInstance().registerStartupConfig(FTBXModConfig.CONFIG, MOD_ID);
 
         LifecycleEvent.SETUP.register(FTBXModCompat::onSetup);
     }
