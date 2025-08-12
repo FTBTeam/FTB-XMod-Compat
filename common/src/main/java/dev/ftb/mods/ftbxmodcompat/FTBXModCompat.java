@@ -34,6 +34,7 @@ public class FTBXModCompat {
     public static void init() {
         detectLoadedMods();
 
+
         ConfigUtil.loadDefaulted(FTBXModConfig.CONFIG, ConfigUtil.CONFIG_DIR, MOD_ID);
 
         LifecycleEvent.SETUP.register(FTBXModCompat::onSetup);
