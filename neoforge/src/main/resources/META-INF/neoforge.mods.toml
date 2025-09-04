@@ -87,3 +87,8 @@ side = "SERVER"
 modId = "waystones"
 type = "optional"
 versionRange = "[${required_waystones_version},)"
+
+[[dependencies.ftbxmodcompat]]
+modId = "magic_coins"
+type = "optional"
+versionRange = "[${required_magic_coins_version},)"

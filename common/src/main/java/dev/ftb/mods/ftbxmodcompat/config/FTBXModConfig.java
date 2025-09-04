@@ -17,6 +17,9 @@ public interface FTBXModConfig {
     EnumValue<PermSelector> PERMISSION_SELECTOR = CONFIG.addEnum("permission_selector", NameMap.of(PermSelector.DEFAULT, PermSelector.values()).create())
             .comment("Select the permissions implementation to use", "DEFAULT: use FTB Ranks then Luckperms in preference order, depending on mod availability");
 
+    EnumValue<CurrencySelector> CURRENCY_SELECTOR = CONFIG.addEnum("currency_selector", NameMap.of(CurrencySelector.DEFAULT, CurrencySelector.values()).create())
+            .comment("Select the currency implementation to use", "Note: currently Neoforge-only", "DEFAULT: use Magic Coins if installed, otherwise no currency plugin");
+
     BooleanValue ONLY_SHOW_KNOWN_WAYSTONES = CONFIG.addBoolean("only_show_known_waystones", true)
             .comment("Only show waystones that have been discovered");
 
@@ -45,6 +48,21 @@ public interface FTBXModConfig {
         private final BooleanSupplier usable;
 
         PermSelector(BooleanSupplier usable) {
+            this.usable = usable;
+        }
+
+        public boolean isUsable() {
+            return usable.getAsBoolean();
+        }
+    }
+
+    enum CurrencySelector {
+        DEFAULT(() -> true),
+        MAGIC_COINS(() -> FTBXModCompat.isMagicCoinsLoaded);
+
+        private final BooleanSupplier usable;
+
+        CurrencySelector(BooleanSupplier usable) {
             this.usable = usable;
         }
 

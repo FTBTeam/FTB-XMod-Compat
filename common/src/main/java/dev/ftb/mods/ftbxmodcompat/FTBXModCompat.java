@@ -6,6 +6,7 @@ import dev.ftb.mods.ftblibrary.config.manager.ConfigManager;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.FTBChunksSetup;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.FTBQuestsSetup;
+import dev.ftb.mods.ftbxmodcompat.generic.currency.CurrencySetup;
 import dev.ftb.mods.ftbxmodcompat.generic.gamestages.StagesSetup;
 import dev.ftb.mods.ftbxmodcompat.generic.permissions.PermissionsSetup;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,7 @@ public class FTBXModCompat {
     public static boolean isLuckPermsLoaded;
     public static boolean isWaystonesLoaded;
     public static boolean isCommonProtLoaded;
+    public static boolean isMagicCoinsLoaded;
 
     public static void init() {
         detectLoadedMods();
@@ -42,6 +44,7 @@ public class FTBXModCompat {
     private static void onSetup() {
         StagesSetup.init();
         PermissionsSetup.init();
+        CurrencySetup.init();
         if (isFTBQuestsLoaded) {
             FTBQuestsSetup.init();
         }
@@ -65,5 +68,6 @@ public class FTBXModCompat {
         isLuckPermsLoaded = Platform.isModLoaded("luckperms");
         isWaystonesLoaded = Platform.isModLoaded("waystones");
         isCommonProtLoaded = Platform.isModLoaded("common-protection-api");
+        isMagicCoinsLoaded = Platform.isModLoaded("magic_coins");
     }
 }
