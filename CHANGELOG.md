@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [21.1.5]
 
 ### Added
+* Added Magic Coins support, as a currency implementation for FTB Library's currency abstraction layer
 * Added Jade support for FTB Quests barrier blocks (FTB Quests 2101.1.14+ required)
 
 ## [21.1.4]
