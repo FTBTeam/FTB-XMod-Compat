@@ -26,6 +26,11 @@ repositories {
     maven {
         url "https://maven.neoforged.net/releases/"
     }
+
+    maven {
+        name = "Curios"
+        url = uri("https://maven.theillusivec4.top/")
+    }
 }
 
 dependencies {
@@ -46,6 +51,10 @@ dependencies {
     modImplementation("curse.maven:jade-324717:${jade_neoforge_version}")
 
     modCompileOnlyApi("dev.latvian.mods:kubejs-neoforge:${rootProject.kubejs_version}")
+
+    modRuntimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    modCompileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    modImplementation("curse.maven:magic_coins-597281:${magic_coins_version}")
 
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
@@ -74,7 +83,8 @@ processResources {
                 "ftbchunksversion": project.ftb_chunks_version,
                 "ftbranksversion": project.ftb_ranks_version,
                 "ftbteamsversion": project.ftb_teams_version,
-                "required_waystones_version": project.required_waystones_version
+                "required_waystones_version": project.required_waystones_version,
+                "required_magic_coins_version": project.required_magic_coins_version
     }
 }
 

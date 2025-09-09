@@ -25,6 +25,8 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
     modCompileOnly("curse.maven:jade-324717:${jade_neoforge_version}")
 
+    modCompileOnly("curse.maven:magic_coins-597281:${magic_coins_version}")
+
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 }
 
