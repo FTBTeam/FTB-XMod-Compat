@@ -87,7 +87,6 @@ public abstract class FTBQuestsKubeJSTeamData {
 	}
 
 	public EntityArrayList getOnlineMembers() {
-		var server = FTBQuestsKubeJSPlugin.getServer(getFile());
-		return new EntityArrayList(server.overworld(), getData().getOnlineMembers());
+		return new EntityArrayList(getData().getOnlineMembers());
 	}
 }
