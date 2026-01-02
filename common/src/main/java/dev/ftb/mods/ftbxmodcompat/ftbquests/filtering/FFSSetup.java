@@ -3,10 +3,10 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.filtering;
 import dev.ftb.mods.ftbfiltersystem.api.FTBFilterSystemAPI;
 import dev.ftb.mods.ftbfiltersystem.api.FilterException;
 import dev.ftb.mods.ftbfiltersystem.api.filter.SmartFilter;
-import dev.ftb.mods.ftbquests.FTBQuests;
 import dev.ftb.mods.ftbquests.api.FTBQuestsAPI;
 import dev.ftb.mods.ftbquests.api.ItemFilterAdapter;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,14 +29,14 @@ class FFSSetup {
         }
 
         @Override
-        public boolean doesItemMatch(ItemStack filterStack, ItemStack toCheck) {
-            return FTBFilterSystemAPI.api().doesFilterMatch(filterStack, toCheck);
+        public boolean doesItemMatch(ItemStack filterStack, ItemStack toCheck, HolderLookup.Provider registryAccess) {
+            return FTBFilterSystemAPI.api().doesFilterMatch(filterStack, toCheck, registryAccess);
         }
 
         @Override
-        public Matcher getMatcher(ItemStack filterStack) {
+        public Matcher getMatcher(ItemStack filterStack, HolderLookup.Provider registryAccess) {
             try {
-                return new FFSMatcher(filterStack);
+                return new FFSMatcher(filterStack, registryAccess);
             } catch (FilterException e) {
                 return ItemFilterAdapter.NO_MATCH;
             }
@@ -51,8 +51,8 @@ class FFSSetup {
     private static class FFSMatcher implements ItemFilterAdapter.Matcher {
         private final SmartFilter smartFilter;
 
-        public FFSMatcher(ItemStack filterStack) {
-            smartFilter = FTBFilterSystemAPI.api().parseFilter(filterStack);
+        public FFSMatcher(ItemStack filterStack, HolderLookup.Provider registryAccess) {
+            smartFilter = FTBFilterSystemAPI.api().parseFilter(filterStack, registryAccess);
         }
 
         @Override

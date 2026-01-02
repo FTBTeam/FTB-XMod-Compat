@@ -50,7 +50,7 @@ public class WrappedQuest {
 
                 if (!stack.isEmpty()) {
                     // TODO using non-API access to FTBQ here
-                    input.add(List.copyOf(ItemMatchingSystem.INSTANCE.getAllMatchingStacks(stack)));
+                    input.add(List.copyOf(ItemMatchingSystem.INSTANCE.getAllMatchingStacks(stack, q.getQuestFile().holderLookup())));
                 } else if (task.getIcon() instanceof ItemIcon itemIcon) {
                     stack = itemIcon.getStack().copy();
                     stack.set(DataComponents.CUSTOM_NAME, task.getTitle());
