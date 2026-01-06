@@ -28,7 +28,7 @@ public class QuestObjectCompletedKubeEvent extends ServerKubeEvent {
 	}
 
 	public EntityArrayList getNotifiedPlayers() {
-		return new EntityArrayList(server.overworld(), event.getNotifiedPlayers());
+		return new EntityArrayList(event.getNotifiedPlayers());
 	}
 
 	public EntityArrayList getOnlineMembers() {
