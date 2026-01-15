@@ -3,7 +3,6 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.reward.RewardAutoClaim;
-import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;

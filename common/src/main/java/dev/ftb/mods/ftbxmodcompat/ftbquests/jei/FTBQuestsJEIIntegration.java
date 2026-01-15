@@ -15,13 +15,13 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 @JeiPlugin
 public class FTBQuestsJEIIntegration implements IModPlugin {
-	private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FTBXModCompat.MOD_ID, "ftbquests_jei");
+	private static final Identifier UID = Identifier.fromNamespaceAndPath(FTBXModCompat.MOD_ID, "ftbquests_jei");
 	public static IJeiRuntime runtime;
 
 	@Override
@@ -34,7 +34,7 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	}
 
 	@Override
-	public ResourceLocation getPluginUid() {
+	public Identifier getPluginUid() {
 		return UID;
 	}
 
@@ -47,11 +47,6 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
                         public @Nullable Object getSubtypeData(ItemStack ingredient, UidContext context) {
                             return ingredient.getOrDefault(ModDataComponents.LOOT_CRATE.get(), "");
                         }
-
-                        @Override
-                        public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
-                            return "";
-                        }
                     });
 		}
 	}
@@ -59,8 +54,8 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		if (FTBXModCompat.isFTBQuestsLoaded) {
-			registration.addRecipeCatalyst(new ItemStack(QuestItems.questBook()), JEIRecipeTypes.QUEST);
-			registration.addRecipeCatalyst(new ItemStack(QuestItems.lootCrate()), JEIRecipeTypes.LOOT_CRATE);
+			registration.addCraftingStation(JEIRecipeTypes.QUEST, new ItemStack(QuestItems.questBook()));
+			registration.addCraftingStation(JEIRecipeTypes.LOOT_CRATE, new ItemStack(QuestItems.lootCrate()));
 		}
 	}
 

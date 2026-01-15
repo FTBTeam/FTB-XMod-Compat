@@ -4,6 +4,7 @@ import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -68,10 +69,10 @@ public class WrappedLootCrate {
 	}
 
 	public List<Ingredient> inputIngredients() {
-		return List.of(Ingredient.of(crateStack));
+		return List.of(Ingredient.of(crateStack.getItem()));
 	}
 
 	public List<Ingredient> outputIngredients() {
-		return cycledOutputs.stream().map(items -> Ingredient.of(items.toArray(new ItemStack[0]))).toList();
+		return cycledOutputs.stream().map(items -> Ingredient.of(items.stream().map(ItemStack::getItem))).toList();
 	}
 }

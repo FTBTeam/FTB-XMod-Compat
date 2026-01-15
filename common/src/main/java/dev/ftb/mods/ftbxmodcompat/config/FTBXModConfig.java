@@ -1,15 +1,15 @@
 package dev.ftb.mods.ftbxmodcompat.config;
 
-import dev.ftb.mods.ftblibrary.config.NameMap;
-import dev.ftb.mods.ftblibrary.snbt.config.BooleanValue;
-import dev.ftb.mods.ftblibrary.snbt.config.EnumValue;
-import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
+import dev.ftb.mods.ftblibrary.config.value.BooleanValue;
+import dev.ftb.mods.ftblibrary.config.value.Config;
+import dev.ftb.mods.ftblibrary.config.value.EnumValue;
+import dev.ftb.mods.ftblibrary.util.NameMap;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 
 import java.util.function.BooleanSupplier;
 
 public interface FTBXModConfig {
-    SNBTConfig CONFIG = SNBTConfig.create(FTBXModCompat.MOD_ID);
+    Config CONFIG = Config.create(FTBXModCompat.MOD_ID);
 
     EnumValue<StageSelector> STAGE_SELECTOR = CONFIG.addEnum("stage_selector", NameMap.of(StageSelector.DEFAULT, StageSelector.values()).create())
             .comment("Select the game stages implementation to use", "DEFAULT: use KubeJS, Game Stages, vanilla in preference order, depending on mod availability");

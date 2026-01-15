@@ -61,10 +61,10 @@ public class LootCrateDisplayCategory implements DisplayCategory<LootCrateDispla
         }
 
         widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
-            graphics.pose().pushPose();
-            graphics.pose().translate(-5, bounds.y + 5, 0);
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(-5, bounds.y + 5);
             LootCrateTextRenderer.drawText(graphics, display.getWrappedLootCrate().crate, bounds.x, bounds.width);
-            graphics.pose().popPose();
+            graphics.pose().popMatrix();
         }));
 
         return widgets;

@@ -114,11 +114,11 @@ public class WrappedQuest {
     }
 
     public List<Ingredient> inputIngredients() {
-        return input.stream().map(items -> Ingredient.of(items.toArray(new ItemStack[0]))).toList();
+        return input.stream().map(items -> Ingredient.of(items.stream().map(ItemStack::getItem))).toList();
     }
 
     public List<Ingredient> outputIngredients() {
-        return output.stream().map(items -> Ingredient.of(items.toArray(new ItemStack[0]))).toList();
+        return output.stream().map(items -> Ingredient.of(items.stream().map(ItemStack::getItem))).toList();
     }
 
 	public boolean hasInput(ItemStack stack) {

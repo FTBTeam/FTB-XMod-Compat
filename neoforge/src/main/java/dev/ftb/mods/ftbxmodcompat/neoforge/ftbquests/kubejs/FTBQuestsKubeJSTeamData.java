@@ -4,7 +4,7 @@ import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 import dev.latvian.mods.kubejs.player.EntityArrayList;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 import java.util.function.Consumer;
 

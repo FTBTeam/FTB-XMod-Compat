@@ -1,6 +1,5 @@
 package dev.ftb.mods.ftbxmodcompat.ftbchunks.ftbranks;
 
-import com.mojang.authlib.GameProfile;
 import dev.ftb.mods.ftbchunks.api.ChunkTeamData;
 import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
 import dev.ftb.mods.ftbranks.api.RankManager;
@@ -8,6 +7,7 @@ import dev.ftb.mods.ftbranks.api.event.*;
 import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.NameAndId;
 
 import static dev.ftb.mods.ftbchunks.integration.PermissionsHelper.*;
 
@@ -54,10 +54,10 @@ public class FTBRanksEventHandler {
 		}
 	}
 
-	private static void updateForPlayer(RankManager manager, GameProfile profile) {
-		FTBTeamsAPI.api().getManager().getTeamForPlayerID(profile.getId()).ifPresent(team -> {
+	private static void updateForPlayer(RankManager manager, NameAndId profile) {
+		FTBTeamsAPI.api().getManager().getTeamForPlayerID(profile.id()).ifPresent(team -> {
 			ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(team);
-			ServerPlayer player = manager.getServer().getPlayerList().getPlayer(profile.getId());
+			ServerPlayer player = manager.getServer().getPlayerList().getPlayer(profile.id());
 			if (player != null) {
 				teamData.checkMemberForceLoading(player.getUUID());
 			}
