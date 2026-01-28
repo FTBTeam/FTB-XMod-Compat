@@ -58,7 +58,7 @@ public interface FTBXModConfig {
 
     enum CurrencySelector {
         DEFAULT(() -> true),
-        SG_ECONOMY(() -> FTBXModCompat.isSGEconomyLoaded);
+        SG_ECONOMY_API(() -> FTBXModCompat.isSGEconomyLoaded);
 
         private final BooleanSupplier usable;
 

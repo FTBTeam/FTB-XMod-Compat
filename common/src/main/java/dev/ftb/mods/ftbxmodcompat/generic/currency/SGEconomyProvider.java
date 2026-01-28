@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.sirgrantd.sg_economy.api.SGEconomyApi;
 import net.sirgrantd.sg_economy.api.economy.EconomyProvider;
 
-public enum SgEconomyProvider implements CurrencyProvider {
+public enum SGEconomyProvider implements CurrencyProvider {
     INSTANCE;
 
     private final EconomyProvider sgEconomy = SGEconomyApi.getSGEconomy();
