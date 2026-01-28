@@ -15,13 +15,12 @@ public class CurrencySetup {
 
         CurrencyHelper helper = CurrencyHelper.getInstance();
         switch (sel) {
-            case MAGIC_COINS -> helper.setActiveImpl(MagicCoinsProvider.INSTANCE);
+            case SG_ECONOMY -> helper.setActiveImpl(SgEconomyProvider.INSTANCE);
             case DEFAULT -> {
-                if (FTBXModCompat.isMagicCoinsLoaded) {
-                    helper.setActiveImpl(MagicCoinsProvider.INSTANCE);
+                if (FTBXModCompat.isSGEconomyLoaded) {
+                    helper.setActiveImpl(SgEconomyProvider.INSTANCE);
                 } else {
                     helper.setActiveImpl(FallbackCurrencyProvider.INSTANCE);
-                }
             }
         }
 
