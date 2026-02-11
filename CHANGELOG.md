@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [21.1.8]
+
+### Changed
+* Updated [SG Economy API support](https://www.curseforge.com/minecraft/mc-mods/sg-economy-api) to 1.0.2 of the mod - 1.0.2+ now required
+  * Note that this was formerly supported by Magic Coins, but SG Economy API was separated into its own mod
+
 ## [21.1.7]
 
 ### Changed
