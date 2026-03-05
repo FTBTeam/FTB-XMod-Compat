@@ -54,7 +54,7 @@ dependencies {
 
     modRuntimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     modCompileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    modImplementation("curse.maven:magic_coins-597281:${magic_coins_version}")
+    modImplementation("curse.maven:sg-economy-1446971:${sg_economy_version}")
 
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
@@ -84,7 +84,7 @@ processResources {
                 "ftbranksversion": project.ftb_ranks_version,
                 "ftbteamsversion": project.ftb_teams_version,
                 "required_waystones_version": project.required_waystones_version,
-                "required_magic_coins_version": project.required_magic_coins_version
+                "required_sg_economy_version": project.required_sg_economy_version
     }
 }
 

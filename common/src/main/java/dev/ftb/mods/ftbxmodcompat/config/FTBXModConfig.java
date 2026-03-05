@@ -18,7 +18,7 @@ public interface FTBXModConfig {
             .comment("Select the permissions implementation to use", "DEFAULT: use FTB Ranks then Luckperms in preference order, depending on mod availability");
 
     EnumValue<CurrencySelector> CURRENCY_SELECTOR = CONFIG.addEnum("currency_selector", NameMap.of(CurrencySelector.DEFAULT, CurrencySelector.values()).create())
-            .comment("Select the currency implementation to use", "Note: currently Neoforge-only", "DEFAULT: use Magic Coins if installed, otherwise no currency plugin");
+            .comment("Select the currency implementation to use", "Note: currently Neoforge-only", "DEFAULT: use SG Economy if installed, otherwise no currency plugin");
 
     BooleanValue ONLY_SHOW_KNOWN_WAYSTONES = CONFIG.addBoolean("only_show_known_waystones", true)
             .comment("Only show waystones that have been discovered");
@@ -58,7 +58,7 @@ public interface FTBXModConfig {
 
     enum CurrencySelector {
         DEFAULT(() -> true),
-        MAGIC_COINS(() -> FTBXModCompat.isMagicCoinsLoaded);
+        SG_ECONOMY_API(() -> FTBXModCompat.isSGEconomyLoaded);
 
         private final BooleanSupplier usable;
 
