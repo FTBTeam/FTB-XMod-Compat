@@ -29,7 +29,7 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 		runtime = FTBXModCompat.isFTBQuestsLoaded ? r : null;
 
 		if (ClientQuestFile.exists()) {
-			ClientQuestFile.INSTANCE.updateLootCrates();
+			ClientQuestFile.getInstance().updateLootCrates();
 		}
 	}
 

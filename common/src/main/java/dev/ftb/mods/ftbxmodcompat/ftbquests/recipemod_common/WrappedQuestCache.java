@@ -36,7 +36,7 @@ public class WrappedQuestCache {
         wrappedQuestsCache.clear();
 
         if (ClientQuestFile.exists()) {
-            ClientQuestFile file = ClientQuestFile.INSTANCE;
+            ClientQuestFile file = ClientQuestFile.getInstance();
             file.forAllQuests(quest -> {
                 if (file.selfTeamData.canStartTasks(quest) && quest.isSearchable(file.selfTeamData) && !quest.getRewards().isEmpty() && quest.showInRecipeMod()) {
                     List<Reward> rewards = quest.getRewards().stream()

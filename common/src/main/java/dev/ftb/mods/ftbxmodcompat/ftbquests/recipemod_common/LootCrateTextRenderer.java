@@ -16,35 +16,39 @@ public class LootCrateTextRenderer {
 
         graphics.drawString(font, Component.translatable(crate.getItemName()).withStyle(ChatFormatting.UNDERLINE), x + 10, 0, 0xFFFFFF00);
 
-        int total = ClientQuestFile.INSTANCE.getLootCrateNoDrop().passive;
-        for (RewardTable table : ClientQuestFile.INSTANCE.getRewardTables()) {
-            if (table.getLootCrate() != null) {
-                total += table.getLootCrate().getDrops().passive;
-            }
-        }
-        Component p = chance("passive", crate.getDrops().passive, total);
+        if (ClientQuestFile.exists()) {
+            ClientQuestFile file = ClientQuestFile.getInstance();
 
-        total = ClientQuestFile.INSTANCE.getLootCrateNoDrop().monster;
-        for (RewardTable table : ClientQuestFile.INSTANCE.getRewardTables()) {
-            if (table.getLootCrate() != null) {
-                total += table.getLootCrate().getDrops().monster;
+            int total = file.getLootCrateNoDrop().passive;
+            for (RewardTable table : file.getRewardTables()) {
+                if (table.getLootCrate() != null) {
+                    total += table.getLootCrate().getDrops().passive;
+                }
             }
-        }
-        Component m = chance("monster", crate.getDrops().monster, total);
+            Component p = chance("passive", crate.getDrops().passive, total);
 
-        total = ClientQuestFile.INSTANCE.getLootCrateNoDrop().boss;
-        for (RewardTable table : ClientQuestFile.INSTANCE.getRewardTables()) {
-            if (table.getLootCrate() != null) {
-                total += table.getLootCrate().getDrops().boss;
+            total = file.getLootCrateNoDrop().monster;
+            for (RewardTable table : file.getRewardTables()) {
+                if (table.getLootCrate() != null) {
+                    total += table.getLootCrate().getDrops().monster;
+                }
             }
-        }
-        Component b = chance("boss", crate.getDrops().boss, total);
+            Component m = chance("monster", crate.getDrops().monster, total);
 
-        int w = Math.max(font.width(p), Math.max(font.width(m), font.width(b)));
-        int drawX = x + width - w - 2;
-        graphics.drawString(font, p, drawX, 0, 0xFF404040, false);
-        graphics.drawString(font, m, drawX, font.lineHeight, 0xFF404040, false);
-        graphics.drawString(font, b, drawX, font.lineHeight * 2, 0xFF404040, false);
+            total = file.getLootCrateNoDrop().boss;
+            for (RewardTable table : file.getRewardTables()) {
+                if (table.getLootCrate() != null) {
+                    total += table.getLootCrate().getDrops().boss;
+                }
+            }
+            Component b = chance("boss", crate.getDrops().boss, total);
+
+            int w = Math.max(font.width(p), Math.max(font.width(m), font.width(b)));
+            int drawX = x + width - w - 2;
+            graphics.drawString(font, p, drawX, 0, 0xFF404040, false);
+            graphics.drawString(font, m, drawX, font.lineHeight, 0xFF404040, false);
+            graphics.drawString(font, b, drawX, font.lineHeight * 2, 0xFF404040, false);
+        }
     }
 
     private static Component chance(String type, int w, int t) {

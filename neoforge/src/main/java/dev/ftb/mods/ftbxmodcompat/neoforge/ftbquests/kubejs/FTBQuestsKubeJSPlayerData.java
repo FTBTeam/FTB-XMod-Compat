@@ -13,10 +13,10 @@ public class FTBQuestsKubeJSPlayerData extends FTBQuestsKubeJSTeamData {
 	}
 
 	public BaseQuestFile getFile() {
-		return ServerQuestFile.INSTANCE;
+		return ServerQuestFile.getInstance();
 	}
 
 	public TeamData getData() {
-		return ServerQuestFile.INSTANCE.getOrCreateTeamData(player.getUUID());
+		return ServerQuestFile.getInstance().getOrCreateTeamData(player.getUUID());
 	}
 }
