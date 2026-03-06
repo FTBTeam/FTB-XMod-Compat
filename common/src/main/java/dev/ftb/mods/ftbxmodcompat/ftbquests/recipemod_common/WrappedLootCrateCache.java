@@ -40,7 +40,7 @@ public class WrappedLootCrateCache {
         crateStacks.clear();
 
         if (ClientQuestFile.exists()) {
-            for (RewardTable table : ClientQuestFile.INSTANCE.getRewardTables()) {
+            for (RewardTable table : ClientQuestFile.getInstance().getRewardTables()) {
                 if (table.getLootCrate() != null) {
                     WrappedLootCrate wrapper = new WrappedLootCrate(table.getLootCrate());
                     wrappedLootCratesCache.add(wrapper);

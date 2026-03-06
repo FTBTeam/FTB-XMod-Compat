@@ -1,7 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import dev.ftb.mods.ftblibrary.ui.GuiHelper;
+import dev.ftb.mods.ftblibrary.client.gui.GuiHelper;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
 import dev.ftb.mods.ftbquests.registry.ModDataComponents;
 import dev.ftb.mods.ftbquests.registry.ModItems;
@@ -14,8 +13,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -42,25 +41,23 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 
 			@Override
 			public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
-				PoseStack poseStack = graphics.pose();
-
-				poseStack.pushPose();
-				poseStack.translate(xOffset + 8, yOffset + 8, 100);
+				graphics.pose().pushMatrix();
+				graphics.pose().translate(xOffset + 8, yOffset + 8);
 
 				List<WrappedLootCrate> crates = LootCrateRecipeManagerPlugin.INSTANCE.getWrappedLootCrates();
 				if (!crates.isEmpty()) {
-					GuiHelper.drawItem(graphics, crates.get((int) ((System.currentTimeMillis() / 1000L) % crates.size())).crateStack, 0, true, null);
+					GuiHelper.drawItem(graphics, crates.get((int) ((System.currentTimeMillis() / 1000L) % crates.size())).crateStack, true, null);
 				} else {
-					GuiHelper.drawItem(graphics, new ItemStack(ModItems.LOOTCRATE.get()), 0, true, null);
+					GuiHelper.drawItem(graphics, new ItemStack(ModItems.LOOTCRATE.get()), true, null);
 				}
 
-				poseStack.popPose();
+				graphics.pose().popMatrix();
 			}
 		};
 	}
 
 	@Override
-	public RecipeType<WrappedLootCrate> getRecipeType() {
+	public IRecipeType<WrappedLootCrate> getRecipeType() {
 		return JEIRecipeTypes.LOOT_CRATE;
 	}
 
@@ -70,8 +67,13 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 	}
 
 	@Override
-	public IDrawable getBackground() {
-		return background;
+	public int getWidth() {
+		return background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return background.getHeight();
 	}
 
 	@Override
@@ -83,13 +85,13 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 	public void setRecipe(IRecipeLayoutBuilder builder, WrappedLootCrate recipe, IFocusGroup focuses) {
 		ItemStack catStack = recipe.crateStack.copy();
 		catStack.set(ModDataComponents.LOOT_CRATE.get(), recipe.crate.getStringID());
-		builder.addSlot(RecipeIngredientRole.CATALYST, 30, 11)
-				.addIngredient(VanillaTypes.ITEM_STACK, catStack);
+		builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 30, 11)
+				.add(VanillaTypes.ITEM_STACK, catStack);
 
 		for (int slot = 0; slot < Math.min(WrappedLootCrate.ITEMS, recipe.outputs.size()); slot++) {
 			int finalSlot = slot;
 			builder.addSlot(RecipeIngredientRole.OUTPUT, (slot % WrappedLootCrate.ITEMSX) * 18, (slot / WrappedLootCrate.ITEMSX) * 18 + 36)
-					.addIngredients(recipe.outputIngredients().get(slot))
+					.add(recipe.outputIngredients().get(slot))
 					.addRichTooltipCallback((recipeSlotView, tooltip) -> recipeSlotView.getDisplayedIngredient()
 							.flatMap(ingr -> ingr.getIngredient(VanillaTypes.ITEM_STACK)).ifPresent(stack -> {
 								if (ItemStack.isSameItemSameComponents(stack, recipe.outputs.get(finalSlot))) {

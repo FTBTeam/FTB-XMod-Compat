@@ -10,8 +10,8 @@ import snownee.jade.api.IWailaClientRegistration;
 
 public class JadeQuestsSetup {
     public static void register(IWailaClientRegistration registration) {
-        registration.usePickedResult(ModBlocks.BARRIER.get());
-        registration.usePickedResult(ModBlocks.STAGE_BARRIER.get());
+//        registration.usePickedResult(ModBlocks.BARRIER.get());
+//        registration.usePickedResult(ModBlocks.STAGE_BARRIER.get());
 
         registration.registerBlockComponent(new BarrierComponentProvider(), QuestBarrierBlock.class);
         registration.registerBlockIcon(new BarrierComponentProvider(), QuestBarrierBlock.class);

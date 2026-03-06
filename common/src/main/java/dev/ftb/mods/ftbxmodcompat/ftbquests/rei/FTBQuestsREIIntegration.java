@@ -34,8 +34,9 @@ public class FTBQuestsREIIntegration implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         if (FTBXModCompat.isFTBQuestsLoaded) {
-            registry.registerFiller(WrappedQuest.class, QuestDisplay::new);
-            registry.registerFiller(WrappedLootCrate.class, LootCrateDisplay::new);
+            // TODO wtf is this supposed to be now?
+//            registry.registerFiller(WrappedQuest.class, QuestDisplay::new);
+//            registry.registerFiller(WrappedLootCrate.class, LootCrateDisplay::new);
 
             registry.registerDisplayGenerator(REICategories.QUEST, QuestDisplayGenerator.INSTANCE);
             registry.registerDisplayGenerator(REICategories.LOOT_CRATE, LootCrateDisplayGenerator.INSTANCE);

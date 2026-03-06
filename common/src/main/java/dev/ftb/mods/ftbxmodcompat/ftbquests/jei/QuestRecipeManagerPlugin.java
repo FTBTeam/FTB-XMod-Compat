@@ -4,9 +4,8 @@ import dev.ftb.mods.ftbquests.registry.ModItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuestCache;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.advanced.IRecipeManagerPlugin;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -21,10 +20,10 @@ public enum QuestRecipeManagerPlugin implements IRecipeManagerPlugin {
     }
 
     @Override
-    public <T, V> List<T> getRecipes(IRecipeCategory<T> recipeCategory, IFocus<V> focus) {
+    public <T, V> List<T> getRecipes(IRecipeType<T> recipeCategory, IFocus<V> focus) {
         if (recipeCategory instanceof QuestCategory && focus.getTypedValue().getIngredient() instanceof ItemStack stack) {
             // (List<T>) casts should be safe since we've verified the category
-            if (stack.getItem() == ModItems.BOOK.get() && focus.getRole() == RecipeIngredientRole.CATALYST) {
+            if (stack.getItem() == ModItems.BOOK.get() && focus.getRole() == RecipeIngredientRole.CRAFTING_STATION) {
                 //noinspection unchecked
                 return (List<T>) cache.getCachedItems();
             }
@@ -41,14 +40,14 @@ public enum QuestRecipeManagerPlugin implements IRecipeManagerPlugin {
     }
 
     @Override
-    public <T> List<T> getRecipes(IRecipeCategory<T> recipeCategory) {
+    public <T> List<T> getRecipes(IRecipeType<T> recipeCategory) {
         // safe to cast since we verified the category already
         //noinspection unchecked
         return recipeCategory instanceof QuestCategory ? (List<T>) cache.getCachedItems() : List.of();
     }
 
     @Override
-    public <V> List<RecipeType<?>> getRecipeTypes(IFocus<V> focus) {
+    public <V> List<IRecipeType<?>> getRecipeTypes(IFocus<V> focus) {
         if (focus.getTypedValue().getIngredient() instanceof ItemStack stack) {
             if (focus.getRole() == RecipeIngredientRole.INPUT && (stack.getItem() == ModItems.BOOK.get() || !cache.findQuestsWithInput(stack).isEmpty())
                     || focus.getRole() == RecipeIngredientRole.OUTPUT && !cache.findQuestsWithOutput(stack).isEmpty()) {

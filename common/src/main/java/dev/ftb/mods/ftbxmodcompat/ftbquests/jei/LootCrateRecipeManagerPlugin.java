@@ -6,9 +6,8 @@ import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrateCac
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.advanced.IRecipeManagerPlugin;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
@@ -20,14 +19,14 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     private final WrappedLootCrateCache cache = new WrappedLootCrateCache(
             crates -> {
                 if (FTBQuestsJEIIntegration.runtime != null && !crates.isEmpty()) {
-                    Minecraft.getInstance().tell(() ->
+                    Minecraft.getInstance().schedule(() ->
                             FTBQuestsJEIIntegration.runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, crates)
                     );
                 }
             },
             crates -> {
                 if (FTBQuestsJEIIntegration.runtime != null && !crates.isEmpty()) {
-                    Minecraft.getInstance().tell(() ->
+                    Minecraft.getInstance().schedule(() ->
                             FTBQuestsJEIIntegration.runtime.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, crates)
                     );
                 }
@@ -35,7 +34,7 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     );
 
     @Override
-    public <V> List<RecipeType<?>> getRecipeTypes(IFocus<V> focus) {
+    public <V> List<IRecipeType<?>> getRecipeTypes(IFocus<V> focus) {
         if (focus.getTypedValue().getIngredient() instanceof ItemStack stack)
             if (focus.getRole() == RecipeIngredientRole.INPUT) {
                 if (stack.getItem() == ModItems.LOOTCRATE.get()) {
@@ -51,9 +50,9 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     }
 
     @Override
-    public <T, V> List<T> getRecipes(IRecipeCategory<T> recipeCategory, IFocus<V> focus) {
+    public <T, V> List<T> getRecipes(IRecipeType<T> recipeCategory, IFocus<V> focus) {
         if (recipeCategory instanceof LootCrateCategory && focus.getTypedValue().getIngredient() instanceof ItemStack stack) {
-            if (stack.getItem() == ModItems.LOOTCRATE.get() && focus.getRole() == RecipeIngredientRole.CATALYST) {
+            if (stack.getItem() == ModItems.LOOTCRATE.get() && focus.getRole() == RecipeIngredientRole.CRAFTING_STATION) {
                 // safe to cast here since we've checked the category
                 //noinspection unchecked
                 return (List<T>) cache.getWrappedLootCrates();
@@ -70,7 +69,7 @@ public enum LootCrateRecipeManagerPlugin implements IRecipeManagerPlugin {
     }
 
     @Override
-    public <T> List<T> getRecipes(IRecipeCategory<T> recipeCategory) {
+    public <T> List<T> getRecipes(IRecipeType<T> recipeCategory) {
         // safe to cast here since we've checked the category
         //noinspection unchecked
         return recipeCategory instanceof LootCrateCategory ? (List<T>) cache.getWrappedLootCrates() : List.of();

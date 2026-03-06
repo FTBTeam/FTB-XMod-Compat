@@ -3,7 +3,6 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.reward.RewardAutoClaim;
-import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class WrappedQuestCache {
         wrappedQuestsCache.clear();
 
         if (ClientQuestFile.exists()) {
-            ClientQuestFile file = ClientQuestFile.INSTANCE;
+            ClientQuestFile file = ClientQuestFile.getInstance();
             file.forAllQuests(quest -> {
                 if (file.selfTeamData.canStartTasks(quest) && quest.isSearchable(file.selfTeamData) && !quest.getRewards().isEmpty() && quest.showInRecipeMod()) {
                     List<Reward> rewards = quest.getRewards().stream()

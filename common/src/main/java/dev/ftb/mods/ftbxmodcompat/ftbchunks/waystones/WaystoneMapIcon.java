@@ -9,8 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 
 public class WaystoneMapIcon extends StaticMapIcon {
-	public static final Icon ICON = Icon.getIcon("ftbchunks:textures/waystone.png");
-	public static final Icon ICON_GLOBAL = ICON.withTint(Color4I.rgb(0xEB78E5));
+	public static final Icon<?> ICON = Icon.getIcon("ftbchunks:textures/waystone.png");
+	public static final Icon<?> ICON_GLOBAL = ICON.withTint(Color4I.rgb(0xEB78E5));
 	public final Component name;
 	public final boolean global;
 

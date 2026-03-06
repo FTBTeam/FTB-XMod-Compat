@@ -16,7 +16,7 @@ import eu.pb4.common.protection.api.CommonProtection;
 import eu.pb4.common.protection.api.ProtectionProvider;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.TimeUnit;
 
 public class FTBChunksProtectionProvider implements ProtectionProvider {
-    public static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(FTBChunks.MOD_ID, "provider");
+    public static Identifier ID = Identifier.fromNamespaceAndPath(FTBChunks.MOD_ID, "provider");
     private static LoadingCache<GameProfile, ServerPlayer> FAKE_PLAYERS = null;
 
     public static void init() {
@@ -88,7 +88,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
     @Override
     public boolean canExplodeBlock(Level world, BlockPos pos, Explosion explosion, GameProfile profile, Player player) {
-        if (explosion.source == null && !FTBChunksWorldConfig.PROTECT_UNKNOWN_EXPLOSIONS.get()) {
+        if (explosion.getDirectSourceEntity() == null && !FTBChunksWorldConfig.PROTECT_UNKNOWN_EXPLOSIONS.get()) {
             return true;
         }
 
@@ -142,7 +142,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
             return null;
         }
 
-        ServerPlayer online = sl.getServer().getPlayerList().getPlayer(profile.getId());
+        ServerPlayer online = sl.getServer().getPlayerList().getPlayer(profile.id());
 
         if (online != null) return online;
 

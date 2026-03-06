@@ -25,7 +25,7 @@ public class FTBQuestsKubeJSWrapper {
 	}
 
 	public BaseQuestFile getFile(Level level) {
-		return FTBQuestsAPI.api().getQuestFile(level.isClientSide);
+		return FTBQuestsAPI.api().getQuestFile(level.isClientSide());
 	}
 
 	@Nullable
@@ -35,7 +35,7 @@ public class FTBQuestsKubeJSWrapper {
 
 	@Nullable
 	public TeamData getData(Player player) {
-		return getFile(player.level()).getOrCreateTeamData(player);
+		return getFile(player.level()).getOrCreateTeamData(player.getUUID());
 	}
 
 	@Nullable

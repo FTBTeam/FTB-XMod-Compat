@@ -14,19 +14,19 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public class QuestCategory implements IRecipeCategory<WrappedQuest> {
-	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FTBQuestsAPI.MOD_ID, "textures/gui/jei/quest.png");
+	public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FTBQuestsAPI.MOD_ID, "textures/gui/jei/quest.png");
 
 	private static final ScreenRectangle INPUT_AREA = new ScreenRectangle(0, 0, 144, 20);
 
@@ -49,8 +49,13 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 	}
 
 	@Override
-	public IDrawable getBackground() {
-		return background;
+	public int getWidth() {
+		return background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return background.getHeight();
 	}
 
 	@Override
@@ -59,7 +64,7 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 	}
 
 	@Override
-	public RecipeType<WrappedQuest> getRecipeType() {
+	public IRecipeType<WrappedQuest> getRecipeType() {
 		return JEIRecipeTypes.QUEST;
 	}
 

@@ -5,7 +5,10 @@ import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class WaystonesCommon {
     private static final Map<ResourceKey<Level>, Map<UUID,WaystoneMapIcon>> WAYSTONES = new HashMap<>();
