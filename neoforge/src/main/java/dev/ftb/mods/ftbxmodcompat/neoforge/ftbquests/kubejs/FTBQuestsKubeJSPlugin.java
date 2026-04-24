@@ -1,6 +1,5 @@
 package dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.kubejs;
 
-import dev.architectury.event.EventResult;
 import dev.ftb.mods.ftbquests.api.event.CustomFilterDisplayItemsEvent;
 import dev.ftb.mods.ftbquests.api.event.CustomRewardEvent;
 import dev.ftb.mods.ftbquests.api.event.CustomTaskEvent;
@@ -13,7 +12,6 @@ import dev.ftb.mods.ftbquests.quest.QuestObject;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
-import dev.ftb.mods.ftbxmodcompat.kubejs.KJSUtil;
 import dev.latvian.mods.kubejs.event.EventGroupRegistry;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingRegistry;
@@ -64,16 +62,12 @@ public class FTBQuestsKubeJSPlugin implements KubeJSPlugin {
 		FTBQuestsKubeJSEvents.CUSTOM_FILTER_ITEM.post(ScriptType.CLIENT, new CustomFilterItemKubeEvent(event));
 	}
 
-	public static EventResult onCustomTask(CustomTaskEvent.Data event) {
-		return KJSUtil.asArchResult(
-				FTBQuestsKubeJSEvents.CUSTOM_TASK.post(ScriptType.SERVER, event.task().toString(), new CustomTaskKubeEvent(event))
-		);
+	public static void onCustomTask(CustomTaskEvent.Data event) {
+		FTBQuestsKubeJSEvents.CUSTOM_TASK.post(ScriptType.SERVER, event.task().toString(), new CustomTaskKubeEvent(event));
 	}
 
-	public static EventResult onCustomReward(CustomRewardEvent.Data event) {
-		return KJSUtil.asArchResult(
-			FTBQuestsKubeJSEvents.CUSTOM_REWARD.post(ScriptType.SERVER, event.reward().toString(), new CustomRewardKubeEvent(event))
-		);
+	public static void onCustomReward(CustomRewardEvent.Data event) {
+		FTBQuestsKubeJSEvents.CUSTOM_REWARD.post(ScriptType.SERVER, event.reward().toString(), new CustomRewardKubeEvent(event));
 	}
 
 	private void onProgress(TaskProgressEvent.Data eventData) {

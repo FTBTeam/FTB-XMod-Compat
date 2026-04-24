@@ -1,10 +1,10 @@
 package dev.ftb.mods.ftbxmodcompat.fabric.ftbchunks.waystones;
 
 import com.mojang.logging.LogUtils;
-import dev.architectury.platform.Platform;
-import dev.architectury.utils.Env;
 import dev.ftb.mods.ftbchunks.api.fabric.FTBChunksClientEvents;
 import dev.ftb.mods.ftblibrary.client.util.ClientUtils;
+import dev.ftb.mods.ftblibrary.platform.Env;
+import dev.ftb.mods.ftblibrary.platform.Platform;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystoneData;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.waystones.WaystoneMapIcon;
@@ -34,7 +34,7 @@ public class WaystonesCompat {
 	private static void updateWaystone(WaystoneUpdatedEvent event) {
 		LOGGER.trace("waystone updated: {} {}", event.waystone().getWaystoneUid(), event.waystone().getVisibility());
 		Waystone w = event.waystone();
-		if (Platform.getEnvironment() == Env.CLIENT && (!FTBXModConfig.ONLY_SHOW_KNOWN_WAYSTONES.get() || WaystonesAPI.isWaystoneActivated(ClientUtils.getClientPlayer(), w))) {
+		if (Platform.get().env() == Env.CLIENT && (!FTBXModConfig.ONLY_SHOW_KNOWN_WAYSTONES.get() || WaystonesAPI.isWaystoneActivated(ClientUtils.getClientPlayer(), w))) {
 			WaystonesCommon.updateWaystone(w.getWaystoneUid(), new WaystoneData(w.getDimension(), new WaystoneMapIcon(w.getPos(), w.getName(), w.getVisibility() == WaystoneVisibility.GLOBAL)));
 		}
 	}
