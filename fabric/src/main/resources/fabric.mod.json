@@ -17,24 +17,19 @@
     "main": [
       "dev.ftb.mods.ftbxmodcompat.fabric.FTBXModCompatFabric"
     ],
-    "rei_client": [
-      "dev.ftb.mods.ftbxmodcompat.ftbquests.rei.FTBQuestsREIIntegration"
-    ],
     "jei_mod_plugin": [
       "dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration"
     ]
   },
   "depends": {
-    "fabric": "${fabricversionrange}",
-    "minecraft": ">=${mcversion}",
-    "architectury": ">=${archversion}",
+    "fabric-api": "${fabricapiversionrange}",
+    "minecraft": "${minecraft_version_range_semver}",
     "ftblibrary": ">=${ftblibraryversion}"
   },
   "breaks": {
     "ftbquests": "<2001.3.0",
     "ftbchunks": "<2001.2.0",
     "jei": "<15.2",
-    "kubejs": "<2001.6.3-build.18",
-    "waystones": "<${required_waystones_version}"
+    "kubejs": "<2001.6.3-build.18"
   }
 }

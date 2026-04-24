@@ -2,10 +2,14 @@ package dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.kubejs;
 
 import dev.architectury.event.EventResult;
 import dev.ftb.mods.ftbquests.api.event.CustomFilterDisplayItemsEvent;
-import dev.ftb.mods.ftbquests.events.CustomRewardEvent;
-import dev.ftb.mods.ftbquests.events.CustomTaskEvent;
-import dev.ftb.mods.ftbquests.events.ObjectCompletedEvent;
-import dev.ftb.mods.ftbquests.events.ObjectStartedEvent;
+import dev.ftb.mods.ftbquests.api.event.CustomRewardEvent;
+import dev.ftb.mods.ftbquests.api.event.CustomTaskEvent;
+import dev.ftb.mods.ftbquests.api.event.progress.ProgressEventData;
+import dev.ftb.mods.ftbquests.api.event.progress.ProgressType;
+import dev.ftb.mods.ftbquests.api.event.progress.TaskProgressEvent;
+import dev.ftb.mods.ftbquests.api.neoforge.FTBQuestsClientEvent;
+import dev.ftb.mods.ftbquests.api.neoforge.FTBQuestsEvent;
+import dev.ftb.mods.ftbquests.quest.QuestObject;
 import dev.ftb.mods.ftbquests.quest.QuestObjectBase;
 import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
@@ -17,15 +21,19 @@ import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.kubejs.util.AttachedData;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.common.NeoForge;
 
 public class FTBQuestsKubeJSPlugin implements KubeJSPlugin {
 	@Override
 	public void init() {
-		CustomTaskEvent.EVENT.register(FTBQuestsKubeJSPlugin::onCustomTask);
-		CustomRewardEvent.EVENT.register(FTBQuestsKubeJSPlugin::onCustomReward);
-		ObjectCompletedEvent.GENERIC.register(FTBQuestsKubeJSPlugin::onCompleted);
-		ObjectStartedEvent.GENERIC.register(FTBQuestsKubeJSPlugin::onStarted);
-		CustomFilterDisplayItemsEvent.ADD_ITEMSTACK.register(FTBQuestsKubeJSPlugin::onCustomFilterItem);
+		NeoForge.EVENT_BUS.addListener(FTBQuestsEvent.CustomTask.class,
+				event -> onCustomTask(event.getEventData()));
+		NeoForge.EVENT_BUS.addListener(FTBQuestsEvent.CustomReward.class,
+				event -> onCustomReward(event.getEventData()));
+		NeoForge.EVENT_BUS.addListener(FTBQuestsEvent.TaskProgress.class,
+				event -> onProgress(event.getEventData()));
+		NeoForge.EVENT_BUS.addListener(FTBQuestsClientEvent.CustomFilterDisplayItems.class,
+				event -> onCustomFilterItem(event.getEventData()));
 
 //		Stages.added(event -> {
 //			if (event.getPlayer() instanceof ServerPlayer sp) StageTask.checkStages(sp);
@@ -52,48 +60,43 @@ public class FTBQuestsKubeJSPlugin implements KubeJSPlugin {
 		registry.register(FTBQuestsKubeJSEvents.EVENT_GROUP);
 	}
 
-	private static void onCustomFilterItem(CustomFilterDisplayItemsEvent event) {
+	private static void onCustomFilterItem(CustomFilterDisplayItemsEvent.Data event) {
 		FTBQuestsKubeJSEvents.CUSTOM_FILTER_ITEM.post(ScriptType.CLIENT, new CustomFilterItemKubeEvent(event));
 	}
 
-	public static EventResult onCustomTask(CustomTaskEvent event) {
+	public static EventResult onCustomTask(CustomTaskEvent.Data event) {
 		return KJSUtil.asArchResult(
-				FTBQuestsKubeJSEvents.CUSTOM_TASK.post(ScriptType.SERVER, event.getTask().toString(), new CustomTaskKubeEvent(event))
+				FTBQuestsKubeJSEvents.CUSTOM_TASK.post(ScriptType.SERVER, event.task().toString(), new CustomTaskKubeEvent(event))
 		);
 	}
 
-	public static EventResult onCustomReward(CustomRewardEvent event) {
+	public static EventResult onCustomReward(CustomRewardEvent.Data event) {
 		return KJSUtil.asArchResult(
-			FTBQuestsKubeJSEvents.CUSTOM_REWARD.post(ScriptType.SERVER, event.getReward().toString(), new CustomRewardKubeEvent(event))
+			FTBQuestsKubeJSEvents.CUSTOM_REWARD.post(ScriptType.SERVER, event.reward().toString(), new CustomRewardKubeEvent(event))
 		);
 	}
 
-	public static EventResult onCompleted(ObjectCompletedEvent<?> event) {
-		if (event.getData().getFile().isServerSide()) {
-			var kjsEvent = new QuestObjectCompletedKubeEvent(event);
-			var object = event.getObject();
-
-			FTBQuestsKubeJSEvents.OBJECT_COMPLETED.post(ScriptType.SERVER, event.getObject().toString(), kjsEvent);
-			for (String tag : object.getTags()) {
-				FTBQuestsKubeJSEvents.OBJECT_COMPLETED.post(ScriptType.SERVER, '#' + tag, kjsEvent);
-			}
-		}
-
-		return EventResult.pass();
+	private void onProgress(TaskProgressEvent.Data eventData) {
+		handleProgressEvent(eventData.type(), eventData.progressData());
 	}
 
-	public static EventResult onStarted(ObjectStartedEvent<?> event) {
-		if (event.getData().getFile().isServerSide()) {
-			var kjsEvent = new QuestObjectStartedKubeEvent(event);
-			var object = event.getObject();
-
-			FTBQuestsKubeJSEvents.OBJECT_STARTED.post(ScriptType.SERVER, event.getObject().toString(), kjsEvent);
-			for (String tag : object.getTags()) {
-				FTBQuestsKubeJSEvents.OBJECT_STARTED.post(ScriptType.SERVER, '#' + tag, kjsEvent);
+	private void handleProgressEvent(ProgressType type, ProgressEventData<? extends QuestObject> progressData) {
+		QuestObject qo = progressData.object();
+		if (qo.getQuestFile().isServerSide()) {
+			if (type == ProgressType.COMPLETED) {
+				var kjsEvent = new QuestObjectProgressKubeEvent.Completed(progressData);
+				FTBQuestsKubeJSEvents.OBJECT_COMPLETED.post(ScriptType.SERVER, qo.toString(), kjsEvent);
+				for (String tag : qo.getTags()) {
+					FTBQuestsKubeJSEvents.OBJECT_COMPLETED.post(ScriptType.SERVER, '#' + tag, kjsEvent);
+				}
+			} else {
+				var kjsEvent = new QuestObjectProgressKubeEvent.Started(progressData);
+				FTBQuestsKubeJSEvents.OBJECT_STARTED.post(ScriptType.SERVER, qo.toString(), kjsEvent);
+				for (String tag : qo.getTags()) {
+					FTBQuestsKubeJSEvents.OBJECT_STARTED.post(ScriptType.SERVER, '#' + tag, kjsEvent);
+				}
 			}
 		}
-
-		return EventResult.pass();
 	}
 
 	static MinecraftServer getServer(QuestObjectBase qo) {

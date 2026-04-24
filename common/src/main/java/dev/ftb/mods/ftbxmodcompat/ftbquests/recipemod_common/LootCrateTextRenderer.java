@@ -7,14 +7,14 @@ import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
 public class LootCrateTextRenderer {
-    public static void drawText(GuiGraphics graphics, LootCrate crate, int x, int width) {
+    public static void drawText(GuiGraphicsExtractor graphics, LootCrate crate, int x, int width) {
         Font font = Minecraft.getInstance().font;
 
-        graphics.drawString(font, Component.translatable(crate.getItemName()).withStyle(ChatFormatting.UNDERLINE), x + 10, 0, 0xFFFFFF00);
+        graphics.text(font, Component.translatable(crate.getItemName()).withStyle(ChatFormatting.UNDERLINE), x + 10, 0, 0xFFFFFF00);
 
         if (ClientQuestFile.exists()) {
             ClientQuestFile file = ClientQuestFile.getInstance();
@@ -45,9 +45,9 @@ public class LootCrateTextRenderer {
 
             int w = Math.max(font.width(p), Math.max(font.width(m), font.width(b)));
             int drawX = x + width - w - 2;
-            graphics.drawString(font, p, drawX, 0, 0xFF404040, false);
-            graphics.drawString(font, m, drawX, font.lineHeight, 0xFF404040, false);
-            graphics.drawString(font, b, drawX, font.lineHeight * 2, 0xFF404040, false);
+            graphics.text(font, p, drawX, 0, 0xFF404040, false);
+            graphics.text(font, m, drawX, font.lineHeight, 0xFF404040, false);
+            graphics.text(font, b, drawX, font.lineHeight * 2, 0xFF404040, false);
         }
     }
 

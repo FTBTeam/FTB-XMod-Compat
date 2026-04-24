@@ -19,7 +19,7 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -84,14 +84,14 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 	}
 
 	@Override
-	public void draw(WrappedQuest recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+	public void draw(WrappedQuest recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
 		Component text = recipe.quest.getTitle().copy().withStyle(ChatFormatting.UNDERLINE);
 		Font font = Minecraft.getInstance().font;
 		int w = font.width(text);
 		int x = (background.getWidth() - w) / 2;
 		int y = 3;
 		boolean highlight = mouseX >= x && mouseY >= y && mouseX < x + w && mouseY < y + font.lineHeight;
-		graphics.drawString(font, text, x, y, highlight ? 0xFFA87A5E : 0xFF3F2E23, false);
+		graphics.text(font, text, x, y, highlight ? 0xFFA87A5E : 0xFF3F2E23, false);
 	}
 
 	public record ClickHandler(ScreenRectangle area, WrappedQuest recipe) implements IJeiInputHandler {

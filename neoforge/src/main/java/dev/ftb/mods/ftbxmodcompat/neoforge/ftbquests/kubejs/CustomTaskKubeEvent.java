@@ -1,18 +1,18 @@
 package dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.kubejs;
 
-import dev.ftb.mods.ftbquests.events.CustomTaskEvent;
+import dev.ftb.mods.ftbquests.api.event.CustomTaskEvent;
 import dev.ftb.mods.ftbquests.quest.task.CustomTask;
 import dev.latvian.mods.kubejs.event.KubeEvent;
 
 public class CustomTaskKubeEvent implements KubeEvent {
-	public final CustomTaskEvent event;
+	public final CustomTaskEvent.Data event;
 
-	CustomTaskKubeEvent(CustomTaskEvent e) {
+	CustomTaskKubeEvent(CustomTaskEvent.Data e) {
 		event = e;
 	}
 
 	public CustomTask getTask() {
-		return event.getTask();
+		return event.task();
 	}
 
 	public void setCheck(CustomTask.Check c) {

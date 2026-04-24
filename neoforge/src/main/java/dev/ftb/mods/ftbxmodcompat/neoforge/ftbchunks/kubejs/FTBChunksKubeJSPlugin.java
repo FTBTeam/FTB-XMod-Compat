@@ -1,29 +1,20 @@
 package dev.ftb.mods.ftbxmodcompat.neoforge.ftbchunks.kubejs;
 
-import dev.architectury.event.CompoundEventResult;
 import dev.ftb.mods.ftbchunks.api.ClaimResult;
-import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
-import dev.ftb.mods.ftbchunks.api.event.ClaimedChunkEvent;
+import dev.ftb.mods.ftbchunks.api.event.ChunkChangeEvent;
+import dev.ftb.mods.ftbchunks.api.neoforge.FTBChunksEvent;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
-import dev.ftb.mods.ftbxmodcompat.kubejs.KJSUtil;
 import dev.latvian.mods.kubejs.event.EventGroupRegistry;
-import dev.latvian.mods.kubejs.event.EventResult;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.kubejs.script.TypeWrapperRegistry;
-import net.minecraft.commands.CommandSourceStack;
+import net.neoforged.neoforge.common.NeoForge;
 
 public class FTBChunksKubeJSPlugin implements KubeJSPlugin {
 	@Override
 	public void init() {
-		ClaimedChunkEvent.BEFORE_CLAIM.register((source, chunk) -> before(source, chunk, "claim"));
-		ClaimedChunkEvent.BEFORE_LOAD.register((source, chunk) -> before(source, chunk, "load"));
-		ClaimedChunkEvent.BEFORE_UNCLAIM.register((source, chunk) -> before(source, chunk, "unclaim"));
-		ClaimedChunkEvent.BEFORE_UNLOAD.register((source, chunk) -> before(source, chunk, "unload"));
-		ClaimedChunkEvent.AFTER_CLAIM.register((source, chunk) -> after(source, chunk, "claim"));
-		ClaimedChunkEvent.AFTER_LOAD.register((source, chunk) -> after(source, chunk, "load"));
-		ClaimedChunkEvent.AFTER_UNCLAIM.register((source, chunk) -> after(source, chunk, "unclaim"));
-		ClaimedChunkEvent.AFTER_UNLOAD.register((source, chunk) -> after(source, chunk, "unload"));
+		NeoForge.EVENT_BUS.addListener(FTBChunksEvent.ChunkChange.Pre.class, this::before);
+		NeoForge.EVENT_BUS.addListener(FTBChunksEvent.ChunkChange.Post.class, this::after);
 
 		FTBXModCompat.LOGGER.info("[FTB Chunks] Enabled KubeJS integration");
 	}
@@ -35,16 +26,18 @@ public class FTBChunksKubeJSPlugin implements KubeJSPlugin {
 
 	@Override
 	public void registerTypeWrappers(TypeWrapperRegistry registry) {
-		registry.register(ClaimResult.class, (cx, from, target) -> ClaimResult.StandardProblem.valueOf(from.toString().toUpperCase()));
+		registry.register(ClaimResult.class, (_, from, _) -> ClaimResult.StandardProblem.valueOf(from.toString().toUpperCase()));
 	}
 
-	private CompoundEventResult<ClaimResult> before(CommandSourceStack source, ClaimedChunk chunk, String id) {
-		BeforeEventJS event = new BeforeEventJS(source, chunk);
-		EventResult result = FTBChunksKubeJSEvents.BEFORE.post(ScriptType.SERVER, id, event);
-		return KJSUtil.asCompoundArchResult(result, event.getResult());
-	}
+	private void before(FTBChunksEvent.ChunkChange.Pre event) {
+		ChunkChangeEvent.Pre.Data data = event.getEventData();
+		BeforeEventJS kjsEvent = new BeforeEventJS(data.sourceStack(), data.claimedChunk());
+		FTBChunksKubeJSEvents.BEFORE.post(ScriptType.SERVER, data.operation().toString(), kjsEvent);
+		event.setResult(kjsEvent.getResult()); // will cancel the event if not successful
+    }
 
-	private void after(CommandSourceStack source, ClaimedChunk chunk, String id) {
-		FTBChunksKubeJSEvents.AFTER.post(ScriptType.SERVER, id, new AfterEventJS(source, chunk));
+	private void after(FTBChunksEvent.ChunkChange.Post event) {
+		ChunkChangeEvent.Post.Data data = event.getEventData();
+		FTBChunksKubeJSEvents.AFTER.post(ScriptType.SERVER, data.operation().toString(), new AfterEventJS(data.sourceStack(), data.claimedChunk()));
 	}
 }

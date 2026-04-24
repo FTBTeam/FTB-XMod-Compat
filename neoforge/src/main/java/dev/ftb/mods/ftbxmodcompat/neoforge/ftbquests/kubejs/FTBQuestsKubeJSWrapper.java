@@ -30,7 +30,9 @@ public class FTBQuestsKubeJSWrapper {
 
 	@Nullable
 	public TeamData getData(Level level, UUID uuid) {
-		return getFile(level).getOrCreateTeamData(FTBTeamsAPI.api().getManager().getTeamForPlayerID(uuid).orElse(null));
+		return FTBTeamsAPI.api().getManager().getTeamForPlayerID(uuid)
+				.map(team -> getFile(level).getOrCreateTeamData(team))
+				.orElse(null);
 	}
 
 	@Nullable

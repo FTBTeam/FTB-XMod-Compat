@@ -5,11 +5,11 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.authlib.GameProfile;
 import dev.ftb.mods.ftbchunks.FTBChunks;
-import dev.ftb.mods.ftbchunks.FTBChunksExpected;
-import dev.ftb.mods.ftbchunks.FTBChunksWorldConfig;
+import dev.ftb.mods.ftbchunks.FTBChunksAPIImpl;
 import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
 import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
 import dev.ftb.mods.ftbchunks.api.Protection;
+import dev.ftb.mods.ftbchunks.config.FTBChunksWorldConfig;
 import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import eu.pb4.common.protection.api.CommonProtection;
@@ -20,6 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FTBChunksProtectionProvider implements ProtectionProvider {
     public static Identifier ID = Identifier.fromNamespaceAndPath(FTBChunks.MOD_ID, "provider");
-    private static LoadingCache<GameProfile, ServerPlayer> FAKE_PLAYERS = null;
+    private static LoadingCache<NameAndId, ServerPlayer> FAKE_PLAYERS = null;
 
     public static void init() {
         CommonProtection.register(ID, new FTBChunksProtectionProvider());
@@ -78,16 +79,16 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canBreakBlock(Level world, BlockPos pos, GameProfile profile, Player player) {
+    public boolean canBreakBlock(Level world, BlockPos pos, NameAndId profile, Player player) {
         player = tryResolvePlayer(world, profile);
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockBreakProtection(), null);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksAPIImpl.INSTANCE.getProtectionImplementations().blockBreakProtection(), null);
     }
 
     @Override
-    public boolean canExplodeBlock(Level world, BlockPos pos, Explosion explosion, GameProfile profile, Player player) {
+    public boolean canExplodeBlock(Level world, BlockPos pos, Explosion explosion, NameAndId profile, Player player) {
         if (explosion.getDirectSourceEntity() == null && !FTBChunksWorldConfig.PROTECT_UNKNOWN_EXPLOSIONS.get()) {
             return true;
         }
@@ -99,26 +100,26 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canPlaceBlock(Level world, BlockPos pos, GameProfile profile, Player player) {
+    public boolean canPlaceBlock(Level world, BlockPos pos, NameAndId profile, Player player) {
         player = tryResolvePlayer(world, profile);
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockPlaceProtection(), null);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksAPIImpl.INSTANCE.getProtectionImplementations().blockPlaceProtection(), null);
     }
 
     @Override
-    public boolean canInteractBlock(Level world, BlockPos pos, GameProfile profile, Player player) {
+    public boolean canInteractBlock(Level world, BlockPos pos, NameAndId profile, Player player) {
         player = tryResolvePlayer(world, profile);
 
         if (player == null) return true;
 
-        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksExpected.getBlockInteractProtection(), null);
+        return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, pos, FTBChunksAPIImpl.INSTANCE.getProtectionImplementations().blockInteractProtection(), null);
 
     }
 
     @Override
-    public boolean canInteractEntity(Level world, Entity entity, GameProfile profile, Player player) {
+    public boolean canInteractEntity(Level world, Entity entity, NameAndId profile, Player player) {
         player = tryResolvePlayer(world, profile);
 
         if (player == null) return true;
@@ -127,7 +128,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
     }
 
     @Override
-    public boolean canDamageEntity(Level world, Entity entity, GameProfile profile, Player player) {
+    public boolean canDamageEntity(Level world, Entity entity, NameAndId profile, Player player) {
         if (entity instanceof LivingEntity) return true;
 
         player = tryResolvePlayer(world, profile);
@@ -137,7 +138,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
         return !FTBChunksAPI.api().getManager().shouldPreventInteraction(player, InteractionHand.MAIN_HAND, entity.blockPosition(), Protection.ATTACK_NONLIVING_ENTITY, entity);
     }
 
-    public static @Nullable ServerPlayer tryResolvePlayer(Level l, GameProfile profile) {
+    public static @Nullable ServerPlayer tryResolvePlayer(Level l, NameAndId profile) {
         if (!(l instanceof ServerLevel sl)) {
             return null;
         }
@@ -150,8 +151,8 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
     }
 
     private static class OfflineServerPlayer extends ServerPlayer {
-        public OfflineServerPlayer(ServerLevel serverLevel, GameProfile gameProfile) {
-            super(serverLevel.getServer(), serverLevel, gameProfile, ClientInformation.createDefault());
+        public OfflineServerPlayer(ServerLevel serverLevel, NameAndId nameAndId) {
+            super(serverLevel.getServer(), serverLevel, new GameProfile(nameAndId.id(), nameAndId.name()), ClientInformation.createDefault());
         }
     }
 }

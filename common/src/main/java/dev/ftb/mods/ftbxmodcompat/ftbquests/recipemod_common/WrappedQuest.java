@@ -52,7 +52,7 @@ public class WrappedQuest {
                     // TODO using non-API access to FTBQ here
                     input.add(List.copyOf(ItemMatchingSystem.INSTANCE.getAllMatchingStacks(stack, q.getQuestFile().holderLookup())));
                 } else if (task.getIcon() instanceof ItemIcon itemIcon) {
-                    stack = itemIcon.getStack().copy();
+                    stack = itemIcon.getStack().create();
                     stack.set(DataComponents.CUSTOM_NAME, task.getTitle());
                     input.add(Collections.singletonList(stack));
                 } else {
@@ -101,7 +101,7 @@ public class WrappedQuest {
                     output.add(builder.build());
                 }
             } else if (reward.getIcon() instanceof ItemIcon itemIcon) {
-                stack = itemIcon.getStack().copy();
+                stack = itemIcon.getStack().create();
                 stack.set(DataComponents.CUSTOM_NAME, reward.getTitle());
                 output.add(Collections.singletonList(stack));
             } else {

@@ -16,7 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -40,7 +40,7 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 			}
 
 			@Override
-			public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+			public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 				graphics.pose().pushMatrix();
 				graphics.pose().translate(xOffset + 8, yOffset + 8);
 
@@ -108,7 +108,7 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 	}
 
 	@Override
-	public void draw(WrappedLootCrate recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+	public void draw(WrappedLootCrate recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
 		LootCrateTextRenderer.drawText(graphics, recipe.crate, 0, background.getWidth());
 	}
 }
