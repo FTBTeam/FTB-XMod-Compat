@@ -32,7 +32,7 @@ public class WaystonesCommon {
     }
 
     public static void updateWaystone(UUID waystoneUid, WaystoneData waystoneData) {
-        WAYSTONES.computeIfAbsent(waystoneData.dimension(), k -> new HashMap<>())
+        WAYSTONES.computeIfAbsent(waystoneData.dimension(), _ -> new HashMap<>())
                 .put(waystoneUid, waystoneData.icon());
         BY_ID.put(waystoneUid, waystoneData.dimension());
     }

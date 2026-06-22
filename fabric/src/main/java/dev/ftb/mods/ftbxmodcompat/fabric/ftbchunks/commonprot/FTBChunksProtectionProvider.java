@@ -28,29 +28,26 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.TimeUnit;
 
 public class FTBChunksProtectionProvider implements ProtectionProvider {
     public static Identifier ID = Identifier.fromNamespaceAndPath(FTBChunks.MOD_ID, "provider");
+    @Nullable
     private static LoadingCache<NameAndId, ServerPlayer> FAKE_PLAYERS = null;
 
     public static void init() {
         CommonProtection.register(ID, new FTBChunksProtectionProvider());
 
-        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-            FAKE_PLAYERS = CacheBuilder.newBuilder()
-                .initialCapacity(64)
-                .expireAfterWrite(
-                    30, TimeUnit.SECONDS)
-                .softValues()
-                .build(CacheLoader.from((profile) -> new OfflineServerPlayer(server.overworld(), profile)));
-        });
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> FAKE_PLAYERS = CacheBuilder.newBuilder()
+            .initialCapacity(64)
+            .expireAfterWrite(
+                30, TimeUnit.SECONDS)
+            .softValues()
+            .build(CacheLoader.from((profile) -> new OfflineServerPlayer(server.overworld(), profile))));
 
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
-            FAKE_PLAYERS = null;
-        });
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> FAKE_PLAYERS = null);
 
         FTBXModCompat.LOGGER.info("[FTB Chunks] Common Protection API integration activated");
     }
@@ -147,7 +144,7 @@ public class FTBChunksProtectionProvider implements ProtectionProvider {
 
         if (online != null) return online;
 
-        return FAKE_PLAYERS.getUnchecked(profile);
+        return FAKE_PLAYERS == null ? null : FAKE_PLAYERS.getUnchecked(profile);
     }
 
     private static class OfflineServerPlayer extends ServerPlayer {

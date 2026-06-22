@@ -44,7 +44,9 @@ public class FTBRanksEventHandler {
 		if (FTBChunksAPI.api().isManagerLoaded()) {
 			manager.getServer().getPlayerList().getPlayers().forEach(player -> {
 				ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(player);
-				teamData.checkMemberForceLoading(player.getUUID());
+				if (teamData != null) {
+					teamData.checkMemberForceLoading(player.getUUID());
+				}
 			});
 		}
 	}

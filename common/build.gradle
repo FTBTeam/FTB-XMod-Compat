@@ -24,7 +24,7 @@ dependencies {
     implementation("dev.ftb.mods:ftb-teams:${rootProject.ftb_teams_version}")
     implementation("dev.ftb.mods:ftb-filter-system:${rootProject.ftb_filter_system_version}")
 
-//    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     compileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
     compileOnly("curse.maven:jade-324717:${jade_neoforge_version}")
 

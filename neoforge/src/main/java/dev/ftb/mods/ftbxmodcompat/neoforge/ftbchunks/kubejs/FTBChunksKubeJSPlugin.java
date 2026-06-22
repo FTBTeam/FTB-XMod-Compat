@@ -32,12 +32,12 @@ public class FTBChunksKubeJSPlugin implements KubeJSPlugin {
 	private void before(FTBChunksEvent.ChunkChange.Pre event) {
 		ChunkChangeEvent.Pre.Data data = event.getEventData();
 		BeforeEventJS kjsEvent = new BeforeEventJS(data.sourceStack(), data.claimedChunk());
-		FTBChunksKubeJSEvents.BEFORE.post(ScriptType.SERVER, data.operation().toString(), kjsEvent);
+		FTBChunksKubeJSEvents.BEFORE.post(ScriptType.SERVER, data.operation(), kjsEvent);
 		event.setResult(kjsEvent.getResult()); // will cancel the event if not successful
     }
 
 	private void after(FTBChunksEvent.ChunkChange.Post event) {
 		ChunkChangeEvent.Post.Data data = event.getEventData();
-		FTBChunksKubeJSEvents.AFTER.post(ScriptType.SERVER, data.operation().toString(), new AfterEventJS(data.sourceStack(), data.claimedChunk()));
+		FTBChunksKubeJSEvents.AFTER.post(ScriptType.SERVER, data.operation(), new AfterEventJS(data.sourceStack(), data.claimedChunk()));
 	}
 }

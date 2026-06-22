@@ -45,6 +45,7 @@ public class ItemStackToListCache<T> {
         @Override
         public boolean equals(ItemStack o1, ItemStack o2) {
             // they _shouldn't_ ever be null, but it's apparently happened...
+            //noinspection ConstantValue
             return o1 != null && o2 != null && ItemStack.isSameItemSameComponents(o1, o2);
         }
     }

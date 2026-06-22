@@ -38,7 +38,6 @@ public class FTBXModCompat {
         ConfigManager.getInstance().registerStartupConfig(FTBXModConfig.CONFIG, MOD_ID);
 
         onSetup();
-//        LifecycleEvent.SETUP.register(FTBXModCompat::onSetup);
     }
 
     private static void onSetup() {

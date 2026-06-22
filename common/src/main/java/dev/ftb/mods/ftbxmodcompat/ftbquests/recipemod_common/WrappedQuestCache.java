@@ -51,10 +51,10 @@ public class WrappedQuestCache {
     }
 
     public List<WrappedQuest> findQuestsWithInput(ItemStack stack) {
-        return inputCache.getList(stack, k -> getCachedItems().stream().filter(q -> q.hasInput(stack)).toList());
+        return inputCache.getList(stack, _ -> getCachedItems().stream().filter(q -> q.hasInput(stack)).toList());
     }
 
     public List<WrappedQuest> findQuestsWithOutput(ItemStack stack) {
-        return outputCache.getList(stack, k -> getCachedItems().stream().filter(q -> q.hasOutput(stack)).toList());
+        return outputCache.getList(stack, _ -> getCachedItems().stream().filter(q -> q.hasOutput(stack)).toList());
     }
 }

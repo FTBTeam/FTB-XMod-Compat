@@ -58,7 +58,9 @@ dependencies {
 
     implementation("curse.maven:jade-324717:${jade_neoforge_version}")
 
-    compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+//    compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+    compileOnly("curse.maven:kubejs-238086:${kubejs_version}")
+    compileOnly("curse.maven:rhino-416294:${rhino_version}")
 
 //    modRuntimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"

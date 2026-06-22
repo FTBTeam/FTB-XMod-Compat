@@ -1,10 +1,10 @@
 package dev.ftb.mods.ftbxmodcompat.generic.permissions;
 
 import dev.ftb.mods.ftblibrary.integration.permissions.PermissionHelper;
+import dev.ftb.mods.ftblibrary.integration.permissions.PermissionProvider;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig.PermSelector;
-import org.jetbrains.annotations.NotNull;
 
 public class PermissionsSetup {
     public static void init() {
@@ -14,13 +14,12 @@ public class PermissionsSetup {
             sel = PermSelector.DEFAULT;
         }
 
-        PermissionHelper pHelper = setupPermissionHelper(sel);
+        var provider = setupPermissionProvider(sel);
 
-        FTBXModCompat.LOGGER.info("Chose [{}] as the active permissions implementation", pHelper.getProvider().getName());
+        FTBXModCompat.LOGGER.info("Chose [{}] as the active permissions implementation", provider.getName());
     }
 
-    @NotNull
-    private static PermissionHelper setupPermissionHelper(PermSelector sel) {
+    private static PermissionProvider setupPermissionProvider(PermSelector sel) {
         PermissionHelper pHelper = PermissionHelper.INSTANCE;
         switch (sel) {
             case LUCKPERMS -> pHelper.setProviderImpl(new LuckPermsProvider());
@@ -33,6 +32,6 @@ public class PermissionsSetup {
                 }
             }
         }
-        return pHelper;
+        return pHelper.provider();
     }
 }

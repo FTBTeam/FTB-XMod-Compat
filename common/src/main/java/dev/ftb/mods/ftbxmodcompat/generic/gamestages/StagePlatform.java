@@ -1,6 +1,5 @@
 package dev.ftb.mods.ftbxmodcompat.generic.gamestages;
 
-import dev.ftb.mods.ftblibrary.platform.Platform;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ServiceLoader;
