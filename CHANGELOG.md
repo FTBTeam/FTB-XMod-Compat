@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Ported to Minecraft 26.1.2
-  * Active integrations: all FTB suite mods, Waystones, JEI (no KubeJS/REI/Game Stages yet)
+  * Active integrations: all FTB suite mods, Waystones, JEI, KubeJS, REI
 
 ## [21.11.0]
 
