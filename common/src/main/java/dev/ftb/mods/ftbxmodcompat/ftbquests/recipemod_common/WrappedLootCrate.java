@@ -4,13 +4,11 @@ import dev.ftb.mods.ftblibrary.icon.ItemIcon;
 import dev.ftb.mods.ftbquests.quest.loot.LootCrate;
 import dev.ftb.mods.ftbquests.quest.loot.WeightedReward;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class WrappedLootCrate {
@@ -37,7 +35,7 @@ public class WrappedLootCrate {
 			if (!stack.isEmpty()) {
 				outputs.add(stack.copy());
 			} else if (reward.getReward().getIcon() instanceof ItemIcon) {
-				stack = ((ItemIcon) reward.getReward().getIcon()).getStack().copy();
+				stack = ((ItemIcon) reward.getReward().getIcon()).getStack().create();
 				stack.set(DataComponents.CUSTOM_NAME, reward.getReward().getTitle());
 				outputs.add(stack);
 			} else {

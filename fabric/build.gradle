@@ -1,25 +1,26 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
-    id "com.matthewprenger.cursegradle" version "1.4.0"
-}
-
-def ENV = System.getenv()
-
-architectury {
-    platformSetupLoomIde()
-    fabric()
+    id 'net.fabricmc.fabric-loom'
 }
 
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-}
+//	accessWidenerPath = project(":common").file("src/main/resources/${mod_id}.accesswidener")
 
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
+    runs {
+        configureEach {
+            ideConfigGenerated = true
+        }
+    }
+
+    mods {
+        "${project.mod_id}" {
+            sourceSet sourceSets.main
+            sourceSet("main", project(":common"))
+        }
+    }
+
+    mixin {
+        useLegacyMixinAp = false
+    }
 }
 
 repositories {
@@ -32,88 +33,24 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    modApi("dev.ftb.mods:ftb-library-fabric:${rootProject.ftb_library_version}")
-    modApi("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}")
-    modApi("dev.ftb.mods:ftb-chunks-fabric:${rootProject.ftb_chunks_version}")
-    modApi("dev.ftb.mods:ftb-ranks-fabric:${rootProject.ftb_ranks_version}")
-    modApi("dev.ftb.mods:ftb-essentials-fabric:${rootProject.ftb_essentials_version}")
-    modApi("dev.ftb.mods:ftb-teams-fabric:${rootProject.ftb_teams_version}")
+    api "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
-    modCompileOnly("eu.pb4:common-protection-api:${common_prot_api_version}") { transitive = false }
+    api("dev.ftb.mods:ftb-library-fabric:${rootProject.ftb_library_version}")
+    api("dev.ftb.mods:ftb-quests-fabric:${rootProject.ftb_quests_version}")
+    api("dev.ftb.mods:ftb-chunks-fabric:${rootProject.ftb_chunks_version}")
+    api("dev.ftb.mods:ftb-ranks-fabric:${rootProject.ftb_ranks_version}")
+    api("dev.ftb.mods:ftb-essentials-fabric:${rootProject.ftb_essentials_version}")
+    api("dev.ftb.mods:ftb-teams-fabric:${rootProject.ftb_teams_version}")
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
+    compileOnly("eu.pb4:common-protection-api:${common_prot_api_version}") { transitive = false }
+
+    compileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
 
     // compile-only because for some reason loom isn't deobfuscating these...
-    modCompileOnlyApi("curse.maven:balm-fabric-531761:${balm_fabric_version}")
-    modCompileOnly("curse.maven:waystones-245755:${waystones_fabric_version}")
+    compileOnly("curse.maven:balm-fabric-531761:${balm_fabric_version}")
+    compileOnly("curse.maven:waystones-245755:${waystones_fabric_version}")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-}
-
-apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/extra-local-mods.gradle"
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-                "archversion": project.architectury_version,
-                "fabricversionrange": project.fabric_api_version_range,
-                "mcversion": project.minecraft_version,
-                "ftblibraryversion": project.ftb_library_version,
-                "ftbquestsversion": project.ftb_quests_version,
-                "ftbchunksversion": project.ftb_chunks_version,
-                "ftbranksversion": project.ftb_ranks_version,
-                "ftbteamsversion": project.ftb_teams_version,
-                "required_waystones_version": project.required_waystones_version
-    }
-}
-
-shadowJar {
-    exclude "architectury.common.json"
-
-    configurations = [project.configurations.shadowCommon]
-    setArchiveClassifier("dev-shadow")
-}
-
-remapJar {
-    injectAccessWidener = true
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveBaseName.set "${rootProject.archives_base_name}-${project.name}"
-    archiveClassifier.set null
-}
-
-jar {
-    setArchiveClassifier("dev")
-}
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
-}
-
-publishing {
-    publications {
-        mavenFabric(MavenPublication) {
-            artifactId = "${rootProject.archives_base_name}-${project.name}"
-            version ftbPublishing.mavenVersion
-            from components.java
-        }
-    }
 }

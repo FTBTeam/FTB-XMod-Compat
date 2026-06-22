@@ -1,6 +1,5 @@
 package dev.ftb.mods.ftbxmodcompat.generic.gamestages;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.ftb.mods.ftblibrary.integration.stages.StageProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -31,23 +30,19 @@ public class GameStagesStageProvider implements StageProvider {
         return "Game Stages";
     }
 
-    @ExpectPlatform
     public static boolean hasStage(Player player, String stage) {
-        throw new AssertionError();
+        return StagePlatform.get().hasStage(player, stage);
     }
 
-    @ExpectPlatform
     public static void addStage(Player player, String stage) {
-        throw new AssertionError();
+        StagePlatform.get().addStage(player, stage);
     }
 
-    @ExpectPlatform
     public static void removeStage(Player player, String stage) {
-        throw new AssertionError();
+        StagePlatform.get().removeStage(player, stage);
     }
 
-    @ExpectPlatform
     public static void syncStages(Player player) {
-        throw new AssertionError();
+        StagePlatform.get().syncStages(player);
     }
 }

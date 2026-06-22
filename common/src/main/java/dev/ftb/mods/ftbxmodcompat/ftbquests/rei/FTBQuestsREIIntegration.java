@@ -3,25 +3,20 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.rei;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
-import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.entry.filtering.base.BasicFilteringRule;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
-import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
-import me.shedaniel.rei.api.client.registry.screen.ExclusionZonesProvider;
 import me.shedaniel.rei.api.client.view.ViewSearchBuilder;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.EntryDefinition;
 import me.shedaniel.rei.api.common.entry.type.EntryTypeRegistry;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Collection;
+import org.jspecify.annotations.Nullable;
 
 public class FTBQuestsREIIntegration implements REIClientPlugin {
-    private static BasicFilteringRule.MarkDirty cratesChanged;
+    private static BasicFilteringRule.@Nullable MarkDirty cratesChanged;
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
@@ -34,9 +29,8 @@ public class FTBQuestsREIIntegration implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         if (FTBXModCompat.isFTBQuestsLoaded) {
-            // TODO wtf is this supposed to be now?
-//            registry.registerFiller(WrappedQuest.class, QuestDisplay::new);
-//            registry.registerFiller(WrappedLootCrate.class, LootCrateDisplay::new);
+            registry.beginFiller(WrappedQuest.class).fill(QuestDisplay::new);
+            registry.beginFiller(WrappedLootCrate.class).fill(LootCrateDisplay::new);
 
             registry.registerDisplayGenerator(REICategories.QUEST, QuestDisplayGenerator.INSTANCE);
             registry.registerDisplayGenerator(REICategories.LOOT_CRATE, LootCrateDisplayGenerator.INSTANCE);

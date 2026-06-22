@@ -8,48 +8,45 @@ import dev.ftb.mods.ftbteams.api.FTBTeamsAPI;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.NameAndId;
+import org.jetbrains.annotations.UnknownNullability;
 
 import static dev.ftb.mods.ftbchunks.integration.PermissionsHelper.*;
 
 public class FTBRanksEventHandler {
 	public static void registerEvents() {
-		RankEvent.ADD_PLAYER.register(FTBRanksEventHandler::playerAdded);
-		RankEvent.REMOVE_PLAYER.register(FTBRanksEventHandler::playerRemoved);
-		RankEvent.PERMISSION_CHANGED.register(FTBRanksEventHandler::permissionSet);
-		RankEvent.RELOADED.register(FTBRanksEventHandler::ranksReloaded);
-		RankEvent.CONDITION_CHANGED.register(FTBRanksEventHandler::conditionChanged);
-
 		FTBXModCompat.LOGGER.info("[FTB Chunks] FTB Ranks detected, listening for ranks events");
 	}
 
-	private static void playerAdded(PlayerAddedToRankEvent event) {
-		updateForPlayer(event.getManager(), event.getPlayer());
+	public static void playerAdded(PlayerAddedToRankEvent.@UnknownNullability Data event) {
+		updateForPlayer(event.manager(), event.player());
 	}
 
-	private static void playerRemoved(PlayerRemovedFromRankEvent event) {
-		updateForPlayer(event.getManager(), event.getPlayer());
+	public static void playerRemoved(PlayerRemovedFromRankEvent.@UnknownNullability Data event) {
+		updateForPlayer(event.manager(), event.player());
 	}
 
-	private static void permissionSet(PermissionNodeChangedEvent event) {
-		String node = event.getNode();
+	public static void permissionSet(PermissionNodeChangedEvent.@UnknownNullability Data event) {
+		String node = event.node();
 		if (node.equals(MAX_CLAIMED_PERM) || node.equals(MAX_FORCE_LOADED_PERM) || node.equals(CHUNK_LOAD_OFFLINE_PERM)) {
-			updateAll(event.getManager());
+			updateAll(event.manager());
 		}
 	}
 
-	private static void ranksReloaded(RanksReloadedEvent event) {
-		updateAll(event.getManager());
+	public static void ranksReloaded(RanksReloadedEvent.@UnknownNullability Data event) {
+		updateAll(event.manager());
 	}
 
-	private static void conditionChanged(ConditionChangedEvent event) {
-		updateAll(event.getManager());
+	public static void conditionChanged(ConditionChangedEvent.@UnknownNullability Data event) {
+		updateAll(event.manager());
 	}
 
 	private static void updateAll(RankManager manager) {
 		if (FTBChunksAPI.api().isManagerLoaded()) {
 			manager.getServer().getPlayerList().getPlayers().forEach(player -> {
 				ChunkTeamData teamData = FTBChunksAPI.api().getManager().getOrCreateData(player);
-				teamData.checkMemberForceLoading(player.getUUID());
+				if (teamData != null) {
+					teamData.checkMemberForceLoading(player.getUUID());
+				}
 			});
 		}
 	}

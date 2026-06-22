@@ -1,8 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat;
 
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.platform.Platform;
 import dev.ftb.mods.ftblibrary.config.manager.ConfigManager;
+import dev.ftb.mods.ftblibrary.platform.Platform;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
 import dev.ftb.mods.ftbxmodcompat.ftbchunks.FTBChunksSetup;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.FTBQuestsSetup;
@@ -38,7 +37,7 @@ public class FTBXModCompat {
 
         ConfigManager.getInstance().registerStartupConfig(FTBXModConfig.CONFIG, MOD_ID);
 
-        LifecycleEvent.SETUP.register(FTBXModCompat::onSetup);
+        onSetup();
     }
 
     private static void onSetup() {
@@ -54,20 +53,20 @@ public class FTBXModCompat {
     }
 
     private static void detectLoadedMods() {
-        isFTBQuestsLoaded = Platform.isModLoaded("ftbquests");
-        isFTBChunksLoaded = Platform.isModLoaded("ftbchunks");
-        isFTBRanksLoaded = Platform.isModLoaded("ftbranks");
-        isFTBEssentialsLoaded = Platform.isModLoaded("ftbessentials");
-        isFTBFilterSystemLoaded = Platform.isModLoaded("ftbfiltersystem");
+        isFTBQuestsLoaded = Platform.get().isModLoaded("ftbquests");
+        isFTBChunksLoaded = Platform.get().isModLoaded("ftbchunks");
+        isFTBRanksLoaded = Platform.get().isModLoaded("ftbranks");
+        isFTBEssentialsLoaded = Platform.get().isModLoaded("ftbessentials");
+        isFTBFilterSystemLoaded = Platform.get().isModLoaded("ftbfiltersystem");
 
-        isKubeJSLoaded = Platform.isModLoaded("kubejs");
-        isItemFiltersLoaded = Platform.isModLoaded("itemfilters");
-        isGameStagesLoaded = Platform.isModLoaded("gamestages");
-        isREILoaded = Platform.isModLoaded("roughlyenoughitems");
-        isJEILoaded = Platform.isModLoaded("jei");
-        isLuckPermsLoaded = Platform.isModLoaded("luckperms");
-        isWaystonesLoaded = Platform.isModLoaded("waystones");
-        isCommonProtLoaded = Platform.isModLoaded("common-protection-api");
-        isMagicCoinsLoaded = Platform.isModLoaded("magic_coins");
+        isKubeJSLoaded = Platform.get().isModLoaded("kubejs");
+        isItemFiltersLoaded = Platform.get().isModLoaded("itemfilters");
+        isGameStagesLoaded = Platform.get().isModLoaded("gamestages");
+        isREILoaded = Platform.get().isModLoaded("roughlyenoughitems");
+        isJEILoaded = Platform.get().isModLoaded("jei");
+        isLuckPermsLoaded = Platform.get().isModLoaded("luckperms");
+        isWaystonesLoaded = Platform.get().isModLoaded("waystones");
+        isCommonProtLoaded = Platform.get().isModLoaded("common-protection-api");
+        isMagicCoinsLoaded = Platform.get().isModLoaded("magic_coins");
     }
 }

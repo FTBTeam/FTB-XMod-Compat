@@ -7,9 +7,9 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Collection;
 
 public class CustomFilterItemKubeEvent implements KubeEvent {
-    private final CustomFilterDisplayItemsEvent event;
+    private final CustomFilterDisplayItemsEvent.Data event;
 
-    public CustomFilterItemKubeEvent(CustomFilterDisplayItemsEvent event) {
+    public CustomFilterItemKubeEvent(CustomFilterDisplayItemsEvent.Data event) {
         this.event = event;
     }
 

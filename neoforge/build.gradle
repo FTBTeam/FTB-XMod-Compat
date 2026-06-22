@@ -1,25 +1,34 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
-    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id 'net.neoforged.moddev'
 }
 
-def ENV = System.getenv()
+neoForge {
+    version = project.neoforge_version
 
-architectury {
-    platformSetupLoomIde()
-    neoForge()
-}
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
 
-loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-}
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
 
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentNeoForge.extendsFrom common
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+            sourceSet(project(":common").sourceSets.main)
+        }
+    }
 }
 
 repositories {
@@ -34,100 +43,49 @@ repositories {
 }
 
 dependencies {
-    neoForge "net.neoforged:neoforge:${neoforge_version}"
-    modApi "dev.architectury:architectury-neoforge:${architectury_version}"
+    implementation("dev.ftb.mods:ftb-library-neoforge:${rootProject.ftb_library_version}")
 
-    modApi("dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}")
-    modApi("dev.ftb.mods:ftb-quests-neoforge:${ftb_quests_version}")
-    modApi("dev.ftb.mods:ftb-chunks-neoforge:${ftb_chunks_version}")
-    modApi("dev.ftb.mods:ftb-ranks-neoforge:${ftb_ranks_version}")
-    modApi("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials_version}")
-    modApi("dev.ftb.mods:ftb-teams-neoforge:${ftb_teams_version}")
-    modApi("dev.ftb.mods:ftb-filter-system-neoforge:${ftb_filter_system_version}")
+    implementation("dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}")
+    implementation("dev.ftb.mods:ftb-quests-neoforge:${ftb_quests_version}")
+    implementation("dev.ftb.mods:ftb-chunks-neoforge:${ftb_chunks_version}")
+    implementation("dev.ftb.mods:ftb-ranks-neoforge:${ftb_ranks_version}")
+    implementation("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials_version}")
+    implementation("dev.ftb.mods:ftb-teams-neoforge:${ftb_teams_version}")
+    implementation("dev.ftb.mods:ftb-filter-system-neoforge:${ftb_filter_system_version}")
 
-    modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
     compileOnly("net.luckperms:api:${luckperms_api_version}")
 
-    modImplementation("curse.maven:jade-324717:${jade_neoforge_version}")
+    implementation("curse.maven:jade-324717:${jade_neoforge_version}")
 
-    modCompileOnlyApi("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+//    compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+    compileOnly("curse.maven:kubejs-238086:${kubejs_version}")
+    compileOnly("curse.maven:rhino-416294:${rhino_version}")
 
 //    modRuntimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
-    modCompileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    modCompileOnly("curse.maven:magic_coins-597281:${magic_coins_version}")
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    compileOnly("curse.maven:magic_coins-597281:${magic_coins_version}")
 
     // TODO below here is compile-only for now
-    modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${gamestages_version}") { transitive false }
+    compileOnly("net.darkhax.gamestages:GameStages-Forge-1.20.1:${gamestages_version}") { transitive false }
 
-//    modCompileOnly("net.blay09.mods:balm-neoforge:${balm_version}")
-//    modCompileOnly("net.blay09.mods:waystones-neoforge:${waystones_version}")
-    modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
-    modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
+    compileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
+    compileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
-}
-
-apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/extra-local-mods.gradle"
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("META-INF/neoforge.mods.toml") {
-        expand "version": project.version,
-                "archversion": architectury_version,
-                "neoforgeversionrange": neoforge_version_range,
-                "neoforgeloaderversion": neoforge_loader_version,
-                "mcversion": minecraft_version,
-                "ftblibraryversion": ftb_library_version,
-                "ftbquestsversion": ftb_quests_version,
-                "ftbchunksversion": ftb_chunks_version,
-                "ftbranksversion": ftb_ranks_version,
-                "ftbteamsversion": ftb_teams_version,
-                "required_waystones_version": required_waystones_version,
-                "required_magic_coins_version": required_magic_coins_version
-    }
-}
-
-shadowJar {
-    exclude "fabric.mod.json"
-    exclude "architectury.common.json"
-
-    configurations = [project.configurations.shadowCommon]
-    setArchiveClassifier("dev-shadow")
-}
-
-remapJar {
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveBaseName.set "${rootProject.archives_base_name}-${project.name}"
-    archiveClassifier.set null
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
 }
 
 jar {
-    setArchiveClassifier("dev")
-}
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
+    manifest {
+        attributes([
+                "Specification-Title"     : project.mod_id,
+                "Specification-Vendor"    : project.mod_author,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : version,
+                "Implementation-Vendor"   : project.mod_author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
 
-publishing {
-    publications {
-        mavenNeoForge(MavenPublication) {
-            artifactId = "${rootProject.archives_base_name}-${project.name}"
-            version ftbPublishing.mavenVersion
-            from components.java
-        }
-    }
-}

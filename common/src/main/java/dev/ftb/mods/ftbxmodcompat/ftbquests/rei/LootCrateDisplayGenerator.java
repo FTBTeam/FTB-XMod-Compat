@@ -17,8 +17,8 @@ public enum LootCrateDisplayGenerator implements DynamicDisplayGenerator<LootCra
     INSTANCE;
 
     private final WrappedLootCrateCache cache = new WrappedLootCrateCache(
-            crates -> { },
-            crates -> FTBQuestsREIIntegration.onLootCratesChanged()
+            _ -> { },
+            _ -> FTBQuestsREIIntegration.onLootCratesChanged()
     );
 
     @Override

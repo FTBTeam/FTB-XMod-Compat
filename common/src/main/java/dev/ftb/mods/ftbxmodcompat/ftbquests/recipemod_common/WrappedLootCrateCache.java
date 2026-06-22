@@ -59,14 +59,14 @@ public class WrappedLootCrateCache {
     }
 
     public List<WrappedLootCrate> findCratesWithOutput(ItemStack stack) {
-        return outputCache.getList(stack, k -> getWrappedLootCrates().stream()
+        return outputCache.getList(stack, _ -> getWrappedLootCrates().stream()
                 .filter(crate -> crate.outputs.stream().anyMatch(s1 -> s1.is(stack.getItem())))
                 .toList()
         );
     }
 
     public List<WrappedLootCrate> findCratesWithInput(ItemStack stack) {
-        return inputCache.getList(stack, k -> getWrappedLootCrates().stream()
+        return inputCache.getList(stack, _ -> getWrappedLootCrates().stream()
                 .filter(crate -> ItemStack.isSameItemSameComponents(crate.crateStack, stack))
                 .toList()
         );

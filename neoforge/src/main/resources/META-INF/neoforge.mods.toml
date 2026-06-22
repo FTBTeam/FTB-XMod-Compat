@@ -23,15 +23,8 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "minecraft"
 type = "required"
-versionRange = "[${mcversion},)"
+versionRange = "${minecraft_version_range_maven}"
 ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.ftbxmodcompat]]
-modId = "architectury"
-type = "required"
-versionRange = "[${archversion},)"
-ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
@@ -72,7 +65,7 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "kubejs"
 type = "optional"
-versionRange = "[2100.7.0,)"
+versionRange = "[26.1.2,)"
 ordering = "AFTER"
 side = "BOTH"
 

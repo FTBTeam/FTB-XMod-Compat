@@ -2,7 +2,9 @@ package dev.ftb.mods.ftbxmodcompat.neoforge;
 
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.neoforge.ftbchunks.waystones.WaystonesCompat;
+import dev.ftb.mods.ftbxmodcompat.neoforge.ftbessentials.EssentialsCompat;
 import dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.gamestages.GameStagesEventHandlerQuests;
+import dev.ftb.mods.ftbxmodcompat.neoforge.ftbranks.RanksCompat;
 import net.neoforged.fml.common.Mod;
 
 @Mod(FTBXModCompat.MOD_ID)
@@ -19,6 +21,14 @@ public class FTBXModCompatNeoForge {
 
         if (FTBXModCompat.isFTBChunksLoaded && FTBXModCompat.isWaystonesLoaded) {
             WaystonesCompat.init();
+        }
+
+        if (FTBXModCompat.isFTBEssentialsLoaded) {
+            EssentialsCompat.init();
+        }
+
+        if (FTBXModCompat.isFTBRanksLoaded) {
+            RanksCompat.init();
         }
     }
 }

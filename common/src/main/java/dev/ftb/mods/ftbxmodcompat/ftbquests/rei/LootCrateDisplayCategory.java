@@ -56,11 +56,11 @@ public class LootCrateDisplayCategory implements DisplayCategory<LootCrateDispla
                     display.getWrappedLootCrate().crate.getTable().getTotalWeight(true)
             );
             widgets.add(Widgets.createTooltip(new Rectangle(sx, sy, 18, 18),
-                    stacks.get(0).asFormattedText(),
+                    stacks.getFirst().asFormattedText(),
                     Component.translatable("jei.ftbquests.lootcrates.chance", chanceStr).withStyle(ChatFormatting.GRAY)));
         }
 
-        widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
+        widgets.add(Widgets.createDrawableWidget((graphics, _, _, _) -> {
             graphics.pose().pushMatrix();
             graphics.pose().translate(-5, bounds.y + 5);
             LootCrateTextRenderer.drawText(graphics, display.getWrappedLootCrate().crate, bounds.x, bounds.width);

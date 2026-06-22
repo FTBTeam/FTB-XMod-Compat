@@ -11,9 +11,9 @@ public class AfterEventJS implements KubeEntityEvent {
 	public final CommandSourceStack source;
 	public final ClaimedChunk chunk;
 
-	public AfterEventJS(CommandSourceStack s, ClaimedChunk c) {
-		source = s;
-		chunk = c;
+	public AfterEventJS(CommandSourceStack source, ClaimedChunk chunk) {
+		this.source = source;
+		this.chunk = chunk;
 	}
 
 	@Override
