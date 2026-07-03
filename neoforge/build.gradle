@@ -54,7 +54,7 @@ dependencies {
 
     modRuntimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     modCompileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    modImplementation("curse.maven:sg-economy-1446971:${sg_economy_version}")
+    modCompileOnly("curse.maven:sg-economy-1446971:${sg_economy_version}")
 
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }

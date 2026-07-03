@@ -1,5 +1,8 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.rei.helper;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import dev.ftb.mods.ftblibrary.config.Tristate;
+import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.rei.FTBQuestsREIIntegration;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.rei.LootCrateDisplayGenerator;
@@ -10,6 +13,16 @@ public class REIRecipeHelper extends BaseRecipeHelper {
     @Override
     public void showRecipes(ItemStack stack) {
         FTBQuestsREIIntegration.showRecipes(stack);
+    }
+
+    @Override
+    public Tristate toggleBookmark(ItemStack stack) {
+        return Tristate.DEFAULT;
+    }
+
+    @Override
+    public boolean isBookmarkKey(Key key) {
+        return key.is(InputConstants.KEY_A);
     }
 
     @Override
