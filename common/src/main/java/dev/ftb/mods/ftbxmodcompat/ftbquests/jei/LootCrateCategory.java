@@ -70,8 +70,13 @@ public class LootCrateCategory implements IRecipeCategory<WrappedLootCrate> {
 	}
 
 	@Override
-	public IDrawable getBackground() {
-		return background;
+	public int getWidth() {
+		return background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return background.getHeight();
 	}
 
 	@Override
