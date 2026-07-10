@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei.helper;
 
+import dev.architectury.fluid.FluidStack;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.ftb.mods.ftblibrary.config.Tristate;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
@@ -10,6 +12,7 @@ import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
 import dev.ftb.mods.ftbxmodcompat.mixin.BookmarkListAccessor;
 import dev.ftb.mods.ftbxmodcompat.mixin.BookmarkOverlayAccessor;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.ingredients.IIngredientTypeWithSubtypes;
 import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.common.Internal;
@@ -18,6 +21,7 @@ import mezz.jei.gui.bookmarks.BookmarkList;
 import mezz.jei.gui.bookmarks.IBookmark;
 import mezz.jei.gui.overlay.bookmarks.BookmarkOverlay;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.Collection;
 
@@ -25,6 +29,16 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
     @Override
     public void showRecipes(ItemStack itemStack) {
         FTBQuestsJEIIntegration.showRecipes(itemStack);
+    }
+
+    @Override
+    public void showRecipes(FluidStack fluid) {
+        FTBQuestsJEIIntegration.showRecipes(fluid);
+    }
+
+    @ExpectPlatform
+    public static IIngredientTypeWithSubtypes<Fluid,?> getNativeFluidType(FluidStack fluid) {
+        throw new AssertionError();
     }
 
     @Override

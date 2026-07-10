@@ -1,9 +1,12 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
+import dev.architectury.fluid.FluidStack;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.ftb.mods.ftbquests.client.ClientQuestFile;
 import dev.ftb.mods.ftbquests.registry.ModDataComponents;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.QuestItems;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.helper.JEIRecipeHelper;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -87,5 +90,14 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 							runtime.getJeiHelpers().getFocusFactory().createFocus(RecipeIngredientRole.OUTPUT, type, stack)
 					));
 		}
+	}
+
+	public static void showRecipes(FluidStack fluid) {
+		showFluidRecipes(runtime, fluid);
+	}
+
+	@ExpectPlatform
+	public static void showFluidRecipes(IJeiRuntime runtime, FluidStack fluid) {
+		throw new AssertionError();
 	}
 }
