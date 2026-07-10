@@ -56,6 +56,15 @@ dependencies {
     modCompileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
     modCompileOnly("curse.maven:sg-economy-1446971:${sg_economy_version}")
 
+    modCompileOnly "org.appliedenergistics:guideme:${guideme_version}:api"
+    modRuntimeOnly "org.appliedenergistics:guideme:${guideme_version}"
+
+    modCompileOnly("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+    modRuntimeOnly("vazkii.patchouli:Patchouli:${patchouli_version}")
+
+    // TODO oracle index currently broken (1.3.0), accesswidener error makes it unusable as a dependency atm
+//    modImplementation("curse.maven:oracle-index-1206582:${oracle_index_neoforge_version}")
+
     // TODO below here is compile-only for now
     modCompileOnlyApi("net.darkhax.gamestages:GameStages-Forge-1.20.1:${rootProject.gamestages_version}") { transitive false }
     modCompileOnly("curse.maven:balm-531761:${balm_neoforge_version}")
