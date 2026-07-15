@@ -32,6 +32,8 @@ public class FTBXModCompat {
     public static boolean isWaystonesLoaded;
     public static boolean isCommonProtLoaded;
     public static boolean isSGEconomyLoaded;
+    public static boolean isGuideMeLoaded;
+    public static boolean isPatchouliLoaded;
 
     public static void init() {
         detectLoadedMods();
@@ -69,5 +71,7 @@ public class FTBXModCompat {
         isWaystonesLoaded = Platform.isModLoaded("waystones");
         isCommonProtLoaded = Platform.isModLoaded("common-protection-api");
         isSGEconomyLoaded = Platform.isModLoaded("sg_economy");
+        isGuideMeLoaded = Platform.isModLoaded("guideme");
+        isPatchouliLoaded = Platform.isModLoaded("patchouli");
     }
 }
