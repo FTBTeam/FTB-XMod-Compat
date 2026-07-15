@@ -6,10 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [21.1.9]
 
-### Added
-* JEI bookmarking support for Task & Reward buttons and valid items screen in FTB Quests
-  * Press 'A' (or whatever your keybinding for JEI bookmarking is) to toggle bookmarking for items for within FTB Quests
-  * Known issue: does not function if EMI is also installed
+### Fixed
+* Hopefully fixed a crash with recent versions of the Waystones mod related a null player being passed
 
 ## [21.1.8]
 

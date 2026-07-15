@@ -17,20 +17,20 @@ public class REIRecipeHelper extends BaseRecipeHelper {
         FTBQuestsREIIntegration.showRecipes(stack);
     }
 
-    @Override
-    public void showRecipes(FluidStack fluid) {
-        FTBQuestsREIIntegration.showRecipes(fluid);
-    }
-
-    @Override
-    public Tristate toggleBookmark(ItemStack stack) {
-        return Tristate.DEFAULT;
-    }
-
-    @Override
-    public boolean isBookmarkKey(Key key) {
-        return key.is(InputConstants.KEY_A);
-    }
+//    @Override
+//    public void showRecipes(FluidStack fluid) {
+//        FTBQuestsREIIntegration.showRecipes(fluid);
+//    }
+//
+//    @Override
+//    public Tristate toggleBookmark(ItemStack stack) {
+//        return Tristate.DEFAULT;
+//    }
+//
+//    @Override
+//    public boolean isBookmarkKey(Key key) {
+//        return key.is(InputConstants.KEY_A);
+//    }
 
     @Override
     public String getHelperName() {
