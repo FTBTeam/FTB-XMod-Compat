@@ -9,7 +9,6 @@ import dev.ftb.mods.ftbxmodcompat.ftbquests.rei.FTBQuestsREIIntegration;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.rei.LootCrateDisplayGenerator;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.rei.QuestDisplayGenerator;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluid;
 
 public class REIRecipeHelper extends BaseRecipeHelper {
     @Override
@@ -17,20 +16,20 @@ public class REIRecipeHelper extends BaseRecipeHelper {
         FTBQuestsREIIntegration.showRecipes(stack);
     }
 
-//    @Override
-//    public void showRecipes(FluidStack fluid) {
-//        FTBQuestsREIIntegration.showRecipes(fluid);
-//    }
-//
-//    @Override
-//    public Tristate toggleBookmark(ItemStack stack) {
-//        return Tristate.DEFAULT;
-//    }
-//
-//    @Override
-//    public boolean isBookmarkKey(Key key) {
-//        return key.is(InputConstants.KEY_A);
-//    }
+    @Override
+    public void showRecipes(FluidStack fluid) {
+        FTBQuestsREIIntegration.showRecipes(fluid);
+    }
+
+    @Override
+    public Tristate toggleBookmark(ItemStack stack) {
+        return Tristate.DEFAULT;
+    }
+
+    @Override
+    public boolean isBookmarkKey(Key key) {
+        return key.is(InputConstants.KEY_A);
+    }
 
     @Override
     public String getHelperName() {

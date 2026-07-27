@@ -31,36 +31,36 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
         FTBQuestsJEIIntegration.showRecipes(itemStack);
     }
 
-//    @Override
-//    public void showRecipes(FluidStack fluid) {
-//        FTBQuestsJEIIntegration.showRecipes(fluid);
-//    }
+    @Override
+    public void showRecipes(FluidStack fluid) {
+        FTBQuestsJEIIntegration.showRecipes(fluid);
+    }
 
     @ExpectPlatform
     public static IIngredientTypeWithSubtypes<Fluid,?> getNativeFluidType(FluidStack fluid) {
         throw new AssertionError();
     }
 
-//    @Override
-//    public Tristate toggleBookmark(ItemStack stack) {
-//        IJeiRuntime runtime = FTBQuestsJEIIntegration.runtime;
-//        if (runtime != null) {
-//            // TODO non-API usage!
-//            return runtime.getIngredientManager().createTypedIngredient(stack, true).map(ingr -> {
-//                // if EMI is present, the overlay will be a JemiBookmarkOverlay...
-//                if (runtime.getBookmarkOverlay() instanceof BookmarkOverlay overlay) {
-//                    BookmarkList list = ((BookmarkOverlayAccessor) overlay).getBookmarkList();
-//                    BookmarkFactory factory = ((BookmarkListAccessor) list).getBookmarkFactory();
-//                    IBookmark bookmark = factory.create(ingr);
-//                    boolean hasBookmark = list.contains(bookmark);
-//                    list.toggleBookmark(bookmark);
-//                    return hasBookmark ? Tristate.FALSE : Tristate.TRUE;
-//                }
-//                return Tristate.DEFAULT;
-//            }).orElse(Tristate.DEFAULT);
-//        }
-//        return Tristate.DEFAULT;
-//    }
+    @Override
+    public Tristate toggleBookmark(ItemStack stack) {
+        IJeiRuntime runtime = FTBQuestsJEIIntegration.runtime;
+        if (runtime != null) {
+            // TODO non-API usage!
+            return runtime.getIngredientManager().createTypedIngredient(stack, true).map(ingr -> {
+                // if EMI is present, the overlay will be a JemiBookmarkOverlay...
+                if (runtime.getBookmarkOverlay() instanceof BookmarkOverlay overlay) {
+                    BookmarkList list = ((BookmarkOverlayAccessor) overlay).getBookmarkList();
+                    BookmarkFactory factory = ((BookmarkListAccessor) list).getBookmarkFactory();
+                    IBookmark bookmark = factory.create(ingr);
+                    boolean hasBookmark = list.contains(bookmark);
+                    list.toggleBookmark(bookmark);
+                    return hasBookmark ? Tristate.FALSE : Tristate.TRUE;
+                }
+                return Tristate.DEFAULT;
+            }).orElse(Tristate.DEFAULT);
+        }
+        return Tristate.DEFAULT;
+    }
 
     @Override
     public String getHelperName() {
@@ -89,9 +89,9 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
         }
     }
 
-//    @Override
-//    public boolean isBookmarkKey(Key key) {
-//        // TODO non-API usage!  API only exposes the 'R' and 'U' mappings
-//        return Internal.getKeyMappings().getBookmark().isActiveAndMatches(key.getInputMapping());
-//    }
+    @Override
+    public boolean isBookmarkKey(Key key) {
+        // TODO non-API usage!  API only exposes the 'R' and 'U' mappings
+        return Internal.getKeyMappings().getBookmark().isActiveAndMatches(key.getInputMapping());
+    }
 }
