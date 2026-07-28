@@ -7,7 +7,7 @@ import net.neoforged.neoforge.common.NeoForge;
 public class EssentialsCompat {
     public static void init() {
         NeoForge.EVENT_BUS.addListener(FTBEssentialsEvent.RTP.class, event -> {
-            if (!EssentialsListener.onRTP(event.getEventData()).isFail()) {
+            if (EssentialsListener.onRTP(event.getEventData()).isFail()) {
                 event.setCanceled(true);
             }
         });
