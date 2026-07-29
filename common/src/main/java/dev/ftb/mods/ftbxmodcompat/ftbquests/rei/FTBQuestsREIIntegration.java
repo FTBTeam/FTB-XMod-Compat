@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.rei;
 
+import dev.ftb.mods.ftblibrary.platform.fluid.FluidStack;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedLootCrate;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
@@ -10,6 +11,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.view.ViewSearchBuilder;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.EntryDefinition;
+import me.shedaniel.rei.api.common.entry.type.EntryType;
 import me.shedaniel.rei.api.common.entry.type.EntryTypeRegistry;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import net.minecraft.world.item.ItemStack;
@@ -45,10 +47,19 @@ public class FTBQuestsREIIntegration implements REIClientPlugin {
     }
 
     public static void showRecipes(ItemStack stack) {
+        show(VanillaEntryTypes.ITEM, stack);
+    }
+
+    public static void showRecipes(FluidStack fluid) {
+        dev.architectury.fluid.FluidStack archFluid = dev.architectury.fluid.FluidStack.create(fluid.fluid(), fluid.amount(), fluid.getComponentsPatch());
+        show(VanillaEntryTypes.FLUID, archFluid);
+    }
+
+    private static <T> void show(EntryType<T> type, T object) {
         for (EntryDefinition<?> definition : EntryTypeRegistry.getInstance().values()) {
-            if (definition.getType() == VanillaEntryTypes.ITEM) {
+            if (definition.getType() == type) {
                 ViewSearchBuilder.builder()
-                        .addRecipesFor(EntryStack.of(VanillaEntryTypes.ITEM, stack))
+                        .addRecipesFor(EntryStack.of(type, object))
                         .open();
             }
         }

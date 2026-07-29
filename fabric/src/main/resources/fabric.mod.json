@@ -24,6 +24,9 @@
       "dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration"
     ]
   },
+  "mixins": [
+    "ftbxmodcompat-common.mixins.json"
+  ],
   "depends": {
     "fabric-api": "${fabricapiversionrange}",
     "minecraft": "${minecraft_version_range_semver}",
