@@ -30,7 +30,7 @@ public class FTBXModCompat {
     public static boolean isLuckPermsLoaded;
     public static boolean isWaystonesLoaded;
     public static boolean isCommonProtLoaded;
-    public static boolean isMagicCoinsLoaded;
+    public static boolean isSGEconomyLoaded;
 
     public static void init() {
         detectLoadedMods();
@@ -67,6 +67,6 @@ public class FTBXModCompat {
         isLuckPermsLoaded = Platform.get().isModLoaded("luckperms");
         isWaystonesLoaded = Platform.get().isModLoaded("waystones");
         isCommonProtLoaded = Platform.get().isModLoaded("common-protection-api");
-        isMagicCoinsLoaded = Platform.get().isModLoaded("magic_coins");
+        isSGEconomyLoaded = Platform.get().isModLoaded("sg_economy");
     }
 }
