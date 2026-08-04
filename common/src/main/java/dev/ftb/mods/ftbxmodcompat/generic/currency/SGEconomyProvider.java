@@ -3,13 +3,10 @@ package dev.ftb.mods.ftbxmodcompat.generic.currency;
 import dev.ftb.mods.ftblibrary.integration.currency.CurrencyProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.sirgrantd.sg_economy.api.EconomyEventProvider;
 import net.sirgrantd.sg_economy.api.SGEconomyApi;
 
 public enum SGEconomyProvider implements CurrencyProvider {
     INSTANCE;
-
-    private final EconomyEventProvider sgEconomy = SGEconomyApi.get();
 
     @Override
     public String getName() {
@@ -18,14 +15,14 @@ public enum SGEconomyProvider implements CurrencyProvider {
 
     @Override
     public int getTotalCurrency(Player player) {
-        return sgEconomy.getBalanceAsInt(player);
+        return (int) SGEconomyApi.getBalance(player);
     }
 
     @Override
     public boolean takeCurrency(Player player, int amount) {
         int coins = getTotalCurrency(player);
         if (coins >= amount) {
-            sgEconomy.withdrawBalanceAsInt(player, amount);
+            SGEconomyApi.withdrawBalance(player, amount);
             return true;
         }
         return false;
@@ -33,7 +30,7 @@ public enum SGEconomyProvider implements CurrencyProvider {
 
     @Override
     public void giveCurrency(Player player, int amount) {
-        sgEconomy.depositBalanceAsInt(player, amount);
+        SGEconomyApi.depositBalance(player, amount);
     }
 
     @Override
