@@ -14,9 +14,7 @@ public abstract class BaseRecipeHelper implements RecipeModHelper {
 
     @Override
     public void refreshRecipes(QuestObjectBase object) {
-        if (object != null) {
-            object.componentsToRefresh().forEach(this::refreshAll);
-        }
+        object.componentsToRefresh().forEach(this::refreshAll);
     }
 
     @Override

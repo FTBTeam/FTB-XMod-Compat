@@ -3,6 +3,9 @@ loaderVersion = "[${neoforgeloaderversion},)"
 #issueTrackerURL = ""
 license = "All Rights Reserved"
 
+[[mixins]]
+config = "ftbxmodcompat-common.mixins.json"
+
 [[mods]]
 modId = "ftbxmodcompat"
 version = "${version}"

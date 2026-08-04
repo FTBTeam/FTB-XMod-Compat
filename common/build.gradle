@@ -26,9 +26,11 @@ dependencies {
 
     compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     compileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+    compileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common:${rootProject.jei_version}")
+    compileOnly("mezz.jei:jei-${rootProject.minecraft_version}-gui:${rootProject.jei_version}")
     compileOnly("curse.maven:jade-324717:${jade_neoforge_version}")
 
-    compileOnly("curse.maven:magic_coins-597281:${magic_coins_version}")
+    compileOnly("curse.maven:sg-economy-1446971:${sg_economy_version}")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
 }

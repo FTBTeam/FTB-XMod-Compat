@@ -53,4 +53,7 @@ dependencies {
     compileOnly("curse.maven:waystones-245755:${waystones_fabric_version}")
 
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
+
+    compileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
+
 }
