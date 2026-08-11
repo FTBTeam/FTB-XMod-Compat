@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Added back support for SG Economy which is now available for 26.1.x
 
+### Fixed
+* Fixed occasional Waystones-related crash on client player login
+
 ## [26.1.2.3]
 
 ### Added
