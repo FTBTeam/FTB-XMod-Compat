@@ -28,6 +28,7 @@ public class FTBXModCompat {
     public static boolean isGameStagesLoaded;
     public static boolean isREILoaded;
     public static boolean isJEILoaded;
+    public static boolean isTMRVLoaded;
     public static boolean isLuckPermsLoaded;
     public static boolean isWaystonesLoaded;
     public static boolean isCommonProtLoaded;
@@ -67,6 +68,8 @@ public class FTBXModCompat {
         isGameStagesLoaded = Platform.isModLoaded("gamestages");
         isREILoaded = Platform.isModLoaded("roughlyenoughitems");
         isJEILoaded = Platform.isModLoaded("jei");
+        // not-quite compatible JEI drop-in replacement that pretends to be JEI
+        isTMRVLoaded = Platform.isModLoaded("toomanyrecipeviewers");
         isLuckPermsLoaded = Platform.isModLoaded("luckperms");
         isWaystonesLoaded = Platform.isModLoaded("waystones");
         isCommonProtLoaded = Platform.isModLoaded("common-protection-api");
