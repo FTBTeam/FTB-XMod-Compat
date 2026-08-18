@@ -127,7 +127,7 @@ subprojects {
                     "ftbchunksversion": project.ftb_chunks_version,
                     "ftbranksversion": project.ftb_ranks_version,
                     "required_waystones_version": project.required_waystones_version,
-                    "required_magic_coins_version": project.required_magic_coins_version
+                    "required_sg_economy_version": project.required_sg_economy_version
         }
     }
 

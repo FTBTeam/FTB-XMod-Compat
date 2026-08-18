@@ -35,8 +35,12 @@ public class WaystonesCompat {
 	private static void updateWaystone(WaystoneUpdatedEvent event) {
 		Waystone w = event.waystone();
 		LOGGER.trace("waystone updated: {} {}", w.getWaystoneUid(), w.getVisibility());
-		if (Platform.get().env() == Env.CLIENT && (!FTBXModConfig.ONLY_SHOW_KNOWN_WAYSTONES.get() || WaystonesAPI.isWaystoneActivated(ClientUtils.getClientPlayer(), w))) {
-			WaystonesCommon.updateWaystone(w.getWaystoneUid(), new WaystoneData(w.getDimension(), new WaystoneMapIcon(w.getPos(), w.getName(), w.getVisibility() == WaystoneVisibility.GLOBAL)));
-		}
+        if (Platform.get().env() == Env.CLIENT) {
+			ClientUtils.getOptionalClientPlayer().ifPresent(player -> {
+				if (!FTBXModConfig.ONLY_SHOW_KNOWN_WAYSTONES.get() || WaystonesAPI.isWaystoneActivated(player, w)) {
+					WaystonesCommon.updateWaystone(w.getWaystoneUid(), new WaystoneData(w.getDimension(), new WaystoneMapIcon(w.getPos(), w.getName(), w.getVisibility() == WaystoneVisibility.GLOBAL)));
+				}
+			});
+        }
 	}
 }
