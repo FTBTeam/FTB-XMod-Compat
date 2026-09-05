@@ -85,6 +85,7 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 
 	@Override
 	public void draw(WrappedQuest recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+		background.draw(graphics);
 		Component text = recipe.quest.getTitle().copy().withStyle(ChatFormatting.UNDERLINE);
 		Font font = Minecraft.getInstance().font;
 		int w = font.width(text);
@@ -103,7 +104,9 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 		@Override
 		public boolean handleInput(double mouseX, double mouseY, IJeiUserInput input) {
 			if (input.getKey().getType() == InputConstants.Type.MOUSE) {
-				recipe.openQuestGui();
+				if (!input.isSimulate()) {
+					recipe.openQuestGui();
+				}
 				return true;
 			}
 			return false;
