@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed startup crash if the TMRV mod is present, pretending to be JEI
 * Fixed crash when using newer JEI versions, use stable JEI API for bookmarks.
 * Fixed the missing background and click handling for JEI quest recipes
+* Displayed fluid tasks as fluid ingredients in JEI quest recipes
 * Preserved fluid amount and components when opening JEI fluid recipes on Fabric
 
 ## [21.1.10]
