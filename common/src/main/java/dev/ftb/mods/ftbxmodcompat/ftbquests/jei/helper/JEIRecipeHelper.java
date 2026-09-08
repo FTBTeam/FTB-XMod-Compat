@@ -47,10 +47,12 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
         return "JEI";
     }
 
+    @Override
     protected void refreshQuests() {
         QuestRecipeManagerPlugin.INSTANCE.refresh();
     }
 
+    @Override
     protected void refreshLootcrates() {
         LootCrateRecipeManagerPlugin.INSTANCE.refresh();
     }

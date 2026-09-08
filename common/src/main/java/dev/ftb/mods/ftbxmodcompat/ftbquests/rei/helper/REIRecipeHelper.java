@@ -36,10 +36,12 @@ public class REIRecipeHelper extends BaseRecipeHelper {
         return "REI";
     }
 
+    @Override
     protected void refreshQuests() {
         QuestDisplayGenerator.INSTANCE.refresh();
     }
 
+    @Override
     protected void refreshLootcrates() {
         LootCrateDisplayGenerator.INSTANCE.refresh();
     }
