@@ -1,17 +1,13 @@
 package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
-import dev.ftb.mods.ftbquests.registry.ModItems;
+import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuestCache;
-import mezz.jei.api.recipe.IFocus;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.advanced.IRecipeManagerPlugin;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.world.item.ItemStack;
+import mezz.jei.api.ingredients.ITypedIngredient;
+import mezz.jei.api.recipe.advanced.ISimpleRecipeManagerPlugin;
 
 import java.util.List;
 
-public enum QuestRecipeManagerPlugin implements IRecipeManagerPlugin {
+public enum QuestRecipeManagerPlugin implements ISimpleRecipeManagerPlugin<WrappedQuest> {
     INSTANCE;
 
     private final WrappedQuestCache cache = new WrappedQuestCache();
@@ -21,42 +17,27 @@ public enum QuestRecipeManagerPlugin implements IRecipeManagerPlugin {
     }
 
     @Override
-    public <T, V> List<T> getRecipes(IRecipeCategory<T> recipeCategory, IFocus<V> focus) {
-        if (recipeCategory instanceof QuestCategory && focus.getTypedValue().getIngredient() instanceof ItemStack stack) {
-            // (List<T>) casts should be safe since we've verified the category
-            if (stack.getItem() == ModItems.BOOK.get() && focus.getRole() == RecipeIngredientRole.CATALYST) {
-                //noinspection unchecked
-                return (List<T>) cache.getCachedItems();
-            }
-            return switch (focus.getRole()) {
-                case INPUT -> //noinspection unchecked
-                        (List<T>) cache.findQuestsWithInput(stack);
-                case OUTPUT -> //noinspection unchecked
-                        (List<T>) cache.findQuestsWithOutput(stack);
-                default -> List.of();
-            };
-        } else {
-            return List.of();
-        }
+    public boolean isHandledInput(ITypedIngredient<?> input) {
+        return !getRecipesForInput(input).isEmpty();
     }
 
     @Override
-    public <T> List<T> getRecipes(IRecipeCategory<T> recipeCategory) {
-        // safe to cast since we verified the category already
-        //noinspection unchecked
-        return recipeCategory instanceof QuestCategory ? (List<T>) cache.getCachedItems() : List.of();
+    public boolean isHandledOutput(ITypedIngredient<?> output) {
+        return !getRecipesForOutput(output).isEmpty();
     }
 
     @Override
-    public <V> List<RecipeType<?>> getRecipeTypes(IFocus<V> focus) {
-        if (focus.getTypedValue().getIngredient() instanceof ItemStack stack) {
-            if (focus.getRole() == RecipeIngredientRole.INPUT && (stack.getItem() == ModItems.BOOK.get() || !cache.findQuestsWithInput(stack).isEmpty())
-                    || focus.getRole() == RecipeIngredientRole.OUTPUT && !cache.findQuestsWithOutput(stack).isEmpty()) {
-                return List.of(JEIRecipeTypes.QUEST);
-            }
-        }
+    public List<WrappedQuest> getRecipesForInput(ITypedIngredient<?> input) {
+        return input.getItemStack().map(cache::findQuestsWithInput).orElseGet(List::of);
+    }
 
-        return List.of();
+    @Override
+    public List<WrappedQuest> getRecipesForOutput(ITypedIngredient<?> output) {
+        return output.getItemStack().map(cache::findQuestsWithOutput).orElseGet(List::of);
+    }
 
+    @Override
+    public List<WrappedQuest> getAllRecipes() {
+        return cache.getCachedItems();
     }
 }

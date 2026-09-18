@@ -24,9 +24,6 @@
       "dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration"
     ]
   },
-  "mixins": [
-    "ftbxmodcompat-common.mixins.json"
-  ],
   "depends": {
     "fabric": "${fabricversionrange}",
     "minecraft": ">=${mcversion}",
@@ -36,7 +33,7 @@
   "breaks": {
     "ftbquests": "<2001.3.0",
     "ftbchunks": "<2001.2.0",
-    "jei": "<19.27.0.336",
+    "jei": "<19.53.0.425",
     "kubejs": "<2001.6.3-build.18",
     "waystones": "<${required_waystones_version}"
   }

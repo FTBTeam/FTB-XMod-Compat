@@ -2,6 +2,7 @@ package dev.ftb.mods.ftbxmodcompat.ftbquests.jei;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.ftb.mods.ftbquests.api.FTBQuestsAPI;
+import dev.ftb.mods.ftbquests.quest.task.FluidTask;
 import dev.ftb.mods.ftbquests.registry.ModItems;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.WrappedQuest;
 import mezz.jei.api.constants.VanillaTypes;
@@ -71,9 +72,16 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, WrappedQuest recipe, IFocusGroup focuses) {
 		int inputSize = Math.min(9, recipe.input.size());
+		int taskOffset = recipe.quest.getTasks().size() == 1 ? 4 : 0;
+		var taskIterator = recipe.quest.getTasks().iterator();
 		for (int i = 0; i < inputSize; i++) {
-			builder.addSlot(RecipeIngredientRole.INPUT, (i % 3) * 18 + 1, (i / 3) * 18 + 21)
-					.addItemStacks(recipe.input.get(i));
+			var slot = builder.addSlot(RecipeIngredientRole.INPUT, (i % 3) * 18 + 1, (i / 3) * 18 + 21);
+			if (i >= taskOffset && taskIterator.next() instanceof FluidTask fluidTask) {
+				slot.setFluidRenderer(fluidTask.getMaxProgress(), false, 16, 16)
+						.addFluidStack(fluidTask.getFluid(), fluidTask.getMaxProgress(), fluidTask.getFluidDataComponentPatch());
+			} else {
+				slot.addItemStacks(recipe.input.get(i));
+			}
 		}
 
 		int outputSize = Math.min(9, recipe.output.size());
@@ -85,6 +93,7 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 
 	@Override
 	public void draw(WrappedQuest recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+		background.draw(graphics);
 		Component text = recipe.quest.getTitle().copy().withStyle(ChatFormatting.UNDERLINE);
 		Font font = Minecraft.getInstance().font;
 		int w = font.width(text);
@@ -103,7 +112,9 @@ public class QuestCategory implements IRecipeCategory<WrappedQuest> {
 		@Override
 		public boolean handleInput(double mouseX, double mouseY, IJeiUserInput input) {
 			if (input.getKey().getType() == InputConstants.Type.MOUSE) {
-				recipe.openQuestGui();
+				if (!input.isSimulate()) {
+					recipe.openQuestGui();
+				}
 				return true;
 			}
 			return false;

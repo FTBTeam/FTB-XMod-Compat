@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 @JeiPlugin
 public class FTBQuestsJEIIntegration implements IModPlugin {
 	private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FTBXModCompat.MOD_ID, "ftbquests_jei");
-	public static IJeiRuntime runtime;
+	public static @Nullable IJeiRuntime runtime;
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime r) {
@@ -34,6 +34,11 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 		if (ClientQuestFile.exists()) {
 			ClientQuestFile.INSTANCE.updateLootCrates();
 		}
+	}
+
+	@Override
+	public void onRuntimeUnavailable() {
+		runtime = null;
 	}
 
 	@Override
@@ -52,6 +57,7 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
                         }
 
                         @Override
+                        @SuppressWarnings("deprecation")
                         public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
                             return "";
                         }
@@ -62,8 +68,8 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		if (FTBXModCompat.isFTBQuestsLoaded) {
-			registration.addRecipeCatalyst(new ItemStack(QuestItems.questBook()), JEIRecipeTypes.QUEST);
-			registration.addRecipeCatalyst(new ItemStack(QuestItems.lootCrate()), JEIRecipeTypes.LOOT_CRATE);
+			registration.addRecipeCatalysts(JEIRecipeTypes.QUEST, QuestItems.questBook());
+			registration.addRecipeCatalysts(JEIRecipeTypes.LOOT_CRATE, QuestItems.lootCrate());
 		}
 	}
 
@@ -78,16 +84,17 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	@Override
 	public void registerAdvanced(IAdvancedRegistration registration) {
 		if (FTBXModCompat.isFTBQuestsLoaded) {
-			registration.addRecipeManagerPlugin(QuestRecipeManagerPlugin.INSTANCE);
-			registration.addRecipeManagerPlugin(LootCrateRecipeManagerPlugin.INSTANCE);
+			registration.addTypedRecipeManagerPlugin(JEIRecipeTypes.QUEST, QuestRecipeManagerPlugin.INSTANCE);
+			registration.addTypedRecipeManagerPlugin(JEIRecipeTypes.LOOT_CRATE, LootCrateRecipeManagerPlugin.INSTANCE);
 		}
 	}
 
 	public static void showRecipes(ItemStack stack) {
+		IJeiRuntime runtime = FTBQuestsJEIIntegration.runtime;
 		if (runtime != null) {
-			runtime.getIngredientManager().getIngredientTypeChecked(stack)
-					.ifPresent(type -> runtime.getRecipesGui().show(
-							runtime.getJeiHelpers().getFocusFactory().createFocus(RecipeIngredientRole.OUTPUT, type, stack)
+			runtime.getIngredientManager().createTypedIngredient(VanillaTypes.ITEM_STACK, stack, false)
+					.ifPresent(ingredient -> runtime.getRecipesGui().show(
+							runtime.getJeiHelpers().getFocusFactory().createFocus(RecipeIngredientRole.OUTPUT, ingredient)
 					));
 		}
 	}

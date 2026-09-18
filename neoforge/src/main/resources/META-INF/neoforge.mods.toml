@@ -3,9 +3,6 @@ loaderVersion = "[${neoforgeloaderversion},)"
 #issueTrackerURL = ""
 license = "All Rights Reserved"
 
-[[mixins]]
-config = "ftbxmodcompat-common.mixins.json"
-
 [[mods]]
 modId = "ftbxmodcompat"
 version = "${version}"
@@ -68,7 +65,7 @@ side = "BOTH"
 [[dependencies.ftbxmodcompat]]
 modId = "jei"
 type = "optional"
-versionRange = "[19.27.0.336,)"
+versionRange = "[19.53.0.425,)"
 ordering = "AFTER"
 side = "BOTH"
 
