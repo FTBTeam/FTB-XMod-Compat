@@ -86,6 +86,7 @@ subprojects {
                 includeGroup "mezz.jei"
                 includeGroup "net.darkhax.gamestages"
                 includeGroup "com.faux.ingredientextension"
+                includeGroup "vazkii.patchouli"
             }
         }
 

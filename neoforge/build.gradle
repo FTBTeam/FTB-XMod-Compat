@@ -58,13 +58,17 @@ dependencies {
 
     implementation("curse.maven:jade-324717:${jade_neoforge_version}")
 
-//    compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
     compileOnly("curse.maven:kubejs-238086:${kubejs_version}")
     compileOnly("curse.maven:rhino-416294:${rhino_version}")
 
-//    modRuntimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}:api")
     implementation("curse.maven:sg-economy-1446971:${sg_economy_version}")
+
+    compileOnly "org.appliedenergistics:guideme:${guideme_version}:api"
+    runtimeOnly "org.appliedenergistics:guideme:${guideme_version}"
+
+    compileOnly("vazkii.patchouli:Patchouli-NeoForge:${patchouli_version}") // using :api doesn't work here?
+    runtimeOnly("vazkii.patchouli:Patchouli-NeoForge:${patchouli_version}")
 
     // TODO below here is compile-only for now
     compileOnly("net.darkhax.gamestages:GameStages-Forge-1.20.1:${gamestages_version}") { transitive false }
