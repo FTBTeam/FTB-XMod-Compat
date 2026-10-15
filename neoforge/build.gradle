@@ -72,6 +72,7 @@ dependencies {
 
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}")
     modImplementation("mezz.jei:jei-${rootProject.minecraft_version}-neoforge:${rootProject.jei_version}")
+    modCompileOnly("dev.emi:emi-neoforge:${rootProject.emi_version}+${rootProject.minecraft_version}:api")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
