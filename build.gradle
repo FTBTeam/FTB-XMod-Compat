@@ -92,6 +92,13 @@ allprojects {
         }
 
         maven {
+            url "https://maven.terraformersmc.com/releases"
+            content {
+                includeGroup "dev.emi"
+            }
+        }
+
+        maven {
             url "https://www.cursemaven.com"
             content {
                 includeGroup "curse.maven"
@@ -160,6 +167,7 @@ publishMods {
         minecraftVersions.add("${minecraft_version}")
         requires('architectury-api')
         optional('jei')
+        optional('emi')
         optional('roughly-enough-items')
         client = true
         server = true
