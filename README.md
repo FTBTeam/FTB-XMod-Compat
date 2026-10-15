@@ -28,6 +28,14 @@ If either REI or JEI is present:
 * FTB Quests will use that mod for displaying the items obtained from any configured loot crates (rewards from the reward table which have loot crates enabled)
 * FTB Quests will use that mod to show the recipes for items in item tasks (as viewed in the quest display panel)
 
+### EMI
+
+If EMI is present and neither REI nor JEI is, support is more limited:
+
+* Clicking an item or fluid in the quest book opens its recipes in EMI. EMI can only show recipes over an inventory screen, so the quest book is replaced by the player's inventory, and closing EMI returns there rather than to the quest book.
+* Quest reward and loot crate "recipes" are not shown yet.
+* Quest items can't be bookmarked, since EMI has no public API for favorites.
+
 ### Item Filters and FTB Filter System
 
 As of version 2.1.0, FTB XMod Compat provides FTB Quests integration for the Item Filters and FTB Filter System mods. Item Filters was previously a hard dependency for FTB Quests, but is now an optional dependency, along with the new FTB Filter System mod. Using FTB Filter System will be the recommended path for future modpacks.
