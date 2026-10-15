@@ -33,6 +33,7 @@ If either REI or JEI is present:
 If EMI is present and neither REI nor JEI is, support is more limited:
 
 * Clicking an item or fluid in the quest book opens its recipes in EMI. EMI can only show recipes over an inventory screen, so the quest book is replaced by the player's inventory, and closing EMI returns there rather than to the quest book.
+* EMI's recipe and usage keys (R and U by default) don't work in the quest book, so click the item instead.
 * Quest reward and loot crate "recipes" are not shown yet.
 * Quest items can't be bookmarked, since EMI has no public API for favorites.
 
