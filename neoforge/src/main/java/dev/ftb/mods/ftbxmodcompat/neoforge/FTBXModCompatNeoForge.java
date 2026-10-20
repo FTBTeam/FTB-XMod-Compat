@@ -4,6 +4,8 @@ import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.neoforge.ftbchunks.waystones.WaystonesCompat;
 import dev.ftb.mods.ftbxmodcompat.neoforge.ftbessentials.EssentialsCompat;
 import dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.gamestages.GameStagesEventHandlerQuests;
+import dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.guideme.GuideMECompat;
+import dev.ftb.mods.ftbxmodcompat.neoforge.ftbquests.patchouli.PatchouliCompat;
 import dev.ftb.mods.ftbxmodcompat.neoforge.ftbranks.RanksCompat;
 import net.neoforged.fml.common.Mod;
 
@@ -17,6 +19,13 @@ public class FTBXModCompatNeoForge {
         // but this covers the case where Gamestages is present but KubeJS is not
         if (FTBXModCompat.isFTBQuestsLoaded && FTBXModCompat.isGameStagesLoaded && !FTBXModCompat.isKubeJSLoaded) {
             GameStagesEventHandlerQuests.register();
+        }
+
+        if (FTBXModCompat.isGuideMeLoaded) {
+            GuideMECompat.init();
+        }
+        if (FTBXModCompat.isPatchouliLoaded) {
+            PatchouliCompat.init();
         }
 
         if (FTBXModCompat.isFTBChunksLoaded && FTBXModCompat.isWaystonesLoaded) {
