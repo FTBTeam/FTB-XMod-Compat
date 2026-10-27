@@ -20,6 +20,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-essentials:${rootProject.ftb_essentials_version}")
     modApi("dev.ftb.mods:ftb-teams:${rootProject.ftb_teams_version}")
     modApi("dev.ftb.mods:ftb-filter-system:${rootProject.ftb_filter_system_version}")
+    modCompileOnlyApi("dev.ftb.mods:ftb-economy:${rootProject.ftb_economy_version}")
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")

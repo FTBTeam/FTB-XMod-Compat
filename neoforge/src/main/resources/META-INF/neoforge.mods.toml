@@ -63,6 +63,13 @@ ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.ftbxmodcompat]]
+modId = "ftbeconomy"
+type = "optional"
+versionRange = "[${ftbeconomyversion},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.ftbxmodcompat]]
 modId = "jei"
 type = "optional"
 versionRange = "[19.53.0.425,)"

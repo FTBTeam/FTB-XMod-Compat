@@ -33,6 +33,7 @@ public class FTBXModCompat {
     public static boolean isWaystonesLoaded;
     public static boolean isCommonProtLoaded;
     public static boolean isSGEconomyLoaded;
+    public static boolean isFTBEconomyLoaded;
     public static boolean isGuideMeLoaded;
     public static boolean isPatchouliLoaded;
 
@@ -62,6 +63,7 @@ public class FTBXModCompat {
         isFTBRanksLoaded = Platform.isModLoaded("ftbranks");
         isFTBEssentialsLoaded = Platform.isModLoaded("ftbessentials");
         isFTBFilterSystemLoaded = Platform.isModLoaded("ftbfiltersystem");
+        isFTBEconomyLoaded = Platform.isModLoaded("ftbeconomy");
 
         isKubeJSLoaded = Platform.isModLoaded("kubejs");
         isItemFiltersLoaded = Platform.isModLoaded("itemfilters");

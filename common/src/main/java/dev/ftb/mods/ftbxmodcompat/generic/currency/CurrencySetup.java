@@ -1,30 +1,33 @@
 package dev.ftb.mods.ftbxmodcompat.generic.currency;
 
 import dev.ftb.mods.ftblibrary.integration.currency.CurrencyHelper;
-import dev.ftb.mods.ftblibrary.integration.currency.FallbackCurrencyProvider;
+import dev.ftb.mods.ftblibrary.integration.currency.CurrencyProvider;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
 import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig;
+import dev.ftb.mods.ftbxmodcompat.config.FTBXModConfig.CurrencySelector;
 
 public class CurrencySetup {
     public static void init() {
-        FTBXModConfig.CurrencySelector sel = FTBXModConfig.CURRENCY_SELECTOR.get();
-        if (sel != FTBXModConfig.CurrencySelector.DEFAULT && !sel.isUsable()) {
-            FTBXModCompat.LOGGER.error("Currency implementation {} isn't available, falling back to default", sel);
-            sel = FTBXModConfig.CurrencySelector.DEFAULT;
-        }
-
         CurrencyHelper helper = CurrencyHelper.getInstance();
-        switch (sel) {
-            case SG_ECONOMY_API -> helper.setActiveImpl(SGEconomyProvider.INSTANCE);
-            case DEFAULT -> {
-                if (FTBXModCompat.isSGEconomyLoaded) {
-                    helper.setActiveImpl(SGEconomyProvider.INSTANCE);
-                } else {
-                    helper.setActiveImpl(FallbackCurrencyProvider.INSTANCE);
+        CurrencySelector selector = FTBXModConfig.CURRENCY_SELECTOR.get();
+
+        if (selector == CurrencySelector.DEFAULT) {
+            for (var s : CurrencySelector.values()) {
+                if (s != CurrencySelector.DEFAULT && s.isUsable()) {
+                    setActiveImpl(helper, s.getProvider());
+                    return;
                 }
             }
+        } else if (selector.isUsable()) {
+            setActiveImpl(helper, selector.getProvider());
+        } else {
+            FTBXModCompat.LOGGER.error("Currency implementation {} isn't available, falling back to default", selector);
+            helper.setActiveImpl(CurrencySelector.DEFAULT.getProvider());
         }
+    }
 
-        FTBXModCompat.LOGGER.info("Chose [{}] as the active currency implementation", helper.getProvider().getName());
+    private static void setActiveImpl(CurrencyHelper helper, CurrencyProvider provider) {
+        helper.setActiveImpl(provider);
+        FTBXModCompat.LOGGER.info("Chose [{}] as the active currency implementation", provider.getName());
     }
 }
