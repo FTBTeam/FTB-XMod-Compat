@@ -43,6 +43,7 @@ dependencies {
     modApi("dev.ftb.mods:ftb-essentials-neoforge:${rootProject.ftb_essentials_version}")
     modApi("dev.ftb.mods:ftb-teams-neoforge:${rootProject.ftb_teams_version}")
     modApi("dev.ftb.mods:ftb-filter-system-neoforge:${rootProject.ftb_filter_system_version}")
+    modApi("dev.ftb.mods:ftb-economy:${rootProject.ftb_economy_version}")
 
     modCompileOnlyApi("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}")
     compileOnly("net.luckperms:api:${rootProject.luckperms_api_version}")
@@ -70,6 +71,7 @@ dependencies {
     modCompileOnly("curse.maven:waystones-245755:${waystones_neoforge_version}")
 
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}")
+    modImplementation("mezz.jei:jei-${rootProject.minecraft_version}-neoforge:${rootProject.jei_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
@@ -91,6 +93,7 @@ processResources {
                 "ftbchunksversion": project.ftb_chunks_version,
                 "ftbranksversion": project.ftb_ranks_version,
                 "ftbteamsversion": project.ftb_teams_version,
+                "ftbeconomyversion": project.ftb_economy_version,
                 "required_waystones_version": project.required_waystones_version,
                 "required_sg_economy_version": project.required_sg_economy_version
     }
