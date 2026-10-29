@@ -84,6 +84,7 @@ subprojects {
             url "https://maven.blamejared.com"
             content {
                 includeGroup "mezz.jei"
+                includeGroup "net.mezzdev.config"
                 includeGroup "net.darkhax.gamestages"
                 includeGroup "com.faux.ingredientextension"
                 includeGroup "vazkii.patchouli"
@@ -127,6 +128,7 @@ subprojects {
                     "ftbquestsversion": project.ftb_quests_version,
                     "ftbchunksversion": project.ftb_chunks_version,
                     "ftbranksversion": project.ftb_ranks_version,
+                    "jeiversion": project.jei_version,
                     "required_waystones_version": project.required_waystones_version,
                     "required_sg_economy_version": project.required_sg_economy_version
         }

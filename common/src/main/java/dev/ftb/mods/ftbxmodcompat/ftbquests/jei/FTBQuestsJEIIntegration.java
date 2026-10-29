@@ -35,6 +35,11 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	}
 
 	@Override
+	public void onRuntimeUnavailable() {
+		runtime = null;
+	}
+
+	@Override
 	public Identifier getPluginUid() {
 		return UID;
 	}
@@ -66,12 +71,13 @@ public class FTBQuestsJEIIntegration implements IModPlugin {
 	@Override
 	public void registerAdvanced(IAdvancedRegistration registration) {
 		if (FTBXModCompat.isFTBQuestsLoaded) {
-			registration.addRecipeManagerPlugin(QuestRecipeManagerPlugin.INSTANCE);
-			registration.addRecipeManagerPlugin(LootCrateRecipeManagerPlugin.INSTANCE);
+			registration.addSimpleRecipeManagerPlugin(JEIRecipeTypes.QUEST, QuestRecipeManagerPlugin.INSTANCE);
+			registration.addSimpleRecipeManagerPlugin(JEIRecipeTypes.LOOT_CRATE, LootCrateRecipeManagerPlugin.INSTANCE);
 		}
 	}
 
 	public static void showRecipes(ItemStack stack) {
+		IJeiRuntime runtime = FTBQuestsJEIIntegration.runtime;
 		if (runtime != null) {
 			runtime.getIngredientManager().getIngredientTypeChecked(stack)
 					.ifPresent(type -> runtime.getRecipesGui().show(

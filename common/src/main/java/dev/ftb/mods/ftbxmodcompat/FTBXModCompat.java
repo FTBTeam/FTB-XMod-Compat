@@ -33,6 +33,7 @@ public class FTBXModCompat {
     public static boolean isSGEconomyLoaded;
     public static boolean isGuideMeLoaded;
     public static boolean isPatchouliLoaded;
+    public static boolean isTMRVLoaded;
 
     public static void init() {
         detectLoadedMods();
@@ -66,6 +67,8 @@ public class FTBXModCompat {
         isGameStagesLoaded = Platform.get().isModLoaded("gamestages");
         isREILoaded = Platform.get().isModLoaded("roughlyenoughitems");
         isJEILoaded = Platform.get().isModLoaded("jei");
+        // not-quite compatible JEI drop-in replacement that pretends to be JEI
+        isTMRVLoaded = Platform.get().isModLoaded("toomanyrecipeviewers");
         isLuckPermsLoaded = Platform.get().isModLoaded("luckperms");
         isWaystonesLoaded = Platform.get().isModLoaded("waystones");
         isCommonProtLoaded = Platform.get().isModLoaded("common-protection-api");
