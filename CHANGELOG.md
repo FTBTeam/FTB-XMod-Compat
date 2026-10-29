@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Updated SG Economy currency provider integration to work with FTB Library 26.1.2.11+
+* Improved JEI recipe lookups to use JEI's typed recipe manager API
+
+### Fixed
+* Ported JEI fixes from 1.21.1 (thanks @mezz)
+  * Fixed crash when using newer JEI versions, use stable JEI API for bookmarks.
+  * Fixed the missing background and click handling for JEI quest recipes
+  * Displayed fluid tasks as fluid ingredients in JEI quest recipes
+  * Preserved fluid amount and components when opening JEI fluid recipes on Fabric
 
 ## [26.1.2.5]
 
