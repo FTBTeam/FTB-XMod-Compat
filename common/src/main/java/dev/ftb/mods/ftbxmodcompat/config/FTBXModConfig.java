@@ -3,10 +3,14 @@ package dev.ftb.mods.ftbxmodcompat.config;
 import dev.ftb.mods.ftblibrary.config.value.BooleanValue;
 import dev.ftb.mods.ftblibrary.config.value.Config;
 import dev.ftb.mods.ftblibrary.config.value.EnumValue;
+import dev.ftb.mods.ftblibrary.integration.currency.CurrencyProvider;
+import dev.ftb.mods.ftblibrary.integration.currency.FallbackCurrencyProvider;
 import dev.ftb.mods.ftblibrary.util.NameMap;
 import dev.ftb.mods.ftbxmodcompat.FTBXModCompat;
+import dev.ftb.mods.ftbxmodcompat.generic.currency.SGEconomyProvider;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 public interface FTBXModConfig {
     Config CONFIG = Config.create(FTBXModCompat.MOD_ID);
@@ -57,17 +61,23 @@ public interface FTBXModConfig {
     }
 
     enum CurrencySelector {
-        DEFAULT(() -> true),
-        SG_ECONOMY_API(() -> FTBXModCompat.isSGEconomyLoaded);
+        DEFAULT(() -> true, () -> FallbackCurrencyProvider.INSTANCE),
+        SG_ECONOMY_API(() -> FTBXModCompat.isSGEconomyLoaded, () -> SGEconomyProvider.INSTANCE);
 
         private final BooleanSupplier usable;
+        private final Supplier<CurrencyProvider> provider;
 
-        CurrencySelector(BooleanSupplier usable) {
+        CurrencySelector(BooleanSupplier usable, Supplier<CurrencyProvider> provider) {
             this.usable = usable;
+            this.provider = provider;
         }
 
         public boolean isUsable() {
             return usable.getAsBoolean();
+        }
+
+        public CurrencyProvider getProvider() {
+            return provider.get();
         }
     }
 }
