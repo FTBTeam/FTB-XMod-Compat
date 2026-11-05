@@ -21,7 +21,7 @@ public class BarrierComponentProvider implements IComponentProvider<BlockAccesso
     public @Nullable Element getIcon(BlockAccessor accessor, IPluginConfig config, @Nullable Element currentIcon) {
         if (accessor.getBlockEntity() instanceof BaseBarrierBlockEntity barrier
                 && !barrier.getSkin().isEmpty()
-                && !TeamData.get(accessor.getPlayer()).getCanEdit(accessor.getPlayer()))
+                && !TeamData.get(accessor.getPlayer()).isPlayerInEditMode(accessor.getPlayer()))
         {
             return JadeUI.item(barrier.getSkin());
         }

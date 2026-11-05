@@ -14,13 +14,13 @@ public enum SGEconomyProvider implements CurrencyProvider {
     }
 
     @Override
-    public int getTotalCurrency(Player player) {
-        return (int) SGEconomyApi.getBalance(player);
+    public long getTotalCurrency(Player player) {
+        return (long) SGEconomyApi.getBalance(player);
     }
 
     @Override
-    public boolean takeCurrency(Player player, int amount) {
-        int coins = getTotalCurrency(player);
+    public boolean takeCurrency(Player player, long amount) {
+        long coins = getTotalCurrency(player);
         if (coins >= amount) {
             SGEconomyApi.withdrawBalance(player, amount);
             return true;
@@ -29,7 +29,7 @@ public enum SGEconomyProvider implements CurrencyProvider {
     }
 
     @Override
-    public void giveCurrency(Player player, int amount) {
+    public void giveCurrency(Player player, long amount) {
         SGEconomyApi.depositBalance(player, amount);
     }
 

@@ -8,15 +8,10 @@ import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.FTBQuestsJEIIntegration;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.LootCrateRecipeManagerPlugin;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.jei.QuestRecipeManagerPlugin;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.recipemod_common.BaseRecipeHelper;
-import dev.ftb.mods.ftbxmodcompat.mixin.BookmarkOverlayAccessor;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.runtime.IBookmarkManager;
 import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
-import mezz.jei.common.Internal;
-import mezz.jei.gui.bookmarks.BookmarkList;
-import mezz.jei.gui.bookmarks.IBookmark;
-import mezz.jei.gui.bookmarks.IngredientBookmark;
-import mezz.jei.gui.overlay.bookmarks.BookmarkOverlay;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Collection;
@@ -48,18 +43,13 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
     @Override
     public Tristate toggleBookmark(ItemStack stack) {
         IJeiRuntime runtime = FTBQuestsJEIIntegration.runtime;
-        if (runtime != null) {
-            // TODO non-API usage!
-            return runtime.getIngredientManager().createTypedIngredient(stack, true).map(ingr -> {
-                // if EMI is present, the overlay will be a JemiBookmarkOverlay...
-                if (runtime.getBookmarkOverlay() instanceof BookmarkOverlay overlay) {
-                    BookmarkList list = ((BookmarkOverlayAccessor) overlay).getBookmarkList();
-                    IBookmark bookmark = IngredientBookmark.create(ingr, runtime.getIngredientManager());
-                    boolean hasBookmark = list.contains(bookmark);
-                    list.toggleBookmark(bookmark);
-                    return hasBookmark ? Tristate.FALSE : Tristate.TRUE;
+        if (runtime != null && !FTBXModCompat.isTMRVLoaded) {
+            return runtime.getIngredientManager().createTypedIngredient(stack, true).map(ingredient -> {
+                IBookmarkManager bookmarkManager = runtime.getBookmarkManager();
+                if (bookmarkManager.contains(ingredient)) {
+                    return bookmarkManager.remove(ingredient) ? Tristate.FALSE : Tristate.DEFAULT;
                 }
-                return Tristate.DEFAULT;
+                return bookmarkManager.add(ingredient) ? Tristate.TRUE : Tristate.DEFAULT;
             }).orElse(Tristate.DEFAULT);
         }
         return Tristate.DEFAULT;
@@ -81,7 +71,8 @@ public class JEIRecipeHelper extends BaseRecipeHelper {
 
     @Override
     public boolean isBookmarkKey(Key key) {
-        // TODO non-API usage!  API only exposes the 'R' and 'U' mappings
-        return Internal.getKeyMappings().getBookmark().isActiveAndMatches(key.getInputMapping());
+        IJeiRuntime runtime = FTBQuestsJEIIntegration.runtime;
+        return runtime != null && !FTBXModCompat.isTMRVLoaded
+                && runtime.getKeyMappings().getBookmark().isActiveAndMatches(key.getInputMapping());
     }
 }

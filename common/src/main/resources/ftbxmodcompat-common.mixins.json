@@ -3,7 +3,6 @@
   "package": "dev.ftb.mods.ftbxmodcompat.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BookmarkOverlayAccessor"
   ],
   "client": [
   ],
